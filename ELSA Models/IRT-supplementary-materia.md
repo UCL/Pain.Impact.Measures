@@ -1,6 +1,6 @@
 IRT 2PL model of pain impact in ELSA
 ================
-03 June, 2024
+04 July, 2024
 
 - [Introduction](#introduction)
   - [F-scores estimators](#f-scores-estimators)
@@ -158,7 +158,7 @@ item being endorsed will begin to decrese.
 LV_items.irt<-read.csv("C:/Users/d.vitali/Desktop/Github/CRIISP-WP5/data/clean/cfa_w2_all")[-1]
 ```
 
-Excluding 102 pain responses given by a proxy of the respondent.
+Excluding 116 pain responses given by a proxy of the respondent.
 
 ``` r
 sc_df<- LV_items.irt[which(LV_items.irt$r2painlv!= -16),]
@@ -252,7 +252,7 @@ sc.2pl.NA.fit <- mirt::mirt(sc_df[-1],
 
     ## Warning: data contains response patterns with only NAs
 
-    ## Iteration: 1, Log-Lik: -22270.239, Max-Change: 2.22789Iteration: 2, Log-Lik: -19961.208, Max-Change: 1.67900Iteration: 3, Log-Lik: -19392.161, Max-Change: 0.88048Iteration: 4, Log-Lik: -19227.166, Max-Change: 0.51566Iteration: 5, Log-Lik: -19158.507, Max-Change: 0.30440Iteration: 6, Log-Lik: -19127.192, Max-Change: 0.25952Iteration: 7, Log-Lik: -19110.715, Max-Change: 0.18968Iteration: 8, Log-Lik: -19101.438, Max-Change: 0.12365Iteration: 9, Log-Lik: -19096.162, Max-Change: 0.10053Iteration: 10, Log-Lik: -19093.046, Max-Change: 0.05694Iteration: 11, Log-Lik: -19091.163, Max-Change: 0.06094Iteration: 12, Log-Lik: -19090.024, Max-Change: 0.02703Iteration: 13, Log-Lik: -19089.624, Max-Change: 0.01958Iteration: 14, Log-Lik: -19089.045, Max-Change: 0.01577Iteration: 15, Log-Lik: -19088.628, Max-Change: 0.01284Iteration: 16, Log-Lik: -19087.967, Max-Change: 0.00875Iteration: 17, Log-Lik: -19087.814, Max-Change: 0.00529Iteration: 18, Log-Lik: -19087.691, Max-Change: 0.00463Iteration: 19, Log-Lik: -19087.314, Max-Change: 0.00099Iteration: 20, Log-Lik: -19087.309, Max-Change: 0.00090Iteration: 21, Log-Lik: -19087.305, Max-Change: 0.00081Iteration: 22, Log-Lik: -19087.290, Max-Change: 0.00046Iteration: 23, Log-Lik: -19087.289, Max-Change: 0.00039Iteration: 24, Log-Lik: -19087.288, Max-Change: 0.00029Iteration: 25, Log-Lik: -19087.288, Max-Change: 0.00027Iteration: 26, Log-Lik: -19087.287, Max-Change: 0.00034Iteration: 27, Log-Lik: -19087.287, Max-Change: 0.00021Iteration: 28, Log-Lik: -19087.287, Max-Change: 0.00013Iteration: 29, Log-Lik: -19087.287, Max-Change: 0.00011Iteration: 30, Log-Lik: -19087.287, Max-Change: 0.00010
+    ## Iteration: 1, Log-Lik: -22778.037, Max-Change: 2.16023Iteration: 2, Log-Lik: -20420.311, Max-Change: 1.98502Iteration: 3, Log-Lik: -19821.865, Max-Change: 0.76721Iteration: 4, Log-Lik: -19662.779, Max-Change: 0.75208Iteration: 5, Log-Lik: -19595.808, Max-Change: 0.41809Iteration: 6, Log-Lik: -19564.447, Max-Change: 0.23134Iteration: 7, Log-Lik: -19548.274, Max-Change: 0.18031Iteration: 8, Log-Lik: -19539.209, Max-Change: 0.11914Iteration: 9, Log-Lik: -19534.028, Max-Change: 0.09662Iteration: 10, Log-Lik: -19530.961, Max-Change: 0.05478Iteration: 11, Log-Lik: -19529.104, Max-Change: 0.05836Iteration: 12, Log-Lik: -19527.991, Max-Change: 0.02434Iteration: 13, Log-Lik: -19527.497, Max-Change: 0.02037Iteration: 14, Log-Lik: -19526.915, Max-Change: 0.01642Iteration: 15, Log-Lik: -19526.496, Max-Change: 0.01281Iteration: 16, Log-Lik: -19525.616, Max-Change: 0.00536Iteration: 17, Log-Lik: -19525.492, Max-Change: 0.00439Iteration: 18, Log-Lik: -19525.397, Max-Change: 0.00356Iteration: 19, Log-Lik: -19525.225, Max-Change: 0.00243Iteration: 20, Log-Lik: -19525.200, Max-Change: 0.00257Iteration: 21, Log-Lik: -19525.173, Max-Change: 0.00202Iteration: 22, Log-Lik: -19525.112, Max-Change: 0.00100Iteration: 23, Log-Lik: -19525.107, Max-Change: 0.00081Iteration: 24, Log-Lik: -19525.103, Max-Change: 0.00073Iteration: 25, Log-Lik: -19525.089, Max-Change: 0.00050Iteration: 26, Log-Lik: -19525.088, Max-Change: 0.00038Iteration: 27, Log-Lik: -19525.088, Max-Change: 0.00028Iteration: 28, Log-Lik: -19525.087, Max-Change: 0.00027Iteration: 29, Log-Lik: -19525.087, Max-Change: 0.00038Iteration: 30, Log-Lik: -19525.087, Max-Change: 0.00024Iteration: 31, Log-Lik: -19525.087, Max-Change: 0.00015Iteration: 32, Log-Lik: -19525.087, Max-Change: 0.00011Iteration: 33, Log-Lik: -19525.087, Max-Change: 0.00013Iteration: 34, Log-Lik: -19525.087, Max-Change: 0.00009
 
 We can then use Maximum A Posteri (MAP) estimation to estimate the
 latent trait scores for individuals with missing responses. The fscores
@@ -328,7 +328,7 @@ sc.2pl.fit <- mirt::mirt(sc_df[-1],
                     verbose = T)
 ```
 
-    ## Iteration: 1, Log-Lik: -22284.223, Max-Change: 2.22723Iteration: 2, Log-Lik: -19973.271, Max-Change: 1.69724Iteration: 3, Log-Lik: -19404.154, Max-Change: 0.90133Iteration: 4, Log-Lik: -19238.407, Max-Change: 0.51214Iteration: 5, Log-Lik: -19169.351, Max-Change: 0.30997Iteration: 6, Log-Lik: -19138.234, Max-Change: 0.25982Iteration: 7, Log-Lik: -19121.700, Max-Change: 0.19037Iteration: 8, Log-Lik: -19112.431, Max-Change: 0.12400Iteration: 9, Log-Lik: -19107.152, Max-Change: 0.10070Iteration: 10, Log-Lik: -19104.032, Max-Change: 0.05705Iteration: 11, Log-Lik: -19102.143, Max-Change: 0.06073Iteration: 12, Log-Lik: -19101.000, Max-Change: 0.02967Iteration: 13, Log-Lik: -19100.457, Max-Change: 0.02341Iteration: 14, Log-Lik: -19099.906, Max-Change: 0.01737Iteration: 15, Log-Lik: -19099.508, Max-Change: 0.01314Iteration: 16, Log-Lik: -19098.725, Max-Change: 0.00482Iteration: 17, Log-Lik: -19098.611, Max-Change: 0.00415Iteration: 18, Log-Lik: -19098.524, Max-Change: 0.00330Iteration: 19, Log-Lik: -19098.337, Max-Change: 0.00222Iteration: 20, Log-Lik: -19098.319, Max-Change: 0.00212Iteration: 21, Log-Lik: -19098.299, Max-Change: 0.00158Iteration: 22, Log-Lik: -19098.283, Max-Change: 0.00135Iteration: 23, Log-Lik: -19098.274, Max-Change: 0.00109Iteration: 24, Log-Lik: -19098.267, Max-Change: 0.00097Iteration: 25, Log-Lik: -19098.243, Max-Change: 0.00059Iteration: 26, Log-Lik: -19098.242, Max-Change: 0.00040Iteration: 27, Log-Lik: -19098.241, Max-Change: 0.00044Iteration: 28, Log-Lik: -19098.240, Max-Change: 0.00035Iteration: 29, Log-Lik: -19098.240, Max-Change: 0.00031Iteration: 30, Log-Lik: -19098.239, Max-Change: 0.00019Iteration: 31, Log-Lik: -19098.239, Max-Change: 0.00022Iteration: 32, Log-Lik: -19098.239, Max-Change: 0.00017Iteration: 33, Log-Lik: -19098.239, Max-Change: 0.00014Iteration: 34, Log-Lik: -19098.239, Max-Change: 0.00014Iteration: 35, Log-Lik: -19098.239, Max-Change: 0.00011Iteration: 36, Log-Lik: -19098.239, Max-Change: 0.00009
+    ## Iteration: 1, Log-Lik: -22790.976, Max-Change: 2.15908Iteration: 2, Log-Lik: -20431.499, Max-Change: 1.99972Iteration: 3, Log-Lik: -19831.724, Max-Change: 0.78683Iteration: 4, Log-Lik: -19674.074, Max-Change: 0.48351Iteration: 5, Log-Lik: -19605.707, Max-Change: 0.35525Iteration: 6, Log-Lik: -19574.566, Max-Change: 0.21480Iteration: 7, Log-Lik: -19557.843, Max-Change: 0.13911Iteration: 8, Log-Lik: -19548.943, Max-Change: 0.09971Iteration: 9, Log-Lik: -19543.937, Max-Change: 0.09228Iteration: 10, Log-Lik: -19540.995, Max-Change: 0.05151Iteration: 11, Log-Lik: -19539.233, Max-Change: 0.04519Iteration: 12, Log-Lik: -19538.171, Max-Change: 0.01889Iteration: 13, Log-Lik: -19537.660, Max-Change: 0.02006Iteration: 14, Log-Lik: -19537.080, Max-Change: 0.01627Iteration: 15, Log-Lik: -19536.650, Max-Change: 0.01668Iteration: 16, Log-Lik: -19535.850, Max-Change: 0.00687Iteration: 17, Log-Lik: -19535.704, Max-Change: 0.00478Iteration: 18, Log-Lik: -19535.592, Max-Change: 0.00405Iteration: 19, Log-Lik: -19535.248, Max-Change: 0.00093Iteration: 20, Log-Lik: -19535.242, Max-Change: 0.00087Iteration: 21, Log-Lik: -19535.238, Max-Change: 0.00078Iteration: 22, Log-Lik: -19535.224, Max-Change: 0.00044Iteration: 23, Log-Lik: -19535.223, Max-Change: 0.00038Iteration: 24, Log-Lik: -19535.223, Max-Change: 0.00028Iteration: 25, Log-Lik: -19535.222, Max-Change: 0.00032Iteration: 26, Log-Lik: -19535.222, Max-Change: 0.00040Iteration: 27, Log-Lik: -19535.222, Max-Change: 0.00028Iteration: 28, Log-Lik: -19535.222, Max-Change: 0.00014Iteration: 29, Log-Lik: -19535.222, Max-Change: 0.00011Iteration: 30, Log-Lik: -19535.222, Max-Change: 0.00012Iteration: 31, Log-Lik: -19535.222, Max-Change: 0.00010
 
 ## Coefficients
 
@@ -346,14 +346,14 @@ coef(sc.2pl.fit, IRTpars = T, simplify = T)
 
     ## $items
     ##                a     b g u
-    ## r2shopa    4.490 1.441 0 1
-    ## r2housewka 4.113 1.078 0 1
-    ## r2walkra   4.431 1.989 0 1
-    ## r2mealsa   3.664 1.890 0 1
-    ## r2clim1a   2.935 1.227 0 1
-    ## r2lifta    2.804 0.798 0 1
-    ## r2beda     2.678 1.853 0 1
-    ## r2hlthlm   2.394 0.549 0 1
+    ## r2shopa    4.539 1.417 0 1
+    ## r2housewka 4.131 1.059 0 1
+    ## r2walkra   4.459 1.974 0 1
+    ## r2mealsa   3.716 1.863 0 1
+    ## r2clim1a   2.959 1.209 0 1
+    ## r2lifta    2.789 0.784 0 1
+    ## r2beda     2.641 1.857 0 1
+    ## r2hlthlm   2.338 0.548 0 1
     ## 
     ## $means
     ## F1 
@@ -376,12 +376,12 @@ fscores(sc.2pl.fit, method = "EAP", full.scores = T, full.scores.SE = T) %>% hea
 ```
 
     ##              F1     SE_F1
-    ## [1,] -0.6140872 0.7185153
-    ## [2,] -0.6140872 0.7185153
-    ## [3,]  0.5144059 0.3820688
-    ## [4,] -0.6140872 0.7185153
-    ## [5,]  0.8315556 0.3099149
-    ## [6,] -0.6140872 0.7185153
+    ## [1,] -0.6193642 0.7177195
+    ## [2,] -0.6193642 0.7177195
+    ## [3,]  0.5090877 0.3804153
+    ## [4,] -0.6193642 0.7177195
+    ## [5,]  0.8188090 0.3091062
+    ## [6,] -0.6193642 0.7177195
 
 # ICC,TCC, and information plots
 
@@ -514,10 +514,10 @@ indicate better model fit.
 mirt::M2(sc.2pl.fit)
 ```
 
-    ##            M2 df            p      RMSEA    RMSEA_5   RMSEA_95     SRMSR
-    ## stats 90.3026 20 6.562351e-11 0.01980912 0.01576105 0.02405027 0.0198009
+    ##             M2 df            p      RMSEA    RMSEA_5  RMSEA_95      SRMSR
+    ## stats 96.17801 20 6.045719e-12 0.02051179 0.01650421 0.0247104 0.02089123
     ##            TLI       CFI
-    ## stats 0.997685 0.9983465
+    ## stats 0.997526 0.9982329
 
 The output provides various fit statistics (M2, RMSEA, SRMSR, TLI, CFI)
 that indicate the goodness of fit for the IRT model.
@@ -575,14 +575,14 @@ mirt::itemfit(sc.2pl.fit)
 ```
 
     ##         item   S_X2 df.S_X2 RMSEA.S_X2 p.S_X2
-    ## 1    r2shopa  7.819       5      0.008  0.166
-    ## 2 r2housewka 12.287       5      0.013  0.031
-    ## 3   r2walkra  4.886       5      0.000  0.430
-    ## 4   r2mealsa  5.752       5      0.004  0.331
-    ## 5   r2clim1a  5.748       5      0.004  0.332
-    ## 6    r2lifta  6.736       5      0.006  0.241
-    ## 7     r2beda  4.768       5      0.000  0.445
-    ## 8   r2hlthlm  7.157       5      0.007  0.209
+    ## 1    r2shopa  8.740       5      0.009  0.120
+    ## 2 r2housewka 12.362       5      0.013  0.030
+    ## 3   r2walkra  6.051       5      0.005  0.301
+    ## 4   r2mealsa  5.672       5      0.004  0.339
+    ## 5   r2clim1a  5.125       5      0.002  0.401
+    ## 6    r2lifta  7.268       5      0.007  0.201
+    ## 7     r2beda  4.527       5      0.000  0.476
+    ## 8   r2hlthlm  9.999       5      0.011  0.075
 
 ## Person fit
 
@@ -629,13 +629,13 @@ p.fit<-cbind(1:nrow(person_fit),sc_df[-1],mirt::personfit(sc.2pl.fit, method = "
 paste0("N. respondents with aberrant patterns: ", sum(person_fit$Zh < -3), " of ", nrow(person_fit), " (", round(sum(person_fit$Zh < -3)/nrow(person_fit)*100,1), "%)")
 ```
 
-    ## [1] "N. respondents with aberrant patterns: 24 of 8959 (0.3%)"
+    ## [1] "N. respondents with aberrant patterns: 23 of 9054 (0.3%)"
 
 ``` r
 paste0("N. respondents with aberrant patterns: ", sum(person_fit$Zh < -2 & person_fit$Zh >= -3), " of ", nrow(person_fit), " (", round(sum(person_fit$Zh < -2 & person_fit$Zh >= -3)/nrow(person_fit)*100,1), "%)")
 ```
 
-    ## [1] "N. respondents with aberrant patterns: 84 of 8959 (0.9%)"
+    ## [1] "N. respondents with aberrant patterns: 85 of 9054 (0.9%)"
 
 ### Person fit summary
 
@@ -658,7 +658,7 @@ prop_misfit %>% round(2)
 ```
 
     ##    % within threshold % beyond threshold
-    ## zh              99.73               0.27
+    ## zh              99.75               0.25
 
 # Assumption 1: Unidimesionality
 
@@ -686,25 +686,25 @@ residuals(sc.2pl.fit, type = "LD")
     ## 
     ## Upper triangle summary:
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##  -0.031  -0.018  -0.006  -0.005   0.006   0.026 
+    ##  -0.033  -0.020  -0.007  -0.006   0.007   0.025 
     ## 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA      0.006   -0.026    0.022   -0.019   0.006 -0.028
-    ## r2housewka   0.339         NA   -0.015   -0.009   -0.015   0.006  0.010
-    ## r2walkra     5.984      2.096       NA   -0.018    0.026  -0.024  0.007
-    ## r2mealsa     4.157      0.731    2.799       NA   -0.027  -0.031 -0.019
-    ## r2clim1a     3.393      1.943    6.196    6.380       NA   0.013 -0.006
-    ## r2lifta      0.362      0.317    5.114    8.563    1.619      NA -0.004
-    ## r2beda       6.905      0.822    0.418    3.151    0.305   0.180     NA
-    ## r2hlthlm     1.317      0.408    2.640    0.252    1.243   0.136  0.091
+    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.006 -0.029
+    ## r2housewka   0.440         NA   -0.017   -0.009   -0.016   0.007  0.010
+    ## r2walkra     7.678      2.488       NA   -0.018    0.025  -0.023  0.007
+    ## r2mealsa     3.887      0.798    2.986       NA   -0.027  -0.033 -0.024
+    ## r2clim1a     3.225      2.465    5.582    6.736       NA   0.013 -0.006
+    ## r2lifta      0.275      0.479    4.728    9.697    1.496      NA -0.005
+    ## r2beda       7.790      0.872    0.468    5.230    0.373   0.238     NA
+    ## r2hlthlm     1.729      0.445    5.003    0.660    1.690   0.181  0.205
     ##            r2hlthlm
-    ## r2shopa      -0.012
+    ## r2shopa      -0.014
     ## r2housewka    0.007
-    ## r2walkra     -0.017
-    ## r2mealsa     -0.005
-    ## r2clim1a      0.012
+    ## r2walkra     -0.024
+    ## r2mealsa     -0.009
+    ## r2clim1a      0.014
     ## r2lifta       0.004
-    ## r2beda        0.003
+    ## r2beda        0.005
     ## r2hlthlm         NA
 
 This indices is proposed by (Chen & Thissen 1997) is a test for local
@@ -728,25 +728,25 @@ LD<-residuals(sc.2pl.fit, type = "LD") %>% as.table %>% round(2)
     ## 
     ## Upper triangle summary:
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##  -0.031  -0.018  -0.006  -0.005   0.006   0.026 
+    ##  -0.033  -0.020  -0.007  -0.006   0.007   0.025 
     ## 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA      0.006   -0.026    0.022   -0.019   0.006 -0.028
-    ## r2housewka   0.339         NA   -0.015   -0.009   -0.015   0.006  0.010
-    ## r2walkra     5.984      2.096       NA   -0.018    0.026  -0.024  0.007
-    ## r2mealsa     4.157      0.731    2.799       NA   -0.027  -0.031 -0.019
-    ## r2clim1a     3.393      1.943    6.196    6.380       NA   0.013 -0.006
-    ## r2lifta      0.362      0.317    5.114    8.563    1.619      NA -0.004
-    ## r2beda       6.905      0.822    0.418    3.151    0.305   0.180     NA
-    ## r2hlthlm     1.317      0.408    2.640    0.252    1.243   0.136  0.091
+    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.006 -0.029
+    ## r2housewka   0.440         NA   -0.017   -0.009   -0.016   0.007  0.010
+    ## r2walkra     7.678      2.488       NA   -0.018    0.025  -0.023  0.007
+    ## r2mealsa     3.887      0.798    2.986       NA   -0.027  -0.033 -0.024
+    ## r2clim1a     3.225      2.465    5.582    6.736       NA   0.013 -0.006
+    ## r2lifta      0.275      0.479    4.728    9.697    1.496      NA -0.005
+    ## r2beda       7.790      0.872    0.468    5.230    0.373   0.238     NA
+    ## r2hlthlm     1.729      0.445    5.003    0.660    1.690   0.181  0.205
     ##            r2hlthlm
-    ## r2shopa      -0.012
+    ## r2shopa      -0.014
     ## r2housewka    0.007
-    ## r2walkra     -0.017
-    ## r2mealsa     -0.005
-    ## r2clim1a      0.012
+    ## r2walkra     -0.024
+    ## r2mealsa     -0.009
+    ## r2clim1a      0.014
     ## r2lifta       0.004
-    ## r2beda        0.003
+    ## r2beda        0.005
     ## r2hlthlm         NA
 
 ``` r
@@ -763,13 +763,13 @@ LD
 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
     ## r2shopa            -          -        -        -        -       -     
-    ## r2housewka 0.34               -        -        -        -       -     
-    ## r2walkra   5.98    2.1                 -        -        -       -     
-    ## r2mealsa   4.16    0.73       2.8               -        -       -     
-    ## r2clim1a   3.39    1.94       6.2      6.38              -       -     
-    ## r2lifta    0.36    0.32       5.11     8.56     1.62             -     
-    ## r2beda     6.91    0.82       0.42     3.15     0.31     0.18          
-    ## r2hlthlm   1.32    0.41       2.64     0.25     1.24     0.14    0.09  
+    ## r2housewka 0.44               -        -        -        -       -     
+    ## r2walkra   7.68    2.49                -        -        -       -     
+    ## r2mealsa   3.89    0.8        2.99              -        -       -     
+    ## r2clim1a   3.23    2.46       5.58     6.74              -       -     
+    ## r2lifta    0.27    0.48       4.73     9.7      1.5              -     
+    ## r2beda     7.79    0.87       0.47     5.23     0.37     0.24          
+    ## r2hlthlm   1.73    0.45       5        0.66     1.69     0.18    0.2   
     ##            r2hlthlm
     ## r2shopa    -       
     ## r2housewka -       
@@ -799,25 +799,25 @@ LD<-residuals(sc.2pl.fit, type = "LD")
     ## 
     ## Upper triangle summary:
     ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##  -0.031  -0.018  -0.006  -0.005   0.006   0.026 
+    ##  -0.033  -0.020  -0.007  -0.006   0.007   0.025 
     ## 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA      0.006   -0.026    0.022   -0.019   0.006 -0.028
-    ## r2housewka   0.339         NA   -0.015   -0.009   -0.015   0.006  0.010
-    ## r2walkra     5.984      2.096       NA   -0.018    0.026  -0.024  0.007
-    ## r2mealsa     4.157      0.731    2.799       NA   -0.027  -0.031 -0.019
-    ## r2clim1a     3.393      1.943    6.196    6.380       NA   0.013 -0.006
-    ## r2lifta      0.362      0.317    5.114    8.563    1.619      NA -0.004
-    ## r2beda       6.905      0.822    0.418    3.151    0.305   0.180     NA
-    ## r2hlthlm     1.317      0.408    2.640    0.252    1.243   0.136  0.091
+    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.006 -0.029
+    ## r2housewka   0.440         NA   -0.017   -0.009   -0.016   0.007  0.010
+    ## r2walkra     7.678      2.488       NA   -0.018    0.025  -0.023  0.007
+    ## r2mealsa     3.887      0.798    2.986       NA   -0.027  -0.033 -0.024
+    ## r2clim1a     3.225      2.465    5.582    6.736       NA   0.013 -0.006
+    ## r2lifta      0.275      0.479    4.728    9.697    1.496      NA -0.005
+    ## r2beda       7.790      0.872    0.468    5.230    0.373   0.238     NA
+    ## r2hlthlm     1.729      0.445    5.003    0.660    1.690   0.181  0.205
     ##            r2hlthlm
-    ## r2shopa      -0.012
+    ## r2shopa      -0.014
     ## r2housewka    0.007
-    ## r2walkra     -0.017
-    ## r2mealsa     -0.005
-    ## r2clim1a      0.012
+    ## r2walkra     -0.024
+    ## r2mealsa     -0.009
+    ## r2clim1a      0.014
     ## r2lifta       0.004
-    ## r2beda        0.003
+    ## r2beda        0.005
     ## r2hlthlm         NA
 
 ``` r
@@ -825,22 +825,22 @@ LD<-residuals(sc.2pl.fit, type = "LD")
 ```
 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA     -0.703   -0.689   -0.692   -0.693  -0.703 -0.687
-    ## r2housewka  -0.467         NA   -0.696   -0.701   -0.697  -0.703 -0.700
-    ## r2walkra     3.524      0.775       NA   -0.695   -0.689  -0.690 -0.702
-    ## r2mealsa     2.232     -0.190    1.272       NA   -0.688  -0.685 -0.694
-    ## r2clim1a     1.692      0.667    3.674    3.804       NA  -0.698 -0.703
-    ## r2lifta     -0.451     -0.483    2.909    5.348    0.438      NA -0.704
-    ## r2beda       4.176     -0.126   -0.412    1.521   -0.491  -0.580     NA
-    ## r2hlthlm     0.224     -0.419    1.159   -0.529    0.172  -0.611 -0.643
+    ## r2shopa         NA     -0.702   -0.687   -0.692   -0.694  -0.703 -0.686
+    ## r2housewka  -0.396         NA   -0.695   -0.700   -0.695  -0.702 -0.700
+    ## r2walkra     4.722      1.052       NA   -0.694   -0.690  -0.691 -0.702
+    ## r2mealsa     2.042     -0.143    1.404       NA   -0.688  -0.684 -0.690
+    ## r2clim1a     1.574      1.036    3.240    4.056       NA  -0.698 -0.703
+    ## r2lifta     -0.513     -0.369    2.636    6.149    0.350      NA -0.703
+    ## r2beda       4.801     -0.090   -0.376    2.991   -0.443  -0.539     NA
+    ## r2hlthlm     0.516     -0.392    2.831   -0.240    0.488  -0.579 -0.562
     ##            r2hlthlm
-    ## r2shopa      -0.699
+    ## r2shopa      -0.697
     ## r2housewka   -0.702
-    ## r2walkra     -0.695
-    ## r2mealsa     -0.703
-    ## r2clim1a     -0.699
+    ## r2walkra     -0.690
+    ## r2mealsa     -0.701
+    ## r2clim1a     -0.697
     ## r2lifta      -0.704
-    ## r2beda       -0.705
+    ## r2beda       -0.704
     ## r2hlthlm         NA
 
 In this case it seems that a pair of items “hlmact” and “r2hlthlm” are
@@ -861,21 +861,21 @@ mirt::itemfit(sc.2pl.fit)
 ```
 
     ##         item   S_X2 df.S_X2 RMSEA.S_X2 p.S_X2
-    ## 1    r2shopa  7.819       5      0.008  0.166
-    ## 2 r2housewka 12.287       5      0.013  0.031
-    ## 3   r2walkra  4.886       5      0.000  0.430
-    ## 4   r2mealsa  5.752       5      0.004  0.331
-    ## 5   r2clim1a  5.748       5      0.004  0.332
-    ## 6    r2lifta  6.736       5      0.006  0.241
-    ## 7     r2beda  4.768       5      0.000  0.445
-    ## 8   r2hlthlm  7.157       5      0.007  0.209
+    ## 1    r2shopa  8.740       5      0.009  0.120
+    ## 2 r2housewka 12.362       5      0.013  0.030
+    ## 3   r2walkra  6.051       5      0.005  0.301
+    ## 4   r2mealsa  5.672       5      0.004  0.339
+    ## 5   r2clim1a  5.125       5      0.002  0.401
+    ## 6    r2lifta  7.268       5      0.007  0.201
+    ## 7     r2beda  4.527       5      0.000  0.476
+    ## 8   r2hlthlm  9.999       5      0.011  0.075
 
 ``` r
 itemtype <- c(rep('2PL',1), 'spline',rep('2PL',6))
 mod2 <- mirt(sc_df[-1], 1, itemtype=itemtype, TOL=2e-4)
 ```
 
-    ## Iteration: 1, Log-Lik: -24369.408, Max-Change: 5.61830Iteration: 2, Log-Lik: -20074.017, Max-Change: 1.51333Iteration: 3, Log-Lik: -19451.966, Max-Change: 1.60412Iteration: 4, Log-Lik: -19273.152, Max-Change: 1.43330Iteration: 5, Log-Lik: -19178.944, Max-Change: 1.50139Iteration: 6, Log-Lik: -19136.704, Max-Change: 1.26983Iteration: 7, Log-Lik: -19114.458, Max-Change: 0.46468Iteration: 8, Log-Lik: -19106.103, Max-Change: 0.53452Iteration: 9, Log-Lik: -19101.812, Max-Change: 0.43234Iteration: 10, Log-Lik: -19099.292, Max-Change: 0.37945Iteration: 11, Log-Lik: -19098.674, Max-Change: 6.01794Iteration: 12, Log-Lik: -19097.630, Max-Change: 0.02547Iteration: 13, Log-Lik: -19097.629, Max-Change: 0.02725Iteration: 14, Log-Lik: -19097.579, Max-Change: 0.01287Iteration: 15, Log-Lik: -19097.562, Max-Change: 0.01278Iteration: 16, Log-Lik: -19097.552, Max-Change: 0.00318Iteration: 17, Log-Lik: -19097.543, Max-Change: 0.00071Iteration: 18, Log-Lik: -19097.542, Max-Change: 0.00048Iteration: 19, Log-Lik: -19097.542, Max-Change: 0.00024Iteration: 20, Log-Lik: -19097.542, Max-Change: 0.00024Iteration: 21, Log-Lik: -19097.542, Max-Change: 0.00024Iteration: 22, Log-Lik: -19097.541, Max-Change: 0.00024Iteration: 23, Log-Lik: -19097.541, Max-Change: 0.00023Iteration: 24, Log-Lik: -19097.541, Max-Change: 0.00023Iteration: 25, Log-Lik: -19097.541, Max-Change: 0.00023Iteration: 26, Log-Lik: -19097.541, Max-Change: 0.00023Iteration: 27, Log-Lik: -19097.541, Max-Change: 0.00112Iteration: 28, Log-Lik: -19097.541, Max-Change: 0.00069Iteration: 29, Log-Lik: -19097.541, Max-Change: 0.00063Iteration: 30, Log-Lik: -19097.541, Max-Change: 0.00057Iteration: 31, Log-Lik: -19097.541, Max-Change: 0.00106Iteration: 32, Log-Lik: -19097.541, Max-Change: 0.00031Iteration: 33, Log-Lik: -19097.541, Max-Change: 0.00028Iteration: 34, Log-Lik: -19097.541, Max-Change: 4.67929Iteration: 35, Log-Lik: -19096.988, Max-Change: 0.00136Iteration: 36, Log-Lik: -19096.987, Max-Change: 0.00055Iteration: 37, Log-Lik: -19096.986, Max-Change: 0.00027Iteration: 38, Log-Lik: -19096.986, Max-Change: 0.00023Iteration: 39, Log-Lik: -19096.986, Max-Change: 0.00019
+    ## Iteration: 1, Log-Lik: -24819.307, Max-Change: 5.57515Iteration: 2, Log-Lik: -20513.866, Max-Change: 1.86417Iteration: 3, Log-Lik: -19882.530, Max-Change: 1.90662Iteration: 4, Log-Lik: -19699.752, Max-Change: 1.26678Iteration: 5, Log-Lik: -19610.937, Max-Change: 0.94132Iteration: 6, Log-Lik: -19573.959, Max-Change: 1.02912Iteration: 7, Log-Lik: -19553.418, Max-Change: 0.73455Iteration: 8, Log-Lik: -19543.647, Max-Change: 0.60168Iteration: 9, Log-Lik: -19538.924, Max-Change: 0.31855Iteration: 10, Log-Lik: -19536.955, Max-Change: 0.23407Iteration: 11, Log-Lik: -19536.100, Max-Change: 0.07307Iteration: 12, Log-Lik: -19535.751, Max-Change: 5.41662Iteration: 13, Log-Lik: -19534.729, Max-Change: 0.28348Iteration: 14, Log-Lik: -19534.620, Max-Change: 0.01678Iteration: 15, Log-Lik: -19534.588, Max-Change: 0.01520Iteration: 16, Log-Lik: -19534.565, Max-Change: 0.00214Iteration: 17, Log-Lik: -19534.562, Max-Change: 0.00077Iteration: 18, Log-Lik: -19534.561, Max-Change: 0.00053Iteration: 19, Log-Lik: -19534.561, Max-Change: 0.00033Iteration: 20, Log-Lik: -19534.560, Max-Change: 0.00028Iteration: 21, Log-Lik: -19534.560, Max-Change: 0.00028Iteration: 22, Log-Lik: -19534.560, Max-Change: 0.00029Iteration: 23, Log-Lik: -19534.560, Max-Change: 0.00028Iteration: 24, Log-Lik: -19534.560, Max-Change: 0.00027Iteration: 25, Log-Lik: -19534.560, Max-Change: 0.00026Iteration: 26, Log-Lik: -19534.560, Max-Change: 0.00025Iteration: 27, Log-Lik: -19534.560, Max-Change: 0.00024Iteration: 28, Log-Lik: -19534.560, Max-Change: 0.00023Iteration: 29, Log-Lik: -19534.560, Max-Change: 0.00022Iteration: 30, Log-Lik: -19534.560, Max-Change: 0.00021Iteration: 31, Log-Lik: -19534.560, Max-Change: 0.00020Iteration: 32, Log-Lik: -19534.559, Max-Change: 0.00020
 
 ``` r
 print(itemplot(mod2, 2, main = "r2housewka"))
@@ -883,7 +883,20 @@ print(itemplot(mod2, 2, main = "r2housewka"))
 
 ![](IRT-supplementary-materia_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
-There is no suggestion of pattern departure for r2housewka.
+``` r
+itemtype <- c(rep('2PL',7), 'spline')
+mod2 <- mirt(sc_df[-1], 1, itemtype=itemtype, TOL=2e-4)
+```
+
+    ## Iteration: 1, Log-Lik: -23001.581, Max-Change: 2.00843Iteration: 2, Log-Lik: -20418.344, Max-Change: 1.46693Iteration: 3, Log-Lik: -19859.448, Max-Change: 0.97153Iteration: 4, Log-Lik: -19690.837, Max-Change: 0.38271Iteration: 5, Log-Lik: -19614.242, Max-Change: 0.45298Iteration: 6, Log-Lik: -19575.549, Max-Change: 0.35027Iteration: 7, Log-Lik: -19555.340, Max-Change: 0.54434Iteration: 8, Log-Lik: -19544.930, Max-Change: 0.70412Iteration: 9, Log-Lik: -19540.606, Max-Change: 0.25332Iteration: 10, Log-Lik: -19539.113, Max-Change: 0.25930Iteration: 11, Log-Lik: -19537.443, Max-Change: 0.31348Iteration: 12, Log-Lik: -19536.447, Max-Change: 1.05645Iteration: 13, Log-Lik: -19535.017, Max-Change: 0.17620Iteration: 14, Log-Lik: -19534.610, Max-Change: 9.28524Iteration: 15, Log-Lik: -19533.354, Max-Change: 0.11114Iteration: 16, Log-Lik: -19533.351, Max-Change: 5.48141Iteration: 17, Log-Lik: -19532.746, Max-Change: 0.05424Iteration: 18, Log-Lik: -19532.573, Max-Change: 3.49081Iteration: 19, Log-Lik: -19532.270, Max-Change: 2.41455Iteration: 20, Log-Lik: -19532.091, Max-Change: 0.00466Iteration: 21, Log-Lik: -19532.031, Max-Change: 0.00432Iteration: 22, Log-Lik: -19531.832, Max-Change: 0.00199Iteration: 23, Log-Lik: -19531.826, Max-Change: 0.00173Iteration: 24, Log-Lik: -19531.821, Max-Change: 0.00085Iteration: 25, Log-Lik: -19531.819, Max-Change: 0.00095Iteration: 26, Log-Lik: -19531.816, Max-Change: 0.00088Iteration: 27, Log-Lik: -19531.813, Max-Change: 0.00085Iteration: 28, Log-Lik: -19531.806, Max-Change: 0.00029Iteration: 29, Log-Lik: -19531.805, Max-Change: 0.00026Iteration: 30, Log-Lik: -19531.805, Max-Change: 0.00024Iteration: 31, Log-Lik: -19531.805, Max-Change: 0.00020
+
+``` r
+print(itemplot(mod2, 2, main = "r2hlthlm"))
+```
+
+![](IRT-supplementary-materia_files/figure-gfm/unnamed-chunk-26-2.png)<!-- -->
+
+There is no suggestion of pattern departure for r2housewka or r2hlthlm.
 
 # Fscore distributions
 
@@ -986,7 +999,7 @@ set.seed(720)
     ## 
     ## Bootstrap Statistics :
     ##      original       bias    std. error
-    ## t1* 0.7016156 8.934851e-05  0.01803194
+    ## t1* 0.6919378 0.0002713663  0.01799166
 
 ``` r
   boot.ci(boot.out = bootstrap, type = c("norm"))
@@ -1000,7 +1013,7 @@ set.seed(720)
     ## 
     ## Intervals : 
     ## Level      Normal        
-    ## 95%   ( 0.6662,  0.7369 )  
+    ## 95%   ( 0.6564,  0.7269 )  
     ## Calculations and Intervals on Original Scale
 
 ``` r
@@ -1025,7 +1038,7 @@ set.seed(720)
     ## 
     ## Bootstrap Statistics :
     ##       original       bias    std. error
-    ## t1* 0.09163865 0.0003061625  0.02239775
+    ## t1* 0.09305676 0.0001185722  0.02180532
 
 ``` r
   boot.ci(boot.out = bootstrap, type = c("norm"))
@@ -1039,7 +1052,7 @@ set.seed(720)
     ## 
     ## Intervals : 
     ## Level      Normal        
-    ## 95%   ( 0.0474,  0.1352 )  
+    ## 95%   ( 0.0502,  0.1357 )  
     ## Calculations and Intervals on Original Scale
 
 ``` r
@@ -1049,7 +1062,7 @@ table(data_a$r2painlv) %>% addmargins()
 
     ## 
     ##    0    1    2    3  Sum 
-    ## 5283  802 1194  323 7602
+    ## 5316  809 1201  327 7653
 
 ``` r
 table(data_a$r2painlv) %>% prop.table()
@@ -1057,7 +1070,7 @@ table(data_a$r2painlv) %>% prop.table()
 
     ## 
     ##          0          1          2          3 
-    ## 0.69494870 0.10549855 0.15706393 0.04248882
+    ## 0.69462956 0.10571018 0.15693192 0.04272834
 
 ``` r
 data_b<-expl_df[which(expl_df$LVscore >= 1),]
@@ -1066,15 +1079,15 @@ table(data_b$r2painlv) %>% addmargins()
 
     ## 
     ##    0    1    2    3  Sum 
-    ##  266  122  583  372 1343
+    ##  294  127  589  376 1386
 
 ``` r
 table(data_b$r2painlv) %>% prop.table()
 ```
 
     ## 
-    ##         0         1         2         3 
-    ## 0.1980640 0.0908414 0.4341028 0.2769918
+    ##          0          1          2          3 
+    ## 0.21212121 0.09163059 0.42496392 0.27128427
 
 ## Age subgroups
 

@@ -150,7 +150,7 @@ To identify respondents who erienced persistent pain symptoms, all participants 
 
 ```{r}
 # load the chronic pain categorising function
-source("c:/Users/d.vitali/Desktop/Github/CRIISP-WP5/Sources/chronic_pain_var.R")
+source("c:/Users/d.vitali/Desktop/Github/Pain.Impact.Measures/ELSA Models/chronic_pain_var.R")
 
 # Create chrpain variables for waves x to 9
 waves <- 1:9
@@ -178,9 +178,7 @@ paste("<50 count:", notyetfifty %>% nrow)
 
 
 Of this sample of the elsa current wave respondents  
-I am excluding the 90+ because elsa do not track age beyond this level and simply classifies age 90+.
-
-respondent aged < 50 or above 89yo
+I am excluding respondent aged < 50 as ELSA is focused on english population aged 40 and older.
 
 
 
@@ -191,8 +189,8 @@ respondent aged < 50 or above 89yo
 #sum(H_elsa_w2_$r2agey <50) 
 #sum(H_elsa_w2_$r2agey ==90) 
 
-# removing all participants who younger than 50 or older than 89
-H_elsa_w2_ <-H_elsa_w2_ %>% dplyr::filter(is.na(r2agey) | (r2agey <90 & r2agey>49 ))
+# removing all participants who younger than 50
+H_elsa_w2_ <-H_elsa_w2_ %>% dplyr::filter(is.na(r2agey) |r2agey>49 )
 
 plotdata0 <- H_elsa_w2_[,c("r2agey","ragender")]# %>% filter(rowSums(H_elsa_w2_[,c("r2agey","ragender")] <0) ==0)
 
@@ -213,7 +211,7 @@ ggplot(plotdata0,aes(x=age_group, fill=gender))+
                       breaks=c("M", "W"),
                       labels=c("Male", "Female"))+
   geom_text(stat='count', aes(label=after_stat(count)), position = position_dodge(width = 1), vjust=-.5)+
-  ggtitle(paste0("w3 wave: Age Groups by Gender (N = ",nrow(plotdata0),")"))+
+  ggtitle(paste0("w2 wave: Age Groups by Gender (N = ",nrow(plotdata0),")"))+
   xlab('Age group')+
   ylab('No. of People')
 
@@ -266,12 +264,12 @@ loading the ELSA non harmonised dataset  for wave 1. We need this to get the var
 
 
 ```{r, echo=FALSE}
-elsa_w2<-read.csv("c:/Users/d.vitali/OneDrive - University College London/CRIISP/00_WP5/00_WP5_data/5050tab/UKDA-5050-tab/tab/wave_1_core_data_v3.tab", sep = "\t")
-elsa_w2$helim %>% table
+elsa_w2<-read.csv("c:/Users/d.vitali/OneDrive - University College London/CRIISP/00_WP5/00_WP5_data/5050tab/UKDA-5050-tab/tab/wave_2_core_data_v4.tab", sep = "\t")
+elsa_w2$Helim %>% table
 elsa_w2<-elsa_w2 %>% filter(idauniq %in% H_elsa_w2_$idauniq)
-H_elsa_w2_<-merge(elsa_w2[c("idauniq","helim")],H_elsa_w2_, by = "idauniq", all = T)
+H_elsa_w2_<-merge(elsa_w2[c("idauniq","Helim")],H_elsa_w2_, by = "idauniq", all = T)
 
-table("helim"=H_elsa_w2_$helim)
+table("Helim"=H_elsa_w2_$Helim)
 ```
 
 .  "helim" = -1 : (not applicable, i.e. the do not report an illness, disability or infirmity)
@@ -281,11 +279,11 @@ table("helim"=H_elsa_w2_$helim)
 we rename this variable as "hlmact".
 
 ```{r, echo=FALSE}
-H_elsa_w2_$hlmact<- ifelse(H_elsa_w2_$helim == 1,
+H_elsa_w2_$hlmact<- ifelse(H_elsa_w2_$Helim == 1,
                           1,
-                          ifelse(H_elsa_w2_$helim == 2 | H_elsa_w2_$helim == -1,
+                          ifelse(H_elsa_w2_$Helim == 2 | H_elsa_w2_$Helim == -1,
                                  0,
-                                 H_elsa_w2_$helim)
+                                 NA)
                           )
 H_elsa_w2_$hlmact %>% table
 ```

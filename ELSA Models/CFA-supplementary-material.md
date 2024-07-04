@@ -1,7 +1,7 @@
 Measuring impact of pain in aging population using existing items in
 ELSA
 ================
-28 May 2024
+04 Jul 2024
 
 - [INTRODUCTION](#introduction)
   - [AIM](#aim)
@@ -148,7 +148,7 @@ greater at both the analysed and previous ELSA data collection interval”
 
 ``` r
 # load the chronic pain categorising function
-source("c:/Users/d.vitali/Desktop/Github/CRIISP-WP5/Sources/chronic_pain_var.R")
+source("c:/Users/d.vitali/Desktop/Github/Pain.Impact.Measures/ELSA Models/chronic_pain_var.R")
 
 # Create chrpain variables for waves x to 9
 waves <- 1:9
@@ -166,10 +166,8 @@ for (wave in waves) {
     ## [1] "<50 count: 261"
 
 Of this sample of the elsa current wave respondents  
-I am excluding the 90+ because elsa do not track age beyond this level
-and simply classifies age 90+.
-
-respondent aged \< 50 or above 89yo
+I am excluding respondent aged \< 50 as ELSA is focused on english
+population aged 40 and older.
 
 ![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
@@ -178,12 +176,12 @@ respondent aged \< 50 or above 89yo
     ##   0-29   0.00  0.00
     ##   30-39  0.00  0.00
     ##   40-49  0.00  0.00
-    ##   50-59 14.28 18.00
-    ##   60-69 14.96 17.26
-    ##   70-79 11.09 13.22
-    ##   80-89  4.33  6.86
-    ##   90+    0.00  0.00
-    ##   Sum   44.66 55.34
+    ##   50-59 14.11 17.78
+    ##   60-69 14.79 17.05
+    ##   70-79 10.96 13.06
+    ##   80-89  4.27  6.78
+    ##   90+    0.40  0.79
+    ##   Sum   44.53 55.47
 
     ##     50-59     60-69     70-79     80-89 
     ## 0.5576068 0.5356164 0.5438039 0.6134122
@@ -204,9 +202,9 @@ highest prevalence of females:
 
 |     | 50-59 | 60-69 | 70-79 | 80-89 | **Tot** |
 |----:|:-----:|:-----:|:-----:|:-----:|:-------:|
-|   M | 1294  | 1356  | 1005  |  392  |  4047   |
-|   F | 1631  | 1564  | 1198  |  622  |  5015   |
-| Tot | 2925  | 2920  | 2203  | 1014  |  9062   |
+|   M | 1294  | 1356  | 1005  |  392  |  4084   |
+|   F | 1631  | 1564  | 1198  |  622  |  5087   |
+| Tot | 2925  | 2920  | 2203  | 1014  |  9171   |
 
 **Table 4.** Count and proportion of individuals by age and gender
 (current wave)
@@ -228,12 +226,12 @@ limitation examined and pain. **Anchor in health.** YES i.e. proposing a
 explicit causal between the limitation examined and health problem.
 
     ## .
-    ##   -1    1    2 
-    ## 5343 4202 2554
+    ##   -9   -8   -1    1    2 
+    ##    1    2 4109 3341 1979
 
-    ## helim
-    ##   -1    1    2 
-    ## 4038 2922 2012
+    ## Helim
+    ##   -9   -8   -1    1    2 
+    ##    1    2 3944 3276 1948
 
 . “helim” = -1 : (not applicable, i.e. the do not report an illness,
 disability or infirmity) . “helim” = 1 : No (does not limit the
@@ -243,7 +241,7 @@ we rename this variable as “hlmact”.
 
     ## .
     ##    0    1 
-    ## 6050 2922
+    ## 5892 3276
 
 ### Participation to Work Activities
 
@@ -266,7 +264,7 @@ pain or in “because of health problem or disability”
 
     ## 
     ##  -18  -16  -13   -4    0    1 
-    ##    1  102    7   10 5999 2943
+    ##    1  116    7   10 6047 2990
 
 . “r2hlthlm” = -16 : interview given via proxy (these will be filtered
 out) . “r2hlthlm” = -13 : missing . “r2hlthlm” = -4 : Don’t know .
@@ -332,25 +330,25 @@ Missing data for any considered indicator was treated with listwise
 deletion and reported in the table below.
 
     ##       VarName N. Missing Total
-    ## 1     idauniq          0  9062
-    ## 2    r2dressa          3  9062
-    ## 3    r2walkra          3  9062
-    ## 4     r2batha          3  9062
-    ## 5      r2eata          3  9062
-    ## 6      r2beda          3  9062
-    ## 7    r2toilta          3  9062
-    ## 8     r2shopa          3  9062
-    ## 9    r2mealsa          3  9062
-    ## 10 r2housewka          3  9062
-    ## 11     r2mapa          3  9062
-    ## 12   r2phonea          3  9062
-    ## 13   r2moneya          3  9062
-    ## 14    r2medsa          3  9062
-    ## 15   r2hlthlm        120  9062
-    ## 16     hlmact         90  9062
-    ## 17   r2chaira          3  9062
-    ## 18   r2clim1a          3  9062
-    ## 19    r2lifta          3  9062
+    ## 1     idauniq          0  9171
+    ## 2    r2dressa          3  9171
+    ## 3    r2walkra          3  9171
+    ## 4     r2batha          3  9171
+    ## 5      r2eata          3  9171
+    ## 6      r2beda          3  9171
+    ## 7    r2toilta          3  9171
+    ## 8     r2shopa          3  9171
+    ## 9    r2mealsa          3  9171
+    ## 10 r2housewka          3  9171
+    ## 11     r2mapa          3  9171
+    ## 12   r2phonea          3  9171
+    ## 13   r2moneya          3  9171
+    ## 14    r2medsa          3  9171
+    ## 15   r2hlthlm        134  9171
+    ## 16     hlmact          3  9171
+    ## 17   r2chaira          3  9171
+    ## 18   r2clim1a          3  9171
+    ## 19    r2lifta          3  9171
 
 ![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
@@ -374,7 +372,7 @@ EFA. The factor structure emerging from these lorative analysis will
 then be submitted for CFA for further empirical validation of the
 solutions proposed.
 
-The sample available to these analysis is n = 9062 therefore it was
+The sample available to these analysis is n = 9171 therefore it was
 further partitioned in two randomly selected datasets :
 
 1.  ~ 1/2 from of total sample to used for PA and EFA (LV_items_ex)
@@ -414,8 +412,8 @@ between these latent continuous variables.
 
 #### Sample
 
-n = 4454 (~1/2) randomly selected from the N= 8878 first wave
-respondents studied in this paper. The remaining 1/2 of the N= 8878 will
+n = 4533 (~1/2) randomly selected from the N= 9032 first wave
+respondents studied in this paper. The remaining 1/2 of the N= 9032 will
 be used for CFA.
 
 #### Estimator
@@ -502,7 +500,7 @@ rotation is adequate if the result achieves a simple structure.
 
 #### Sample
 
-The remaining 1/2 of the N= 8878, randomly selected.
+The remaining 1/2 of the N= 9032, randomly selected.
 
 #### Estimator
 
@@ -544,24 +542,24 @@ propsummary[order(propsummary$Proportion, decreasing = TRUE), ] %>% print
 ```
 
     ##                                   Item Proportion
-    ## 14                   Health limit work      32.97
-    ## 15     Health/disability limits actity      32.35
-    ## 16           Some Diff-Get up fr chair      26.71
-    ## 18 Some Diff-lifting/carrying 10pounds      25.19
-    ## 9                    work house/garden      16.40
-    ## 17            Some Diff-Clmb 1 flt str      14.87
-    ## 2                             dressing      13.40
-    ## 3                 bathing or showering      11.48
-    ## 7               shopping for groceries       9.16
-    ## 5                getting in/out of bed       6.18
-    ## 10       using a map in unknown places       5.42
-    ## 8                       prep. hot meal       4.47
-    ## 1                walking across a room       3.22
-    ## 6                               toilet       3.08
-    ## 12                      managing money       2.69
-    ## 4               eating/cutting up food       2.03
-    ## 11                     telephone calls       1.91
-    ## 13                  taking medications       1.73
+    ## 15     Health/disability limits actity      35.31
+    ## 14                   Health limit work      33.07
+    ## 16           Some Diff-Get up fr chair      26.82
+    ## 18 Some Diff-lifting/carrying 10pounds      25.52
+    ## 9                    work house/garden      16.76
+    ## 17            Some Diff-Clmb 1 flt str      15.10
+    ## 2                             dressing      13.50
+    ## 3                 bathing or showering      11.75
+    ## 7               shopping for groceries       9.51
+    ## 5                getting in/out of bed       6.21
+    ## 10       using a map in unknown places       5.61
+    ## 8                       prep. hot meal       4.65
+    ## 1                walking across a room       3.27
+    ## 6                               toilet       3.11
+    ## 12                      managing money       2.85
+    ## 4               eating/cutting up food       2.08
+    ## 11                     telephone calls       1.98
+    ## 13                  taking medications       1.77
 
 ## GOAL 1: Testing dimensionality of items
 
@@ -804,54 +802,54 @@ r[abs(r) < 0.1] <- "-"
 summary(ALL.one.factor.Fit, fit.measures = T, rsquare=T)
 ```
 
-    ## lavaan 0.6.17 ended normally after 23 iterations
+    ## lavaan 0.6.17 ended normally after 21 iterations
     ## 
     ##   Estimator                                       DWLS
     ##   Optimization method                           NLMINB
     ##   Number of model parameters                        36
     ## 
-    ##   Number of observations                          4424
+    ##   Number of observations                          4499
     ## 
     ## Model Test User Model:
     ##                                               Standard      Scaled
-    ##   Test Statistic                               782.717    1280.303
+    ##   Test Statistic                              1213.197    1947.883
     ##   Degrees of freedom                               135         135
     ##   P-value (Chi-square)                           0.000       0.000
-    ##   Scaling correction factor                                  0.611
+    ##   Scaling correction factor                                  0.623
     ##     Satorra-Bentler correction                                    
     ## 
     ## Model Test Baseline Model:
     ## 
-    ##   Test statistic                             96664.482   96664.482
+    ##   Test statistic                            114917.924  114917.924
     ##   Degrees of freedom                               153         153
     ##   P-value                                        0.000       0.000
     ##   Scaling correction factor                                  1.000
     ## 
     ## User Model versus Baseline Model:
     ## 
-    ##   Comparative Fit Index (CFI)                    0.993       0.988
-    ##   Tucker-Lewis Index (TLI)                       0.992       0.987
+    ##   Comparative Fit Index (CFI)                    0.991       0.984
+    ##   Tucker-Lewis Index (TLI)                       0.989       0.982
     ##                                                                   
-    ##   Robust Comparative Fit Index (CFI)                         0.810
-    ##   Robust Tucker-Lewis Index (TLI)                            0.785
+    ##   Robust Comparative Fit Index (CFI)                         0.793
+    ##   Robust Tucker-Lewis Index (TLI)                            0.766
     ## 
     ## Root Mean Square Error of Approximation:
     ## 
-    ##   RMSEA                                          0.033       0.044
-    ##   90 Percent confidence interval - lower         0.031       0.041
-    ##   90 Percent confidence interval - upper         0.035       0.047
-    ##   P-value H_0: RMSEA <= 0.050                    1.000       1.000
+    ##   RMSEA                                          0.042       0.055
+    ##   90 Percent confidence interval - lower         0.040       0.052
+    ##   90 Percent confidence interval - upper         0.044       0.057
+    ##   P-value H_0: RMSEA <= 0.050                    1.000       0.002
     ##   P-value H_0: RMSEA >= 0.080                    0.000       0.000
     ##                                                                   
-    ##   Robust RMSEA                                               0.167
-    ##   90 Percent confidence interval - lower                     0.155
-    ##   90 Percent confidence interval - upper                     0.180
+    ##   Robust RMSEA                                               0.176
+    ##   90 Percent confidence interval - lower                     0.164
+    ##   90 Percent confidence interval - upper                     0.189
     ##   P-value H_0: Robust RMSEA <= 0.050                         0.000
     ##   P-value H_0: Robust RMSEA >= 0.080                         1.000
     ## 
     ## Standardized Root Mean Square Residual:
     ## 
-    ##   SRMR                                           0.083       0.083
+    ##   SRMR                                           0.086       0.086
     ## 
     ## Parameter Estimates:
     ## 
@@ -863,88 +861,88 @@ summary(ALL.one.factor.Fit, fit.measures = T, rsquare=T)
     ## Latent Variables:
     ##                    Estimate  Std.Err  z-value  P(>|z|)
     ##   Lv1 =~                                              
-    ##     r2dressa          0.830    0.012   66.828    0.000
-    ##     r2walkra          0.893    0.015   59.968    0.000
-    ##     r2batha           0.862    0.012   74.817    0.000
-    ##     r2eata            0.732    0.031   23.617    0.000
-    ##     r2beda            0.860    0.015   58.974    0.000
-    ##     r2toilta          0.806    0.023   34.840    0.000
-    ##     r2shopa           0.907    0.010   95.325    0.000
-    ##     r2mealsa          0.886    0.014   64.096    0.000
-    ##     r2housewka        0.900    0.009  101.208    0.000
-    ##     r2chaira          0.742    0.014   53.169    0.000
-    ##     r2clim1a          0.860    0.011   78.845    0.000
-    ##     r2lifta           0.830    0.011   76.038    0.000
-    ##     r2mapa            0.591    0.027   21.678    0.000
-    ##     r2phonea          0.614    0.037   16.410    0.000
-    ##     r2moneya          0.737    0.026   28.067    0.000
-    ##     r2medsa           0.700    0.033   21.443    0.000
-    ##     r2hlthlm          0.832    0.011   76.869    0.000
-    ##     hlmact            0.761    0.013   58.599    0.000
+    ##     r2dressa          0.810    0.012   66.009    0.000
+    ##     r2walkra          0.894    0.016   56.082    0.000
+    ##     r2batha           0.855    0.011   78.417    0.000
+    ##     r2eata            0.763    0.027   27.795    0.000
+    ##     r2beda            0.833    0.015   55.123    0.000
+    ##     r2toilta          0.811    0.021   38.161    0.000
+    ##     r2shopa           0.901    0.009   97.377    0.000
+    ##     r2mealsa          0.905    0.012   75.339    0.000
+    ##     r2housewka        0.899    0.008  111.034    0.000
+    ##     r2chaira          0.727    0.014   52.977    0.000
+    ##     r2clim1a          0.844    0.011   78.476    0.000
+    ##     r2lifta           0.821    0.011   77.175    0.000
+    ##     r2mapa            0.593    0.026   22.990    0.000
+    ##     r2phonea          0.600    0.033   18.048    0.000
+    ##     r2moneya          0.693    0.027   25.729    0.000
+    ##     r2medsa           0.669    0.034   19.427    0.000
+    ##     r2hlthlm          0.879    0.009  103.236    0.000
+    ##     hlmact            0.904    0.008  118.158    0.000
     ## 
     ## Thresholds:
     ##                    Estimate  Std.Err  z-value  P(>|z|)
-    ##     r2dressa|t1       1.127    0.024   47.124    0.000
-    ##     r2walkra|t1       1.826    0.036   50.519    0.000
-    ##     r2batha|t1        1.198    0.025   48.525    0.000
-    ##     r2eata|t1         2.051    0.043   47.281    0.000
-    ##     r2beda|t1         1.548    0.030   51.859    0.000
-    ##     r2toilta|t1       1.880    0.038   49.903    0.000
-    ##     r2shopa|t1        1.312    0.026   50.264    0.000
-    ##     r2mealsa|t1       1.688    0.033   51.590    0.000
-    ##     r2housewka|t1     0.985    0.023   43.634    0.000
-    ##     r2chaira|t1       0.648    0.020   31.821    0.000
-    ##     r2clim1a|t1       1.031    0.023   44.874    0.000
-    ##     r2lifta|t1        0.671    0.020   32.775    0.000
-    ##     r2mapa|t1         1.607    0.031   51.852    0.000
-    ##     r2phonea|t1       2.121    0.046   45.962    0.000
-    ##     r2moneya|t1       1.943    0.040   49.045    0.000
-    ##     r2medsa|t1        2.105    0.045   46.272    0.000
-    ##     r2hlthlm|t1       0.450    0.020   23.035    0.000
-    ##     hlmact|t1         0.466    0.020   23.747    0.000
+    ##     r2dressa|t1       1.074    0.023   46.330    0.000
+    ##     r2walkra|t1       1.843    0.036   50.764    0.000
+    ##     r2batha|t1        1.161    0.024   48.227    0.000
+    ##     r2eata|t1         2.045    0.043   47.802    0.000
+    ##     r2beda|t1         1.534    0.029   52.275    0.000
+    ##     r2toilta|t1       1.828    0.036   50.928    0.000
+    ##     r2shopa|t1        1.293    0.026   50.436    0.000
+    ##     r2mealsa|t1       1.667    0.032   52.125    0.000
+    ##     r2housewka|t1     0.952    0.022   43.054    0.000
+    ##     r2chaira|t1       0.605    0.020   30.284    0.000
+    ##     r2clim1a|t1       1.031    0.023   45.237    0.000
+    ##     r2lifta|t1        0.636    0.020   31.612    0.000
+    ##     r2mapa|t1         1.587    0.030   52.310    0.000
+    ##     r2phonea|t1       1.989    0.041   48.747    0.000
+    ##     r2moneya|t1       1.911    0.038   49.918    0.000
+    ##     r2medsa|t1        2.092    0.045   46.925    0.000
+    ##     r2hlthlm|t1       0.426    0.019   22.036    0.000
+    ##     hlmact|t1         0.371    0.019   19.348    0.000
     ## 
     ## Variances:
     ##                    Estimate  Std.Err  z-value  P(>|z|)
-    ##    .r2dressa          0.311                           
+    ##    .r2dressa          0.343                           
     ##    .r2walkra          0.202                           
-    ##    .r2batha           0.258                           
-    ##    .r2eata            0.464                           
-    ##    .r2beda            0.261                           
-    ##    .r2toilta          0.350                           
-    ##    .r2shopa           0.177                           
-    ##    .r2mealsa          0.214                           
-    ##    .r2housewka        0.189                           
-    ##    .r2chaira          0.450                           
-    ##    .r2clim1a          0.260                           
-    ##    .r2lifta           0.311                           
-    ##    .r2mapa            0.651                           
-    ##    .r2phonea          0.623                           
-    ##    .r2moneya          0.457                           
-    ##    .r2medsa           0.510                           
-    ##    .r2hlthlm          0.308                           
-    ##    .hlmact            0.420                           
+    ##    .r2batha           0.269                           
+    ##    .r2eata            0.417                           
+    ##    .r2beda            0.306                           
+    ##    .r2toilta          0.342                           
+    ##    .r2shopa           0.189                           
+    ##    .r2mealsa          0.180                           
+    ##    .r2housewka        0.191                           
+    ##    .r2chaira          0.472                           
+    ##    .r2clim1a          0.287                           
+    ##    .r2lifta           0.326                           
+    ##    .r2mapa            0.648                           
+    ##    .r2phonea          0.640                           
+    ##    .r2moneya          0.519                           
+    ##    .r2medsa           0.553                           
+    ##    .r2hlthlm          0.227                           
+    ##    .hlmact            0.184                           
     ##     Lv1               1.000                           
     ## 
     ## R-Square:
     ##                    Estimate
-    ##     r2dressa          0.689
+    ##     r2dressa          0.657
     ##     r2walkra          0.798
-    ##     r2batha           0.742
-    ##     r2eata            0.536
-    ##     r2beda            0.739
-    ##     r2toilta          0.650
-    ##     r2shopa           0.823
-    ##     r2mealsa          0.786
-    ##     r2housewka        0.811
-    ##     r2chaira          0.550
-    ##     r2clim1a          0.740
-    ##     r2lifta           0.689
-    ##     r2mapa            0.349
-    ##     r2phonea          0.377
-    ##     r2moneya          0.543
-    ##     r2medsa           0.490
-    ##     r2hlthlm          0.692
-    ##     hlmact            0.580
+    ##     r2batha           0.731
+    ##     r2eata            0.583
+    ##     r2beda            0.694
+    ##     r2toilta          0.658
+    ##     r2shopa           0.811
+    ##     r2mealsa          0.820
+    ##     r2housewka        0.809
+    ##     r2chaira          0.528
+    ##     r2clim1a          0.713
+    ##     r2lifta           0.674
+    ##     r2mapa            0.352
+    ##     r2phonea          0.360
+    ##     r2moneya          0.481
+    ##     r2medsa           0.447
+    ##     r2hlthlm          0.773
+    ##     hlmact            0.816
 
 ``` r
 #######################################################
@@ -1024,48 +1022,48 @@ summary(ALL.two.factor.Fit, fit.measures = T, rsquare=T, standardize = T)
     ##   Optimization method                           NLMINB
     ##   Number of model parameters                        37
     ## 
-    ##   Number of observations                          4424
+    ##   Number of observations                          4499
     ## 
     ## Model Test User Model:
     ##                                               Standard      Scaled
-    ##   Test Statistic                               480.095     789.218
+    ##   Test Statistic                               904.928    1460.134
     ##   Degrees of freedom                               134         134
     ##   P-value (Chi-square)                           0.000       0.000
-    ##   Scaling correction factor                                  0.608
+    ##   Scaling correction factor                                  0.620
     ##     Satorra-Bentler correction                                    
     ## 
     ## Model Test Baseline Model:
     ## 
-    ##   Test statistic                             96664.482   96664.482
+    ##   Test statistic                            114917.924  114917.924
     ##   Degrees of freedom                               153         153
     ##   P-value                                        0.000       0.000
     ##   Scaling correction factor                                  1.000
     ## 
     ## User Model versus Baseline Model:
     ## 
-    ##   Comparative Fit Index (CFI)                    0.996       0.993
-    ##   Tucker-Lewis Index (TLI)                       0.996       0.992
+    ##   Comparative Fit Index (CFI)                    0.993       0.988
+    ##   Tucker-Lewis Index (TLI)                       0.992       0.987
     ##                                                                   
-    ##   Robust Comparative Fit Index (CFI)                         0.866
-    ##   Robust Tucker-Lewis Index (TLI)                            0.847
+    ##   Robust Comparative Fit Index (CFI)                         0.833
+    ##   Robust Tucker-Lewis Index (TLI)                            0.809
     ## 
     ## Root Mean Square Error of Approximation:
     ## 
-    ##   RMSEA                                          0.024       0.033
-    ##   90 Percent confidence interval - lower         0.022       0.030
-    ##   90 Percent confidence interval - upper         0.027       0.036
-    ##   P-value H_0: RMSEA <= 0.050                    1.000       1.000
+    ##   RMSEA                                          0.036       0.047
+    ##   90 Percent confidence interval - lower         0.034       0.044
+    ##   90 Percent confidence interval - upper         0.038       0.050
+    ##   P-value H_0: RMSEA <= 0.050                    1.000       0.966
     ##   P-value H_0: RMSEA >= 0.080                    0.000       0.000
     ##                                                                   
-    ##   Robust RMSEA                                               0.141
-    ##   90 Percent confidence interval - lower                     0.127
-    ##   90 Percent confidence interval - upper                     0.156
+    ##   Robust RMSEA                                               0.159
+    ##   90 Percent confidence interval - lower                     0.145
+    ##   90 Percent confidence interval - upper                     0.174
     ##   P-value H_0: Robust RMSEA <= 0.050                         0.000
     ##   P-value H_0: Robust RMSEA >= 0.080                         1.000
     ## 
     ## Standardized Root Mean Square Residual:
     ## 
-    ##   SRMR                                           0.059       0.059
+    ##   SRMR                                           0.064       0.064
     ## 
     ## Parameter Estimates:
     ## 
@@ -1077,95 +1075,95 @@ summary(ALL.two.factor.Fit, fit.measures = T, rsquare=T, standardize = T)
     ## Latent Variables:
     ##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
     ##   Lv1 =~                                                                
-    ##     r2dressa          0.832    0.012   67.010    0.000    0.832    0.832
-    ##     r2walkra          0.896    0.015   60.209    0.000    0.896    0.896
-    ##     r2batha           0.864    0.012   74.949    0.000    0.864    0.864
-    ##     r2beda            0.862    0.015   59.109    0.000    0.862    0.862
-    ##     r2toilta          0.810    0.023   34.931    0.000    0.810    0.810
-    ##     r2shopa           0.910    0.010   95.241    0.000    0.910    0.910
-    ##     r2mealsa          0.891    0.014   63.776    0.000    0.891    0.891
-    ##     r2housewka        0.902    0.009  101.399    0.000    0.902    0.902
-    ##     r2chaira          0.744    0.014   53.330    0.000    0.744    0.744
-    ##     r2clim1a          0.862    0.011   79.123    0.000    0.862    0.862
-    ##     r2lifta           0.832    0.011   76.328    0.000    0.832    0.832
-    ##     r2hlthlm          0.834    0.011   76.953    0.000    0.834    0.834
-    ##     hlmact            0.764    0.013   58.718    0.000    0.764    0.764
+    ##     r2dressa          0.813    0.012   66.227    0.000    0.813    0.813
+    ##     r2walkra          0.896    0.016   56.272    0.000    0.896    0.896
+    ##     r2batha           0.857    0.011   78.591    0.000    0.857    0.857
+    ##     r2beda            0.836    0.015   55.284    0.000    0.836    0.836
+    ##     r2toilta          0.815    0.021   38.216    0.000    0.815    0.815
+    ##     r2shopa           0.903    0.009   97.337    0.000    0.903    0.903
+    ##     r2mealsa          0.909    0.012   75.010    0.000    0.909    0.909
+    ##     r2housewka        0.901    0.008  111.309    0.000    0.901    0.901
+    ##     r2chaira          0.729    0.014   53.147    0.000    0.729    0.729
+    ##     r2clim1a          0.846    0.011   78.724    0.000    0.846    0.846
+    ##     r2lifta           0.822    0.011   77.470    0.000    0.822    0.822
+    ##     r2hlthlm          0.881    0.009  103.458    0.000    0.881    0.881
+    ##     hlmact            0.905    0.008  118.470    0.000    0.905    0.905
     ##   Lv2 =~                                                                
-    ##     r2mapa            0.728    0.029   24.771    0.000    0.728    0.728
-    ##     r2phonea          0.736    0.040   18.278    0.000    0.736    0.736
-    ##     r2moneya          0.890    0.025   35.546    0.000    0.890    0.890
-    ##     r2medsa           0.834    0.033   25.195    0.000    0.834    0.834
-    ##     r2eata            0.902    0.035   25.479    0.000    0.902    0.902
+    ##     r2mapa            0.735    0.028   26.469    0.000    0.735    0.735
+    ##     r2phonea          0.728    0.036   20.260    0.000    0.728    0.728
+    ##     r2moneya          0.844    0.028   30.374    0.000    0.844    0.844
+    ##     r2medsa           0.807    0.037   22.089    0.000    0.807    0.807
+    ##     r2eata            0.944    0.032   29.416    0.000    0.944    0.944
     ## 
     ## Covariances:
     ##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
     ##   Lv1 ~~                                                                
-    ##     Lv2               0.751    0.020   37.190    0.000    0.751    0.751
+    ##     Lv2               0.750    0.020   38.297    0.000    0.750    0.750
     ## 
     ## Thresholds:
     ##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-    ##     r2dressa|t1       1.127    0.024   47.124    0.000    1.127    1.127
-    ##     r2walkra|t1       1.826    0.036   50.519    0.000    1.826    1.826
-    ##     r2batha|t1        1.198    0.025   48.525    0.000    1.198    1.198
-    ##     r2beda|t1         1.548    0.030   51.859    0.000    1.548    1.548
-    ##     r2toilta|t1       1.880    0.038   49.903    0.000    1.880    1.880
-    ##     r2shopa|t1        1.312    0.026   50.264    0.000    1.312    1.312
-    ##     r2mealsa|t1       1.688    0.033   51.590    0.000    1.688    1.688
-    ##     r2housewka|t1     0.985    0.023   43.634    0.000    0.985    0.985
-    ##     r2chaira|t1       0.648    0.020   31.821    0.000    0.648    0.648
-    ##     r2clim1a|t1       1.031    0.023   44.874    0.000    1.031    1.031
-    ##     r2lifta|t1        0.671    0.020   32.775    0.000    0.671    0.671
-    ##     r2hlthlm|t1       0.450    0.020   23.035    0.000    0.450    0.450
-    ##     hlmact|t1         0.466    0.020   23.747    0.000    0.466    0.466
-    ##     r2mapa|t1         1.607    0.031   51.852    0.000    1.607    1.607
-    ##     r2phonea|t1       2.121    0.046   45.962    0.000    2.121    2.121
-    ##     r2moneya|t1       1.943    0.040   49.045    0.000    1.943    1.943
-    ##     r2medsa|t1        2.105    0.045   46.272    0.000    2.105    2.105
-    ##     r2eata|t1         2.051    0.043   47.281    0.000    2.051    2.051
+    ##     r2dressa|t1       1.074    0.023   46.330    0.000    1.074    1.074
+    ##     r2walkra|t1       1.843    0.036   50.764    0.000    1.843    1.843
+    ##     r2batha|t1        1.161    0.024   48.227    0.000    1.161    1.161
+    ##     r2beda|t1         1.534    0.029   52.275    0.000    1.534    1.534
+    ##     r2toilta|t1       1.828    0.036   50.928    0.000    1.828    1.828
+    ##     r2shopa|t1        1.293    0.026   50.436    0.000    1.293    1.293
+    ##     r2mealsa|t1       1.667    0.032   52.125    0.000    1.667    1.667
+    ##     r2housewka|t1     0.952    0.022   43.054    0.000    0.952    0.952
+    ##     r2chaira|t1       0.605    0.020   30.284    0.000    0.605    0.605
+    ##     r2clim1a|t1       1.031    0.023   45.237    0.000    1.031    1.031
+    ##     r2lifta|t1        0.636    0.020   31.612    0.000    0.636    0.636
+    ##     r2hlthlm|t1       0.426    0.019   22.036    0.000    0.426    0.426
+    ##     hlmact|t1         0.371    0.019   19.348    0.000    0.371    0.371
+    ##     r2mapa|t1         1.587    0.030   52.310    0.000    1.587    1.587
+    ##     r2phonea|t1       1.989    0.041   48.747    0.000    1.989    1.989
+    ##     r2moneya|t1       1.911    0.038   49.918    0.000    1.911    1.911
+    ##     r2medsa|t1        2.092    0.045   46.925    0.000    2.092    2.092
+    ##     r2eata|t1         2.045    0.043   47.802    0.000    2.045    2.045
     ## 
     ## Variances:
     ##                    Estimate  Std.Err  z-value  P(>|z|)   Std.lv  Std.all
-    ##    .r2dressa          0.307                               0.307    0.307
-    ##    .r2walkra          0.197                               0.197    0.197
-    ##    .r2batha           0.254                               0.254    0.254
-    ##    .r2beda            0.256                               0.256    0.256
-    ##    .r2toilta          0.344                               0.344    0.344
-    ##    .r2shopa           0.172                               0.172    0.172
-    ##    .r2mealsa          0.207                               0.207    0.207
-    ##    .r2housewka        0.186                               0.186    0.186
-    ##    .r2chaira          0.446                               0.446    0.446
-    ##    .r2clim1a          0.257                               0.257    0.257
-    ##    .r2lifta           0.308                               0.308    0.308
-    ##    .r2hlthlm          0.305                               0.305    0.305
-    ##    .hlmact            0.417                               0.417    0.417
-    ##    .r2mapa            0.469                               0.469    0.469
-    ##    .r2phonea          0.458                               0.458    0.458
-    ##    .r2moneya          0.207                               0.207    0.207
-    ##    .r2medsa           0.305                               0.305    0.305
-    ##    .r2eata            0.186                               0.186    0.186
+    ##    .r2dressa          0.340                               0.340    0.340
+    ##    .r2walkra          0.196                               0.196    0.196
+    ##    .r2batha           0.266                               0.266    0.266
+    ##    .r2beda            0.301                               0.301    0.301
+    ##    .r2toilta          0.336                               0.336    0.336
+    ##    .r2shopa           0.185                               0.185    0.185
+    ##    .r2mealsa          0.174                               0.174    0.174
+    ##    .r2housewka        0.189                               0.189    0.189
+    ##    .r2chaira          0.469                               0.469    0.469
+    ##    .r2clim1a          0.284                               0.284    0.284
+    ##    .r2lifta           0.324                               0.324    0.324
+    ##    .r2hlthlm          0.225                               0.225    0.225
+    ##    .hlmact            0.182                               0.182    0.182
+    ##    .r2mapa            0.459                               0.459    0.459
+    ##    .r2phonea          0.470                               0.470    0.470
+    ##    .r2moneya          0.287                               0.287    0.287
+    ##    .r2medsa           0.348                               0.348    0.348
+    ##    .r2eata            0.110                               0.110    0.110
     ##     Lv1               1.000                               1.000    1.000
     ##     Lv2               1.000                               1.000    1.000
     ## 
     ## R-Square:
     ##                    Estimate
-    ##     r2dressa          0.693
-    ##     r2walkra          0.803
-    ##     r2batha           0.746
-    ##     r2beda            0.744
-    ##     r2toilta          0.656
-    ##     r2shopa           0.828
-    ##     r2mealsa          0.793
-    ##     r2housewka        0.814
-    ##     r2chaira          0.554
-    ##     r2clim1a          0.743
-    ##     r2lifta           0.692
-    ##     r2hlthlm          0.695
-    ##     hlmact            0.583
-    ##     r2mapa            0.531
-    ##     r2phonea          0.542
-    ##     r2moneya          0.793
-    ##     r2medsa           0.695
-    ##     r2eata            0.814
+    ##     r2dressa          0.660
+    ##     r2walkra          0.804
+    ##     r2batha           0.734
+    ##     r2beda            0.699
+    ##     r2toilta          0.664
+    ##     r2shopa           0.815
+    ##     r2mealsa          0.826
+    ##     r2housewka        0.811
+    ##     r2chaira          0.531
+    ##     r2clim1a          0.716
+    ##     r2lifta           0.676
+    ##     r2hlthlm          0.775
+    ##     hlmact            0.818
+    ##     r2mapa            0.541
+    ##     r2phonea          0.530
+    ##     r2moneya          0.713
+    ##     r2medsa           0.652
+    ##     r2eata            0.890
 
 ``` r
 #######################################################
@@ -1196,9 +1194,9 @@ a1
     ##     robust test that should be reported per model. A robust difference
     ##     test is a function of two standard (not robust) statistics.
     ##  
-    ##                     Df AIC BIC  Chisq Chisq diff Df diff Pr(>Chisq)    
-    ## ALL.two.factor.Fit 134         480.10                                  
-    ## ALL.one.factor.Fit 135         782.72     297.22       1  < 2.2e-16 ***
+    ##                     Df AIC BIC   Chisq Chisq diff Df diff Pr(>Chisq)    
+    ## ALL.two.factor.Fit 134          904.93                                  
+    ## ALL.one.factor.Fit 135         1213.20     298.01       1  < 2.2e-16 ***
     ## ---
     ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1305,23 +1303,23 @@ res.efa2 %>% loadings()
     ## 
     ## Loadings:
     ##            GLS1 
-    ## r2dressa   0.824
-    ## r2walkra   0.915
-    ## r2batha    0.882
-    ## r2beda     0.855
-    ## r2toilta   0.843
-    ## r2shopa    0.894
-    ## r2mealsa   0.851
-    ## r2housewka 0.916
-    ## r2hlthlm   0.791
-    ## hlmact     0.738
-    ## r2chaira   0.763
-    ## r2clim1a   0.859
-    ## r2lifta    0.823
+    ## r2dressa   0.836
+    ## r2walkra   0.903
+    ## r2batha    0.884
+    ## r2beda     0.872
+    ## r2toilta   0.844
+    ## r2shopa    0.902
+    ## r2mealsa   0.838
+    ## r2housewka 0.915
+    ## r2hlthlm   0.815
+    ## hlmact     0.839
+    ## r2chaira   0.776
+    ## r2clim1a   0.868
+    ## r2lifta    0.831
     ## 
     ##                 GLS1
-    ## SS loadings    9.265
-    ## Proportion Var 0.713
+    ## SS loadings    9.537
+    ## Proportion Var 0.734
 
 ##### Balancing the measure
 
@@ -1381,48 +1379,48 @@ summary(One.factor.Fit, fit.measures = T)
     ##   Optimization method                           NLMINB
     ##   Number of model parameters                        16
     ## 
-    ##   Number of observations                          4424
+    ##   Number of observations                          4499
     ## 
     ## Model Test User Model:
     ##                                               Standard      Scaled
-    ##   Test Statistic                                30.994      52.104
+    ##   Test Statistic                                48.512      82.289
     ##   Degrees of freedom                                20          20
-    ##   P-value (Chi-square)                           0.055       0.000
-    ##   Scaling correction factor                                  0.595
+    ##   P-value (Chi-square)                           0.000       0.000
+    ##   Scaling correction factor                                  0.590
     ##     Satorra-Bentler correction                                    
     ## 
     ## Model Test Baseline Model:
     ## 
-    ##   Test statistic                             38383.911   38383.911
+    ##   Test statistic                             39514.622   39514.622
     ##   Degrees of freedom                                28          28
     ##   P-value                                        0.000       0.000
     ##   Scaling correction factor                                  1.000
     ## 
     ## User Model versus Baseline Model:
     ## 
-    ##   Comparative Fit Index (CFI)                    1.000       0.999
-    ##   Tucker-Lewis Index (TLI)                       1.000       0.999
+    ##   Comparative Fit Index (CFI)                    0.999       0.998
+    ##   Tucker-Lewis Index (TLI)                       0.999       0.998
     ##                                                                   
-    ##   Robust Comparative Fit Index (CFI)                         0.976
-    ##   Robust Tucker-Lewis Index (TLI)                            0.966
+    ##   Robust Comparative Fit Index (CFI)                         0.958
+    ##   Robust Tucker-Lewis Index (TLI)                            0.942
     ## 
     ## Root Mean Square Error of Approximation:
     ## 
-    ##   RMSEA                                          0.011       0.019
-    ##   90 Percent confidence interval - lower         0.000       0.011
-    ##   90 Percent confidence interval - upper         0.018       0.027
+    ##   RMSEA                                          0.018       0.026
+    ##   90 Percent confidence interval - lower         0.011       0.019
+    ##   90 Percent confidence interval - upper         0.024       0.034
     ##   P-value H_0: RMSEA <= 0.050                    1.000       1.000
     ##   P-value H_0: RMSEA >= 0.080                    0.000       0.000
     ##                                                                   
-    ##   Robust RMSEA                                               0.102
-    ##   90 Percent confidence interval - lower                     0.071
-    ##   90 Percent confidence interval - upper                     0.134
-    ##   P-value H_0: Robust RMSEA <= 0.050                         0.005
-    ##   P-value H_0: Robust RMSEA >= 0.080                         0.882
+    ##   Robust RMSEA                                               0.134
+    ##   90 Percent confidence interval - lower                     0.105
+    ##   90 Percent confidence interval - upper                     0.165
+    ##   P-value H_0: Robust RMSEA <= 0.050                         0.000
+    ##   P-value H_0: Robust RMSEA >= 0.080                         0.998
     ## 
     ## Standardized Root Mean Square Residual:
     ## 
-    ##   SRMR                                           0.022       0.022
+    ##   SRMR                                           0.027       0.027
     ## 
     ## Parameter Estimates:
     ## 
@@ -1434,36 +1432,36 @@ summary(One.factor.Fit, fit.measures = T)
     ## Latent Variables:
     ##                    Estimate  Std.Err  z-value  P(>|z|)
     ##   Lv1 =~                                              
-    ##     r2shopa           0.921    0.010   93.261    0.000
-    ##     r2housewka        0.911    0.010   94.626    0.000
-    ##     r2walkra          0.903    0.015   59.774    0.000
-    ##     r2mealsa          0.882    0.015   60.730    0.000
-    ##     r2clim1a          0.862    0.012   74.693    0.000
-    ##     r2lifta           0.846    0.011   74.489    0.000
-    ##     r2beda            0.822    0.017   47.631    0.000
-    ##     r2hlthlm          0.820    0.012   66.093    0.000
+    ##     r2shopa           0.919    0.009   97.483    0.000
+    ##     r2housewka        0.920    0.008  108.550    0.000
+    ##     r2walkra          0.903    0.017   54.447    0.000
+    ##     r2mealsa          0.905    0.013   70.635    0.000
+    ##     r2clim1a          0.862    0.011   77.271    0.000
+    ##     r2lifta           0.844    0.011   74.173    0.000
+    ##     r2beda            0.798    0.018   44.957    0.000
+    ##     r2hlthlm          0.791    0.014   58.319    0.000
     ## 
     ## Thresholds:
     ##                    Estimate  Std.Err  z-value  P(>|z|)
-    ##     r2shopa|t1        1.312    0.026   50.264    0.000
-    ##     r2housewka|t1     0.985    0.023   43.634    0.000
-    ##     r2walkra|t1       1.826    0.036   50.519    0.000
-    ##     r2mealsa|t1       1.688    0.033   51.590    0.000
-    ##     r2clim1a|t1       1.031    0.023   44.874    0.000
-    ##     r2lifta|t1        0.671    0.020   32.775    0.000
-    ##     r2beda|t1         1.548    0.030   51.859    0.000
-    ##     r2hlthlm|t1       0.450    0.020   23.035    0.000
+    ##     r2shopa|t1        1.293    0.026   50.436    0.000
+    ##     r2housewka|t1     0.952    0.022   43.054    0.000
+    ##     r2walkra|t1       1.843    0.036   50.764    0.000
+    ##     r2mealsa|t1       1.667    0.032   52.125    0.000
+    ##     r2clim1a|t1       1.031    0.023   45.237    0.000
+    ##     r2lifta|t1        0.636    0.020   31.612    0.000
+    ##     r2beda|t1         1.534    0.029   52.275    0.000
+    ##     r2hlthlm|t1       0.426    0.019   22.036    0.000
     ## 
     ## Variances:
     ##                    Estimate  Std.Err  z-value  P(>|z|)
-    ##    .r2shopa           0.153                           
-    ##    .r2housewka        0.171                           
+    ##    .r2shopa           0.156                           
+    ##    .r2housewka        0.153                           
     ##    .r2walkra          0.185                           
-    ##    .r2mealsa          0.221                           
+    ##    .r2mealsa          0.181                           
     ##    .r2clim1a          0.257                           
-    ##    .r2lifta           0.285                           
-    ##    .r2beda            0.324                           
-    ##    .r2hlthlm          0.327                           
+    ##    .r2lifta           0.288                           
+    ##    .r2beda            0.363                           
+    ##    .r2hlthlm          0.374                           
     ##     Lv1               1.000
 
 ``` r
@@ -1487,14 +1485,14 @@ thresholds[order(thresholds,decreasing = T),] %>% as.matrix()
 ```
 
     ##                    [,1]
-    ## r2walkra|t1   1.8262545
-    ## r2mealsa|t1   1.6884751
-    ## r2beda|t1     1.5480536
-    ## r2shopa|t1    1.3122929
-    ## r2clim1a|t1   1.0312124
-    ## r2housewka|t1 0.9850630
-    ## r2lifta|t1    0.6709374
-    ## r2hlthlm|t1   0.4504988
+    ## r2walkra|t1   1.8428709
+    ## r2mealsa|t1   1.6666863
+    ## r2beda|t1     1.5344595
+    ## r2shopa|t1    1.2929060
+    ## r2clim1a|t1   1.0305883
+    ## r2housewka|t1 0.9522609
+    ## r2lifta|t1    0.6363305
+    ## r2hlthlm|t1   0.4256386
 
 Residuals correlations
 

@@ -465,11 +465,15 @@ print(itemplot(mod2, 2, main = "r2housewka"))
 
 
 
+itemtype <- c(rep('2PL',7), 'spline')
+mod2 <- mirt(sc_df[-1], 1, itemtype=itemtype, TOL=2e-4)
+
+print(itemplot(mod2, 2, main = "r2hlthlm"))
 
 
 ```
 
-There is no suggestion of pattern departure for r2housewka.
+There is no suggestion of pattern departure for r2housewka or r2hlthlm.
 
 
 # Fscore distributions
