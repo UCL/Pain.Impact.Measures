@@ -52,6 +52,19 @@ In summary, both ML and EAP should not be used when the respondents that we expe
     Luo, Y., & Dimitrov, D. M. (2019). A short note on obtaining point estimates of the IRT ability parameter with MCMC estimation in Mplus: How many plausible values are needed?. Educational and Psychological Measurement, 79(2), 272-287.
     Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. Psychometrika, 54(3), 427-450.
      
+# Number of Items and Sample size
+
+In dichotomous IRT models, both sample size and test lenght (i.e. n. of items selected)
+can influence the accuracy of item-paramenter estimation, and they do so differently in 
+1PL, 2PL and 3PL models (Baur & Lukes 2009). In general, the estimation of item parameters tends to be proportionally more biased in smaller samples (N <500) (Finch & French 2019). In addition, shorter tests require a much larger sample to reduce the bias in the estimation of item paramenters - e.g. Baur & Lukes (2009) suggest a minimum of 500 individuals to estimate a 2PL model with 15 items. 
+
+However, sample size cannot compensate for the sparcity of information determined by a short test.  Baur & Lukes (2009) showed that given a sample of N=5000, the correlation between the IRT model estimate of $\theta$ and the "true" ability was above r=.85 with a 15 item test, it was close to r=.85 with 10 items, and r=.74 with 5 items. Other, helpful tables on this topic can be consulted on this paper by Sahin & Anil (2017).
+
+
+    Şahin, A., & Anıl, D. (2017). The effects of test length and sample size on item parameters in item response theory. Educational Sciences: Theory & Practice, 17(1).
+    Baur, T., & Lukes, D. (2009). An evaluation of the IRT models through Monte Carlo simulation. UW-L Journal of Undergraduate Research, 12(1-7).
+    Finch, H., & French, B. F. (2019). A comparison of estimation techniques for IRT models with small samples. Applied Measurement in Education, 32(2), 77-96.
+
 # Assumption Checks
 
 IRT models have three basic assumptions.
