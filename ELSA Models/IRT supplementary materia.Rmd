@@ -492,7 +492,7 @@ There is no suggestion of pattern departure for r2housewka or r2hlthlm.
 # Fscore distributions
 
 The fscores() function is extracting the estimated latent trait scores (factor scores) 
-for each respondent from the fitted IRT model stored in the sc.1pl.fit object.
+for each respondent from the fitted IRT model stored in the sc.2pl.fit object.
 
 ```{r}
 # Extract latent trait scores into a dataframe for charting
