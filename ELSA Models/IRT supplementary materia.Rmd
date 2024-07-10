@@ -491,6 +491,21 @@ There is no suggestion of pattern departure for r2housewka or r2hlthlm.
 
 # Fscore distributions
 
+## Range of theta (F-score)
+
+The range of $\theta$ values derived with the IRT model is population dependent. $\theta$ values here are standardised to have a mean of zero and standard deviation of one. However, these values must be interpreted within the context of the population data from which they are drawn. 
+
+As this is a secondary dataset it very imporant to describe sampling methods and thus to say how participants were selected, what were the inclusion/exclusion criteria, and report the demographic characteristics available of the sample.
+
+This information is important for the interpretation of the $\theta$ values (Fscores). In fact as the IRT model will standardise $\theta$ on the basis of the observed sample, it is important to know the charateristic of the considered sample to a) better interpret the  psychometric characteristic of our measurement model, and b) interpret the observed $\theta$ values.
+
+Secondly, it is important to make explicit what is the target population (e.g. general population of England that is 50yo or older), how well the target population is represented by the sample at hand. For example: 
+
+* Geographical area: does the sample include respondents from different areas of the country or are they from a local area? 
+* Demographics: how representative are the demographics characteristics of respondents to those of the target population?
+
+
+## extracting Fscores
 The fscores() function is extracting the estimated latent trait scores (factor scores) 
 for each respondent from the fitted IRT model stored in the sc.2pl.fit object.
 
