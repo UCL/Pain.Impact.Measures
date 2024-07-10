@@ -552,8 +552,8 @@ Rotations considered:
 -   promax
 -   varimax
 
-The two factors are ected to be correlated. The correlation
-assumption is lored via the application of two rotation methods:
+The two factors are expected to be correlated. The correlation
+assumption is explored via the application of two rotation methods:
 oblique and orthogonal.
 
 1.  Correlated factors assumption (oblique rotation)
