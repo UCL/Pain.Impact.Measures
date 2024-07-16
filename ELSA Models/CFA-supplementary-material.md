@@ -1,7 +1,7 @@
 Measuring impact of pain in aging population using existing items in
 ELSA
 ================
-04 Jul 2024
+16 Jul 2024
 
 - [INTRODUCTION](#introduction)
   - [AIM](#aim)
@@ -41,6 +41,7 @@ ELSA
     solution](#goal-2-achieving-a-one-factor-solution)
     - [Removing items](#removing-items)
 - [CONCLUSION](#conclusion)
+- [References](#references)
 
 # INTRODUCTION
 
@@ -68,8 +69,8 @@ The goas of this analysis are:
 H_elsa_all<-read.csv("c:/Users/d.vitali/Desktop/Github/CRIISP-WP5/data/clean/H_w1_9_ALL.tab")
 ```
 
-This dataframe includes Harmonized ELSA data from all waves of ELSA
-(harmonised g2 dataset).
+This dataframe includes Harmonized ELSA data ([Banks et
+al. 2024](#references)) from all waves of ELSA (harmonised g2 dataset).
 
 For the purpose of this analysis I will focus on Wave 2 data because
 this wave is the first implementing one of the key variables that are
@@ -110,7 +111,8 @@ Variable names in the Harmonized ELSA Data follow a consistent pattern
 
 In this wave one there are 3 identified cohorts:
 
-1.  original HSE sample (HSE 1998-2001)
+1.  original HSE sample (HSE 1998-2001) (see [Mindell et
+    al. 2012](#references))
 2.  partner of an original sample respondent
 3.  young partner of an original sample respondent
 
@@ -273,6 +275,16 @@ work)
 
 ### ADL+IADL items in ELSA
 
+The ADL ([Katz 1963](#references))refers to activities that are
+fundamental to living in a social world as they describe ways in which
+an individual enables oneself’s basic survival and well-being, such as
+bathing, toileting, dressing and eating.
+
+The IADL ([Lawton and Brody 1969](#references)) refers to activities to
+support daily life at home and outside in the community. These activity
+require more complex skills and more complex interactions than those
+described in the ADLs.
+
 In H.ELSA the ADL and AIDL items and three additional mobility-focused
 items. All items are of type “dichotomous” and they are scored as 1 if
 the respondent indicates a difficulty with a particular activity, or as
@@ -368,7 +380,7 @@ Combining:
 ### Construct dimensionality
 
 Construct dimensionality will be assess via Parallel Analysis (PA) and
-EFA. The factor structure emerging from these lorative analysis will
+EFA. The factor structure emerging from these explorative analysis will
 then be submitted for CFA for further empirical validation of the
 solutions proposed.
 
@@ -397,16 +409,17 @@ data tends to 1.
 
 #### Correlation matrix
 
-Spector and Fleishman (1998) have pointed out that using pearson
-correlation coefficients have been shown to suffer greatly in the
-presence of skew data (Muthen 1988). This is not uncommon in the
-literature and one example of PCA using a person correlation matrix is
-found in Kempen et al (1995). In the current analysis, I used
-tetrachoric correlations (Spector & Fleishman, 1998). Tetrachoric
-correlations assume that observed dichotomous variables represent
-unobserved (latent) continuous variables with a bivariate normal
-distribution; the tetrachoric correlation estimates the relationship
-between these latent continuous variables.
+[Spector and Fleishman (1998)](#references) have pointed out that using
+pearson correlation coefficients have been shown to suffer greatly in
+the presence of skew data ([Muthen 1988](#references)). This is not
+uncommon in the literature and one example of PCA using a person
+correlation matrix is found in [Kempen et al (1995)](#references). In
+the current analysis, I used tetrachoric correlations ([Spector &
+Fleishman, 1998](#references)). Tetrachoric correlations assume that
+observed dichotomous variables represent unobserved (latent) continuous
+variables with a bivariate normal distribution; the tetrachoric
+correlation estimates the relationship between these latent continuous
+variables.
 
 ### EFA
 
@@ -419,14 +432,15 @@ be used for CFA.
 #### Estimator
 
 With regards to the estimator, some (although dated) suggestions point
-to generalized least squares estimation procedure (Spector & Fleishman,
-1998; Muthen, 1978, 1988). The choice for the GLS estimator comes from
-Fleishman (1998) and Muthen (1978, 1988). Arguably ML estimation is a
-more appropriate and accurate method for factor analysis with binary
-data than other methods, such as PCA or PAF, because it makes fewer
-assumptions about the distribution of the data. More recent
-methodological papers suggest WLSM (mean adj weighted least square - see
-e.g. mplus) which do not assume a particular distribution.
+to generalized least squares estimation procedure [Spector & Fleishman,
+1998; Muthen, 1978, 1988](#references). The choice for the GLS estimator
+comes from [Fleishman (1998)](#references) and [Muthen (1978,
+1988)](#references). Arguably ML estimation is a more appropriate and
+accurate method for factor analysis with binary data than other methods,
+such as PCA or PAF, because it makes fewer assumptions about the
+distribution of the data. More recent methodological papers suggest WLSM
+(mean adj weighted least square - see e.g. mplus) which do not assume a
+particular distribution.
 
 #### Tetra- vs Polychoric correlations
 
@@ -450,10 +464,6 @@ to departures from normality and can provide more accurate estimates of
 the correlation matrix when the binary variables have few categories
 and/or are highly skewed.
 
-    SPECTOR, W. D. and FLEISHMAN, J. A. (1998). Combining activities of daily living with instrumental activities of daily living to measure functional disability. J. Gerontology: Social Sciences 
-    Muthén, B. (1978). Contributions to factor analysis of dichotomous variables. Psychometrika, 43(4), 551-560.
-    Muthén, B., & Hofacker, C. (1988). Testing the assumptions underlying tetrachoric correlations. Psychometrika, 53, 563-577.
-
 #### Rotations
 
 Rotations considered:
@@ -461,9 +471,9 @@ Rotations considered:
 - promax
 - varimax
 
-The two factors are ected to be correlated. The correlation assumption
-is lored via the application of two rotation methods: oblique and
-orthogonal.
+The two factors are expected to be correlated. The correlation
+assumption is explored via the application of two rotation methods:
+oblique and orthogonal.
 
 1.  Correlated factors assumption (oblique rotation)
     - Promax rotation is a popular approach with large datasets - could
@@ -476,8 +486,8 @@ Promax and oblimin rotations are expected to yield a clearer factor
 solution here than Varimax which assumes orthogonality between the
 latent factors.
 
-Thurstone’s (1947) five criteria for the “simple” solution were used to
-select the rotation method
+[Thurstone’s (1947)](#references) five criteria for the “simple”
+solution were used to select the rotation method
 
 1.  Each variable should produce at least one zero loading
     (-.1\<$\lambda$\<.1) on some factor.
@@ -494,8 +504,6 @@ We can think of the goal of rotation and of choosing a particular type
 of rotation as seeking something called simple structure. That is, the
 rotation is adequate if the result achieves a simple structure.
 
-    Thurstone, L. L. (1947). Multiple-factor analysis; A development and expansion of The vectors of the mind. Chicago, IL: University of Chicago Press.
-
 ### CFA
 
 #### Sample
@@ -505,9 +513,9 @@ The remaining 1/2 of the N= 9032, randomly selected.
 #### Estimator
 
 WLSM (mean adj weighted least square - see e.g. mplus) which do not
-assume a particular distribution. This method imply the Diagonalised
-weighted least square estimator, have robust standard errors and a mean
-adjusted $\chi^2$ statistic.
+assume a particular distribution [Newsom 2023](#references). This method
+imply the Diagonalised weighted least square estimator, have robust
+standard errors and a mean adjusted $\chi^2$ statistic.
 
 #### Items selection
 
@@ -571,29 +579,25 @@ carry significant DIF bias and intrinsic limitations with regards to
 what they measure. As an example of intrinsic limitations, ADL items
 cannot discriminate below higher levels of functional disability thereby
 making it difficult to use the ADL items alone in populations where the
-prevalence of severe levels of disability tends to be low (Kovar and
-Lawton 1994).
+prevalence of severe levels of disability tends to be low ([Kovar and
+Lawton 1994](#references)).
 
 On the other hand, when considering ADL+IADL as a single scale, it is
 important to observe that the simple aggregation of these indicators in
 a deterministic model (e.g. Guttman’s model) implies the untenable
-assumption of the equivalence of each item’s importance (Thomas et al
-1998, Fieo 2011). Some researchers have suggested that rather than using
-a deterministic model it is perhaps better to assume a probabilistic
-relationship between the item responses and the concept these aim to
-represent (Kempen et al 1995). Recent work by Caballero et al. (2017)
-have showed that it is possible to create a compound health metric in
-ELSA that can be used to quantify and study the health status of
-individuals overtime using a probabilistic model. In addition, and most
-relevantly for the larger study in which the present is nested,
-Caballero et al have showed that Machine Learning methods can be applied
-to identify relationships between socio-demographics and the health
-score created.
-
-    Caballero, F. F., Soulis, G., Engchuan, W., Sánchez-Niubó, A., Arndt, H., Ayuso-Mateos, J. L., ... & Panagiotakos, D. B. (2017). Advanced analytical methodologies for measuring healthy ageing and its determinants, using factor analysis and machine learning techniques: the ATHLOS project. Scientific reports, 7(1), 43955.
-    Fieo, R. A., Austin, E. J., Starr, J. M., & Deary, I. J. (2011). Calibrating ADL-IADL scales to improve measurement accuracy and to extend the disability construct into the preclinical range: a systematic review. BMC geriatrics, 11, 1-15.
-    Kempen, G. I. J. M., Myers, A. M., & Powell, L. E. (1995). Hierarchical structure in ADL and IADL: analytical assumptions and applications for clinicians and researchers. Journal of clinical epidemiology, 48(11), 1299-1305.
-    Thomas, V. S., Rockwood, K., & McDowell, I. (1998). Multidimensionality in instrumental and basic activities of daily living. Journal of clinical epidemiology, 51(4), 315-321.
+assumption of the equivalence of each item’s importance ([Thomas et al
+1998, Fieo 2011](#references)). Some researchers have suggested that
+rather than using a deterministic model it is perhaps better to assume a
+probabilistic relationship between the item responses and the concept
+these aim to represent ([Kempen et al 1995](#references)). Recent work
+by [Caballero et al. (2017)](#references) have showed that it is
+possible to create a compound health metric in ELSA that can be used to
+quantify and study the health status of individuals overtime using a
+probabilistic model. In addition, and most relevantly for the larger
+study in which the present is nested, [Caballero et
+al. (2017)](#references) showed that Machine Learning methods can be
+applied to identify relationships between socio-demographics and the
+health score created.
 
 ### Correlation matrix
 
@@ -696,9 +700,10 @@ observed in previous studies.
 
 To confirm this, an EFA was conducted for the two-factor solution
 suggested by Parallel analysis. Generalised Least Square (GLS) estimator
-was suggested by Fleishman (1998) and Muthen (1978, 1988) but more
-recent methodological papers suggest WLSM (mean adj weighted least
-square - see e.g. mplus) which do not assume a particular distribution.
+was suggested by [Spector & Fleishman (1998)](#references) and [Muthen
+(1978, 1988)](#references) but more recent methodological papers suggest
+WLSM (mean adj weighted least square - see e.g. mplus) which do not
+assume a particular distribution.
 
 - Using WLSM as a factoring method
 
@@ -734,10 +739,6 @@ of factors.
 This correction is generally appropriate when conducting factor analysis
 on correlated variables which is the assumption here.
 
-    SPECTOR, W. D. and FLEISHMAN, J. A. (1998). Combining activities of daily living with instrumental activities of daily living to measure functional disability. J. Gerontology: Social Sciences 
-    Muthén, B. (1978). Contributions to factor analysis of dichotomous variables. Psychometrika, 43(4), 551-560.
-    Muthén, B., & Hofacker, C. (1988). Testing the assumptions underlying tetrachoric correlations. Psychometrika, 53, 563-577.
-
 ![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 *Note that in oblique rotations like promax, loadings are regression
@@ -760,11 +761,10 @@ free parameters.
 Diagonally weighted least squares (WLSMV) is specifically designed for
 ordinal data.
 
-Kline (2016) suggests to inspect residuals (type = “correlation”) to
-identify residuals \> \|.10\|. Such residuals indicate a likely
-specification error and could inform a decision to respecify a model\*.
-
-    See chapter 11 in Kline, R. B. (2016). Principles and practice of structural equation modeling (4th ed.). Guilford Press.
+[Kline (2016)](#referecens) suggests to inspect residuals (type =
+“correlation”) to identify residuals \> \|.10\| (chapter 4). Such
+residuals indicate a likely specification error and could inform a
+decision to respecify a model\*.
 
 ##### One factor solution
 
@@ -1540,3 +1540,50 @@ LV_items.irt<-H_elsa_w2_[list]
 
 write.csv(LV_items.irt,"C:/Users/d.vitali/Desktop/Github/CRIISP-WP5/data/clean/cfa_w2_all")
 ```
+
+# References
+
+- Banks, J., Marmot, M., Blundell, R., Lessof, C., & Nazroo, J. (2003).
+  Health, wealth and lifestyles of the older population in England: the
+  2002 English Longitudinal Study of Ageing. In. Institute for Fiscal
+  Studies.
+- Caballero, F. F., Soulis, G., Engchuan, W., Sánchez-Niubó, A., Arndt,
+  H., Ayuso-Mateos, J. L., … & Panagiotakos, D. B. (2017). Advanced
+  analytical methodologies for measuring healthy ageing and its
+  determinants, using factor analysis and machine learning techniques:
+  the ATHLOS project. Scientific reports, 7(1), 43955.
+- Fieo, R. A., Austin, E. J., Starr, J. M., & Deary, I. J. (2011).
+  Calibrating ADL-IADL scales to improve measurement accuracy and to
+  extend the disability construct into the preclinical range: a
+  systematic review. BMC geriatrics, 11, 1-15.
+- Katz, S. (1963). The index of ADL: a standardized measure of
+  biological and psychosocial function. J Am Med Assoc, 185, 914-919.
+- Kempen, G. I. J. M., Myers, A. M., & Powell, L. E. (1995).
+  Hierarchical structure in ADL and IADL: analytical assumptions and
+  applications for clinicians and researchers. Journal of clinical
+  epidemiology, 48(11), 1299-1305.
+- Kline, R. B. (2023). Principles and practice of structural equation
+  modeling. Guilford publications.
+- Kovar, M. G., & Powell Lawton, M. (1994). Functional disability:
+  activities and instrumental activities of daily living. Annual review
+  of gerontology and geriatrics, 14, 57-57.
+- Lawton MP, Brody EM. Assessment of older people: Self-maintaining and
+  instrumental activities of daily living. Gerontologist.
+  1969;9(3):179–86.
+- Mindell, J., Biddulph, J. P., Hirani, V., Stamatakis, E., Craig, R.,
+  Nunn, S., & Shelton, N. (2012). Cohort profile: the health survey for
+  England. International journal of epidemiology, 41(6), 1585-1593.
+- Muthén, B. (1978). Contributions to factor analysis of dichotomous
+  variables. Psychometrika, 43(4), 551-560.
+- Muthén, B., & Hofacker, C. (1988). Testing the assumptions underlying
+  tetrachoric correlations. Psychometrika, 53, 563-577.
+- Newsom, J. (2023) Structural equation modelling
+- Spector, W. D. and Fleishman, J. A. (1998). Combining activities of
+  daily living with instrumental activities of daily living to measure
+  functional disability. J. Gerontology: Social Sciences
+- Thomas, V. S., Rockwood, K., & McDowell, I. (1998).
+  Multidimensionality in instrumental and basic activities of daily
+  living. Journal of clinical epidemiology, 51(4), 315-321.
+- Thurstone, L. L. (1947). Multiple-factor analysis; A development and
+  expansion of The vectors of the mind. Chicago, IL: University of
+  Chicago Press.
