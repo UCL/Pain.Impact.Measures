@@ -679,8 +679,23 @@ dataset. The number of factors to retain will be determined by comparing
 the actual eigenvalues to the mean and standard deviation of the
 eigenvalues generated from the bootstrap resampled datasets.
 
+\[ from the documentation of fa.parallel() in the R package “psych”\]
+
+*Parallel analysis for factors is actually harder than it seems, for the
+question is what are the appropriate communalities to use. If
+communalities are estimated by the Squared Multiple Correlation (SMC)
+smc, then the eigen values of the original data will reflect major as
+well as minor factors (see sim.minor to simulate such data). Random data
+will not, of course, have any structure and thus the number of factors
+will tend to be biased upwards by the presence of the minor factors.*
+
+Here we will use parallel with the option “fa” which estimates the
+communalities based upon a one factor minres solution. Although this
+will underestimate the communalities, it is suggested that leads to
+better solutions on simulated or real data sets.
+
 ``` r
-psych::fa.parallel(LV_items_ex[,-1],
+pa<-psych::fa.parallel(LV_items_ex[,-1],
                    main = "Parallel analysis round 1",
                    fa ="fa", 
                    fm = "gls", 
@@ -697,6 +712,8 @@ psych::fa.parallel(LV_items_ex[,-1],
 Parallel analysis confirms the suggestion of a two factor solution as
 well as the ected eigenvalue for the second factor close to 1 as
 observed in previous studies.
+
+#### EFA
 
 To confirm this, an EFA was conducted for the two-factor solution
 suggested by Parallel analysis. Generalised Least Square (GLS) estimator
@@ -1269,7 +1286,7 @@ standard deviation of the simulated eigenvalues generated from the
 bootstrap resampled datasets.
 
 ``` r
-psych::fa.parallel(LV_items_ex2[,-1],
+pa<-psych::fa.parallel(LV_items_ex2[,-1],
                    main = "Parallel analysis for EFA round 2",
                    fa ="fa", 
                    fm = "gls", 
