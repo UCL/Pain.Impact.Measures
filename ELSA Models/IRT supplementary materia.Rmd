@@ -22,14 +22,14 @@ par(ask = FALSE) # don't ask before updating plot
 ```
 
 # Introduction
-The 1PL model, also known as the One-Parameter Logistic Model or the Rasch model, is a widely used item response theory (IRT) model. It assumes that the probability of a correct response ($X_{is} = 1$) to an item $i$ depends on a single parameter: the item difficulty ($\beta_i$).
+The 1PL model, also known as the One-Parameter Logistic Model or the Rasch model ([Rasch 1993](#references)), is a widely used item response theory (IRT) model. It assumes that the probability of a correct response ($X_{is} = 1$) to an item $i$ depends on a single parameter: the item difficulty ($\beta_i$).
 
 
 $$P(X_{is} = 1|\theta_s, \beta_i) = \frac{e^{(\theta_s-\beta_i)}}{1+ e^{(\theta_s-\beta_i)}}$$
 *Item Difficulty* ($\beta_i$)  represents the location on the latent trait continuum where the probability of a correct response to item $i$ is 0.50 (Difficulty is usually expressed on a logit scale). $\theta_s$ represents the latent trait level of a given subject $s$, $X_{is} = 1$ referst to the observed endorsement of an item. 
 
 
-The 2PL (Two-Parameter Logistic) model, like the Rasch model, is a commonly used IRT model for analyzing item responses in psychometric measurement. In the 2PL model we relax the restriction on the $\alpha_i$ parameter which was fixed to 1 in the Rasch model.
+The 2PL (Two-Parameter Logistic) model, like the Rasch model, is a commonly used IRT model for analyzing item responses in psychometric measurement ([Paek and Cole 2019](#references)). In the 2PL model we relax the restriction on the $\alpha_i$ parameter which was fixed to 1 in the Rasch model.
 
 $$P(X_{is} = 1|\theta_s, \beta_i, \alpha_i) = \frac{e^{(\alpha_i(\theta_s-\beta_i))}}{1+ e^{(\alpha_i((\theta_s-\beta_i))}}$$
 
@@ -39,35 +39,25 @@ The *discrimination parameter* $\alpha_i$ dictates how the item $i$ can differen
 
 In this pipeline we calculate fscores using the EAP (Expected a posteriori with item-pattern scoring) as an excellent alternative (in some case superior) to Maximum Likelyhood estimation (ML). In this particular case ML imposes significant limitations because it cannot provide estimates for respondents with an "all-zero" or with an "all-one" score pattern, which is often the case for the chosen variables.
 
-Alternative estimators to ML are Weighted maximum likelyhood (WLE), and two Bayesian estimator EAP (default in mirt) and MAP. Both EAP and MAP consider that the posterior distribution of the latent trait $\theta$ is defined as the product of the likelihood function and the prior $\theta$ distribution (in this case there is no observed prior, therefore the prior is assumed as following normal distribution).  The mean of the posterior distribution is represented by the latent trait value $\theta$ when we use "EAP", whereas $\theta$ the mode of the posterior distribution when the estimator is "MAP" (Kim, Moses, Yoo 2015). However, some studies showed that EAP can inflate the estimate patterns at the extreme ends of the patterns (e.g. when all items are endorsed or when none are endorsed), and this bias can be more prominent when the number of items is relatively small e.g. less than 20 (lee 2009). The bias of the EAP estimator is approximately the same as that of regressed estimates for the same reliabilities and at the same ability levels (Bock & Mislevy 1982).
+Alternative estimators to ML are Weighted maximum likelyhood (WLE), and two Bayesian estimator EAP (default in mirt) and MAP  ([Embretson & Reise, 2000](#references)). Both EAP and MAP consider that the posterior distribution of the latent trait $\theta$ is defined as the product of the likelihood function and the prior $\theta$ distribution (in this case there is no observed prior, therefore the prior is assumed as following normal distribution).  The mean of the of a certain number of plausible values (specified by the user) drawn from the posterior distribution represented the latent trait value $\theta$ when we use "EAP" ([Luo & Dimitrov 2019](#references)), whereas $\theta$ the mode of the posterior distribution when the estimator is "MAP" ([Kim, Moses, Yoo 2015](#references)). However, some studies showed that EAP can inflate the estimate patterns at the extreme ends of the patterns (e.g. when all items are endorsed or when none are endorsed), and this bias can be more prominent when the number of items is relatively small e.g. less than 20 ([Lee & Ban 2009](#references)). The bias of the EAP estimator is approximately the same as that of regressed estimates for the same reliabilities and at the same ability levels ([Bock & Mislevy 1982](#references)).
 
-In summary, both ML and EAP should not be used when the respondents that we expect to assess are likely to endorse all items at once, or exactly none of them. In these cases the value of $\theta$ is going to be severely biased. Warm (1989) proposed a weighted maximum likelihood (WML) estimator for use in tests of dichotomous items that was found to be marginally less biased than theand EAP estimators (Kim & Nicewander, 1993; Warm, 1989). In the present use case we are not interested in measuring with precision at the extreme ends of the response patterns and therefore it maybe carefully accepted a solution with estimates attained via EAP or MAP. In this case we must be aware that the discrimation of differences in severity is particularly poor at both the top and low end of the latent trait measurement. WML could be used here as alternative to ML and as a comparitive estiamtor to EAP/MAP.
+In summary, both ML and EAP should not be used when the respondents that we expect to assess are likely to endorse all items at once, or exactly none of them. In these cases the value of $\theta$ is going to be severely biased. [Warm (1989)](#references) proposed a weighted maximum likelihood (WML) estimator for use in tests of dichotomous items that was found to be marginally less biased than theand EAP estimators ([Kim & Nicewander, 1993; Warm, 1989](#references)). In the present use case we are not interested in measuring with precision at the extreme ends of the response patterns and therefore it maybe carefully accepted a solution with estimates attained via EAP or MAP. In this case we must be aware that the discrimation of differences in severity is particularly poor at both the top and low end of the latent trait measurement. WML could be used here as alternative to ML and as a comparitive estiamtor to EAP/MAP.
 
-
-     Bock, R. D., & Mislevy, R. J. (1982). Adaptive EAP estimation of ability in a microcomputer environment. Applied psychological measurement, 6(4), 431-444.
-     Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. Journal of Statistical Software, 48(6), 1-29. 
-    doi:10.18637/jss.v048.i06
-    Kim, S., Moses, T., & Yoo, H. H. (2015). Effectiveness of item response theory (IRT) proficiency estimation methods under adaptive multistage testing. ETS Research Report Series, 2015(1), 1-19.
-    Lee, W. C., & Ban, J. C. (2009). A comparison of IRT linking procedures. Applied measurement in education, 23(1), 23-48.
-    Luo, Y., & Dimitrov, D. M. (2019). A short note on obtaining point estimates of the IRT ability parameter with MCMC estimation in Mplus: How many plausible values are needed?. Educational and Psychological Measurement, 79(2), 272-287.
-    Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. Psychometrika, 54(3), 427-450.
+   
+    
      
 # Number of Items and Sample size
 
 In dichotomous IRT models, both sample size and test lenght (i.e. n. of items selected)
 can influence the accuracy of item-paramenter estimation, and they do so differently in 
-1PL, 2PL and 3PL models (Baur & Lukes 2009). In general, the estimation of item parameters tends to be proportionally more biased in smaller samples (N <500) (Finch & French 2019). In addition, shorter tests require a much larger sample to reduce the bias in the estimation of item paramenters - e.g. Baur & Lukes (2009) suggest a minimum of 500 individuals to estimate a 2PL model with 15 items. 
+1PL, 2PL and 3PL models ([Baur & Lukes 2009](#references)). In general, the estimation of item parameters tends to be proportionally more biased in smaller samples (N <500) ([Finch & French 2019](#references)). In addition, shorter tests require a much larger sample to reduce the bias in the estimation of item paramenters - e.g. [Baur & Lukes (2009)](#references) suggest a minimum of 500 individuals to estimate a 2PL model with 15 items. 
 
-However, sample size cannot compensate for the sparcity of information determined by a short test.  Baur & Lukes (2009) showed that given a sample of N=5000, the correlation between the IRT model estimate of $\theta$ and the "true" ability was above r=.85 with a 15 item test, it was close to r=.85 with 10 items, and r=.74 with 5 items. Other, helpful tables on this topic can be consulted on this paper by Sahin & Anil (2017).
+However, sample size cannot compensate for the sparcity of information determined by a short test. [Baur & Lukes (2009)](#references) showed that given a sample of N=5000, the correlation between the IRT model estimate of $\theta$ and the "true" ability was above r=.85 with a 15 item test, it was close to r=.85 with 10 items, and r=.74 with 5 items. Other, helpful tables on this topic can be consulted on this paper by [Sahin & Anil (2017)](#references).
 
-
-    Şahin, A., & Anıl, D. (2017). The effects of test length and sample size on item parameters in item response theory. Educational Sciences: Theory & Practice, 17(1).
-    Baur, T., & Lukes, D. (2009). An evaluation of the IRT models through Monte Carlo simulation. UW-L Journal of Undergraduate Research, 12(1-7).
-    Finch, H., & French, B. F. (2019). A comparison of estimation techniques for IRT models with small samples. Applied Measurement in Education, 32(2), 77-96.
 
 # Assumption Checks
 
-IRT models have three basic assumptions.
+IRT models have three basic assumptions  (Paek & Cole 2019):
 
 1. unidimensionality
 2. local independence
@@ -152,7 +142,7 @@ paste("Some item missing:",sum(rowSums(is.na(sc_df_NA[-1]))>0 & rowSums(is.na(sc
 
 [from imputemissing() doc]
 
-Given an estimated IRT model and an estimate of the latent trait (Fscores), we can impute plausible missing data values (Chalmers 2012).
+Given an estimated IRT model and an estimate of the latent trait (Fscores), we can impute plausible missing data values ([Chalmers 2012](#references)).
 
 After taking the fit of our 2PL model on the data as it is (i.e. with the missingness):
 
@@ -233,8 +223,7 @@ $$P(X_{is} = 1|\theta_s, \beta_i, \alpha_i) = \frac{e^{(\alpha_i(\theta_s-\beta_
 
 ## F-score or "Person latent trait Measure"
 
-this is the estimate of each person level of the latent variable $\theta$. The ability estimates (impact estimates) are under 
-column "F1" and their SE are in col SE_FI. Only the first few rows are printed
+this is the estimate of each person level of the latent variable $\theta$. The ability estimates (impact estimates) are under column "F1" and their SE are in col SE_FI. Only the first few rows are printed
 
 ```{r}
 
@@ -323,25 +312,24 @@ The output provides various fit statistics (M2, RMSEA, SRMSR, TLI, CFI) that ind
 .  df: The degrees of freedom (df) associated with the model fit.
 .  p: The p-value associated with the M2 statistic
 
-Hu and Bentler (1999) empirically examine various cutoffs for many of these measures, and their data suggest that to minimize Type I and Type II errors under various conditions, one should use a combination of one of the above relative fit indexes, such as the CFI or IFI, with values greater than approximately .95, in combination with the SRMR (good models < .08) or the RMSEA (good models < .06). (from Newsom 2023). RMSEA_5 and RMSEA_95: RMSEA_5 and RMSEA_95 represent respectively the lower and upper bound of the 90% confidence interval for RMSEA. TLI stands for Tucker-Lewis Index - this is relative and compare the chi-square for the model to a null model based on variables that are uncorrelated. CFI or Comparative Fit Index is a non-centrality fit parameter and uses a chi-square equal to the df for the model as having a perfect fit (as opposed to chi-square equal to 0 seen for TLI). RMSEA is another non centrality parameter.
+[Hu and Bentler (1999)](#references) empirically examine various cutoffs for many of these measures, and their data suggest that to minimize Type I and Type II errors under various conditions, one should use a combination of one of the above relative fit indexes, such as the CFI or IFI, with values greater than approximately .95, in combination with the SRMR (good models < .08) or the RMSEA (good models < .06). (from [Newsom 2023](#references)). RMSEA_5 and RMSEA_95: RMSEA_5 and RMSEA_95 represent respectively the lower and upper bound of the 90% confidence interval for RMSEA. TLI stands for Tucker-Lewis Index - this is relative and compare the chi-square for the model to a null model based on variables that are uncorrelated. CFI or Comparative Fit Index is a non-centrality fit parameter and uses a chi-square equal to the df for the model as having a perfect fit (as opposed to chi-square equal to 0 seen for TLI). RMSEA is another non centrality parameter.
 
 
- Hu and Bentler (1999) suggested that an RMSEA smaller than .06 and a CFI and TLI larger than .95 indicate relatively good model fit
+[Hu and Bentler (1999)](#references) suggested that an RMSEA smaller than .06 and a CFI and TLI larger than .95 indicate relatively good model fit
 
 
-    Hu, L., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives.
-    Yuan, K. H., Chan, W., Marcoulides, G. A., & Bentler, P. M. (2016). Assessing structural equation models by equivalence testing with adjusted fit
+    
 
-    Newsom, J. (2023) Structural equation modelling
+
 
 ## Item fit
 
-With itemfit() we can evaluate the goodness of fit at item level. The fit index is $S-X^2$, Orlando and Thissen (2000, 2003) and Kang and Chen's (2007) signed chi-squared test. S_X2 compares the observed and expected response patterns. Lower chi-squared S_X2 indicate better item fit. In the last columns we have chi-square "S_X2" bonferroni corrected p-values for type I error (alpha = .05. a non-significant p-value indicates good item fit, suggesting that the observed response patterns are consistent with the expected response patterns based on the IRT model. An item with large S_X2 and significat value may be endorsed by respondents in a way that does not fit the patterns identified by the model.
+With itemfit() we can evaluate the goodness of fit at item level. The fit index is $S-X^2$, [Orlando and Thissen (2000, 2003)](#references) and [Kang and Chen's (2007)](#references) signed chi-squared test. S_X2 compares the observed and expected response patterns. Lower chi-squared S_X2 indicate better item fit. In the last columns we have chi-square "S_X2" bonferroni corrected p-values for type I error (alpha = .05. a non-significant p-value indicates good item fit, suggesting that the observed response patterns are consistent with the expected response patterns based on the IRT model. An item with large S_X2 and significat value may be endorsed by respondents in a way that does not fit the patterns identified by the model.
 
 Items with lower S_X2 values and higher p.S_X2 values are considered to have better fit to the model. 
 
-    Orlando, M. & Thissen, D. (2000). Likelihood-based item fit indices for dichotomous item response theory models. Applied Psychological Measurement, 24, 50-64.
-    Kang, T. & Chen, Troy, T. (2007). An investigation of the performance of the generalized S-X2 item-fit index for polytomous IRT models. ACT
+    
+
 
 ```{r}
 mirt::itemfit(sc.2pl.fit)
@@ -354,10 +342,7 @@ mirt::itemfit(sc.2pl.fit)
 
 Person fit assess the fit of individual response patterns to the model. Better person fit statistics indicate that each respondent endorsed items using patterns that align with the IRT model's predictions. E.g. individuals with higher levels of pain impact (our latent trait) should appear as more likely to endorse the items that are endorsed by respondents with less degree of pain impact. Similarly, individuals with lower levels of pain impact should appear as unlikely to endorse items that are more specific to greater levels of pain impact. Therefore, by assessing person fit we look at individuals' responses and we expect thees to align with the model's expectations based on their estimated latent levels of the abilities.
 
-In Rash model, we can use fit statistics such as infit and outfit to assess person fit. In a 2PL model it is more helpful to look at "Zh" measure from Drasgow, Levine and Williams (1985) for unidimensional and multidimensional models. A |Zh| score greater than 3 may indicate the possibility of aberrant response patters (Paek and Cole 2019). Less relevant fot a 2PL model, infit and outfit values close to 1 indicate good person fit, while values significantly higher or lower than 1 suggest potential misfit.
-
-    Drasgow, F., Levine, M. V., & Williams, E. A. (1985). Appropriateness measurement with polychotomous item response models and standardized indices. British Journal of Mathematical and Statistical Psychology, 38, 67-86.
-    Paek, I., & Cole, K. (2019). Using R for item response theory model applications. Routledge.
+In Rash model, we can use fit statistics such as infit and outfit to assess person fit. In a 2PL model it is more helpful to look at "Zh" measure from [Drasgow, Levine and Williams (1985)](#references) for unidimensional and multidimensional models. A |Zh| score greater than 3 may indicate the possibility of aberrant response patters ([Paek and Cole 2019](#references)). Less relevant fot a 2PL model, infit and outfit values close to 1 indicate good person fit, while values significantly higher or lower than 1 suggest potential misfit.
 
 
 ### Zh values
@@ -414,7 +399,7 @@ prop_misfit %>% round(2)
 We evaluated dimensionality via factor analysis in the previous step of the analysis.
 
 # Assumption 2: Local independence
-The latent trait is presumed to be responsible for the associations between the items. After fitting the model, there should not be any further associations between items. These residual associations are called local dependences. The residual correlations between pain of items should be negligible (less than .1 see kline). To check the local independence assumption we can use the residuals() function. This function calculates residuals and local dependence indices, which can help identify potential issues of local dependence among the items.
+The latent trait is presumed to be responsible for the associations between the items. After fitting the model, there should not be any further associations between items. These residual associations are called local dependences. The residual correlations between pain of items should be negligible (less than .1) -  see [Kline (2016)](#references). To check the local independence assumption we can use the residuals() function. This function calculates residuals and local dependence indices, which can help identify potential issues of local dependence among the items.
 
 
 **LD-X2 test**
@@ -423,12 +408,9 @@ residuals(sc.2pl.fit, type = "LD")
 
 ```
 
-This indices is proposed by (Chen & Thissen 1997) is a test for local independence between item pairs.
-It is calculated via the residuals() function type "LD".
+This indices is proposed by ([Chen & Thissen 1997](#references)) is a test for local independence between item pairs. It is calculated via the residuals() function type "LD".
 
-For (e.g.) 9 items, the result is a 9x9 matrix with the lower triangle showing the *signed LD-X2* values and the upper triangle
-showing the *signed Cramer V* correlation coefficient values. These correlation coef range between -1 and 1 and absolute small scores for both set
-of signed coefficients should be preferable (Paek & Cole 2019). Marais and Andrich (2008) suggested a critical residual correlation value of 0.1, but a value of 0.3 has also often been used (see e.g. La Porta et al., 2011; Das Nair et al., 2011; Ramp et al. 2009; Røe, et al. 2014).
+For (e.g.) 9 items, the result is a 9x9 matrix with the lower triangle showing the *signed LD-X2* values and the upper triangle showing the *signed Cramer V* correlation coefficient values. These correlation coef range between -1 and 1 and absolute small scores for both set of signed coefficients should be preferable ([Paek & Cole 2019](#references)). [Marais and Andrich (2008)](#references) suggested a critical residual correlation value of 0.1, but a value of 0.3 has also often been used (see e.g. [La Porta et al., (2011); Das Nair et al., (2011); Ramp et al. (2009); Røe, et al. (2014)](#references)).
 
 ```{r}
 
@@ -444,8 +426,7 @@ Above is the same LD matrix but with values smaller than .05 are omitted.
 How can we interpret the LD ? one method is the Standadised LD-X2
 
 **Standardised LD-X2 **
-Assuming that LD-X2 is an approximation of a chi-square comparing two items and thus with one degree of freedom, we can transform the LD-X2 matrix
-as suggested by Paek and Cole (2018) and look for item pairs that show a value greater than 10 in the lower matrix
+Assuming that LD-X2 is an approximation of a chi-square comparing two items and thus with one degree of freedom, we can transform the LD-X2 matrix as suggested by [Paek and Cole (2018)](#references) and look for item pairs that show a value greater than 10 in the lower matrix
 ```{r}
 
 LD<-residuals(sc.2pl.fit, type = "LD")
@@ -457,14 +438,6 @@ LD<-residuals(sc.2pl.fit, type = "LD")
 ```
 In this case it seems that a pair of items "hlmact" and "r2hlthlm" are affected by local dependence and hlmact was removed reducind the number of items from 9 to 8.
 
-
-
-    Paek, I., & Cole, K. (2019). Using R for item response theory model applications. Routledge.
-    Røe, C., Damsgård, E., Fors, T., & Anke, A.. (2014). Psychometric properties of the pain stages of change questionnaire as evaluated by Rasch analysis in patients with chronic musculoskeletal pain.
-    Ramp, M., Khan, F., Misajon, R. A., & Pallant, J. F. (2009). Rasch analysis of the Multiple Sclerosis Impact Scale MSIS-29.
-    La Porta, F., Franceschini, M., Caselli, S., Cavallini, P., Susassi, S., & Tennant, A. (2011). Unified balance scale: an activity-based, bed to community, and aetiology-independent measure of balance calibrated with Rasch analysis.
-    Marais, I., & Andrich, D. (2008b). Effects of varying magnitude and patterns of local dependence in the unidimensional Rasch model. 
-    Das Nair, R., Moreton, B. J., & Lincoln, N. B. (2011). Rasch analysis of the Nottingham extended activities of daily living scale.
 
 
 # Assumption 3: monotonicity
@@ -630,4 +603,31 @@ ggplot(filter(df_plot,!is.na(lv3chrpain)), aes(x = age_group, y = LVscore, fill 
 
 ```
 
+# References
 
+* Baur, T., & Lukes, D. (2009). An evaluation of the IRT models through Monte Carlo simulation. UW-L Journal of Undergraduate Research, 12(1-7).
+* Bock, R. D., & Mislevy, R. J. (1982). Adaptive EAP estimation of ability in a microcomputer environment. Applied psychological measurement, 6(4), 431-444.
+* Chalmers, R. P. (2012). mirt: A multidimensional item response theory package for the R environment. Journal of statistical Software, 48, 1-29.
+* Chen, W. H., & Thissen, D. (1997). Local dependence indexes for item pairs using item response theory. Journal of Educational and Behavioral Statistics, 22(3), 265-289.
+* Das Nair, R., Moreton, B. J., & Lincoln, N. B. (2011). Rasch analysis of the Nottingham extended activities of daily living scale.
+* Drasgow, F., Levine, M. V., & Williams, E. A. (1985). Appropriateness measurement with polychotomous item response models and standardized indices. British Journal of Mathematical and Statistical * Psychology, 38, 67-86.
+* Embretson, S. E. & Reise, S. P. (2000). Item Response Theory for Psychologists. Erlbaum.
+* Finch, H., & French, B. F. (2019). A comparison of estimation techniques for IRT models with small samples. Applied Measurement in Education, 32(2), 77-96.
+* Hu, L., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives.
+* Kang, T., & Chen, T. T. (2008). Performance of the generalized S‐X2 item fit index for polytomous IRT models. Journal of Educational Measurement, 45(4), 391-406.
+* Kim, S., Moses, T., & Yoo, H. H. (2015). Effectiveness of item response theory (IRT) proficiency estimation methods under adaptive multistage testing. ETS Research Report Series, 2015(1), 1-19.
+* Kim, J.K., Nicewander, W.A. Ability estimation for conventional tests. Psychometrika 58, 587–599 (1993).
+* Kline, R. B. (2023). Principles and practice of structural equation modeling. Guilford publications.
+* La Porta, F., Franceschini, M., Caselli, S., Cavallini, P., Susassi, S., & Tennant, A. (2011). Unified balance scale: an activity-based, bed to community, and aetiology-independent measure of * balance calibrated with Rasch analysis.
+* Lee, W. C., & Ban, J. C. (2009). A comparison of IRT linking procedures. Applied measurement in education, 23(1), 23-48.
+* Luo, Y., & Dimitrov, D. M. (2019). A short note on obtaining point estimates of the IRT ability parameter with MCMC estimation in Mplus: How many plausible values are needed?. Educational and * Psychological Measurement, 79(2), 272-287.
+* Marais, I., & Andrich, D. (2008b). Effects of varying magnitude and patterns of local dependence in the unidimensional Rasch model.
+* Newsom, J. (2023) Structural equation modelling
+* Orlando, M. & Thissen, D. (2000). Likelihood-based item fit indices for dichotomous item response theory models. Applied Psychological Measurement, 24, 50-64.
+* Orlando, M., & Thissen, D. (2003). Further investigation of the performance of S-X2: An item fit index for use with dichotomous item response theory models. Applied Psychological Measurement, 27(* 4), 289-298.
+* Paek, I., & Cole, K. (2019). Using R for item response theory model applications. Routledge.
+* Rasch, G. (1993). Probabilistic models for some intelligence and attainment tests. MESA Press, 5835 S. Kimbark Ave., Chicago, IL 60637; e-mail: MESA@ uchicago. edu; web address: www. rasch. org; * tele.
+* Ramp, M., Khan, F., Misajon, R. A., & Pallant, J. F. (2009). Rasch analysis of the Multiple Sclerosis Impact Scale MSIS-29.
+* Røe, C., Damsgård, E., Fors, T., & Anke, A.. (2014). Psychometric properties of the pain stages of change questionnaire as evaluated by Rasch analysis in patients with chronic musculoskeletal pain.
+* Şahin, A., & Anıl, D. (2017). The effects of test length and sample size on item parameters in item response theory. Educational Sciences: Theory & Practice, 17(1).
+* Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. Psychometrika, 54(3), 427-450.

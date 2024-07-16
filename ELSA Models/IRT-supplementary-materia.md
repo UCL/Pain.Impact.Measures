@@ -1,9 +1,10 @@
 IRT 2PL model of pain impact in ELSA
 ================
-04 July, 2024
+12 July, 2024
 
 - [Introduction](#introduction)
   - [F-scores estimators](#f-scores-estimators)
+- [Number of Items and Sample size](#number-of-items-and-sample-size)
 - [Assumption Checks](#assumption-checks)
 - [Item list](#item-list)
 - [chronic pain variable](#chronic-pain-variable)
@@ -27,9 +28,12 @@ IRT 2PL model of pain impact in ELSA
 - [Assumption 2: Local independence](#assumption-2-local-independence)
 - [Assumption 3: monotonicity](#assumption-3-monotonicity)
 - [Fscore distributions](#fscore-distributions)
+  - [Range of theta (F-score)](#range-of-theta-f-score)
+  - [extracting Fscores](#extracting-fscores)
   - [Pain subgroups](#pain-subgroups)
     - [Fscore Boostrap Mean and 95CI](#fscore-boostrap-mean-and-95ci)
   - [Age subgroups](#age-subgroups)
+- [References](#references)
 
 ``` r
 library(tidyverse) # For data wrangling and basic visualizations
@@ -47,9 +51,10 @@ par(ask = FALSE) # don't ask before updating plot
 # Introduction
 
 The 1PL model, also known as the One-Parameter Logistic Model or the
-Rasch model, is a widely used item response theory (IRT) model. It
-assumes that the probability of a correct response ($X_{is} = 1$) to an
-item $i$ depends on a single parameter: the item difficulty ($\beta_i$).
+Rasch model ([Rasch 1993](#references)), is a widely used item response
+theory (IRT) model. It assumes that the probability of a correct
+response ($X_{is} = 1$) to an item $i$ depends on a single parameter:
+the item difficulty ($\beta_i$).
 
 $$P(X_{is} = 1|\theta_s, \beta_i) = \frac{e^{(\theta_s-\beta_i)}}{1+ e^{(\theta_s-\beta_i)}}$$
 *Item Difficulty* ($\beta_i$) represents the location on the latent
@@ -60,8 +65,9 @@ referst to the observed endorsement of an item.
 
 The 2PL (Two-Parameter Logistic) model, like the Rasch model, is a
 commonly used IRT model for analyzing item responses in psychometric
-measurement. In the 2PL model we relax the restriction on the $\alpha_i$
-parameter which was fixed to 1 in the Rasch model.
+measurement ([Paek and Cole 2019](#references)). In the 2PL model we
+relax the restriction on the $\alpha_i$ parameter which was fixed to 1
+in the Rasch model.
 
 $$P(X_{is} = 1|\theta_s, \beta_i, \alpha_i) = \frac{e^{(\alpha_i(\theta_s-\beta_i))}}{1+ e^{(\alpha_i((\theta_s-\beta_i))}}$$
 
@@ -86,48 +92,63 @@ provide estimates for respondents with an “all-zero” or with an
 variables.
 
 Alternative estimators to ML are Weighted maximum likelyhood (WLE), and
-two Bayesian estimator EAP (default in mirt) and MAP. Both EAP and MAP
-consider that the posterior distribution of the latent trait $\theta$ is
-defined as the product of the likelihood function and the prior $\theta$
-distribution (in this case there is no observed prior, therefore the
-prior is assumed as following normal distribution). The mean of the
-posterior distribution is represented by the latent trait value $\theta$
-when we use “EAP”, whereas $\theta$ the mode of the posterior
-distribution when the estimator is “MAP” (Kim, Moses, Yoo 2015).
-However, some studies showed that EAP can inflate the estimate patterns
-at the extreme ends of the patterns (e.g. when all items are endorsed or
-when none are endorsed), and this bias can be more prominent when the
-number of items is relatively small e.g. less than 20 (lee 2009). The
-bias of the EAP estimator is approximately the same as that of regressed
-estimates for the same reliabilities and at the same ability levels
-(Bock & Mislevy 1982).
+two Bayesian estimator EAP (default in mirt) and MAP ([Embretson &
+Reise, 2000](#references)). Both EAP and MAP consider that the posterior
+distribution of the latent trait $\theta$ is defined as the product of
+the likelihood function and the prior $\theta$ distribution (in this
+case there is no observed prior, therefore the prior is assumed as
+following normal distribution). The mean of the of a certain number of
+plausible values (specified by the user) drawn from the posterior
+distribution represented the latent trait value $\theta$ when we use
+“EAP” ([Luo & Dimitrov 2019](#references)), whereas $\theta$ the mode of
+the posterior distribution when the estimator is “MAP” ([Kim, Moses, Yoo
+2015](#references)). However, some studies showed that EAP can inflate
+the estimate patterns at the extreme ends of the patterns (e.g. when all
+items are endorsed or when none are endorsed), and this bias can be more
+prominent when the number of items is relatively small e.g. less than 20
+([Lee & Ban 2009](#references)). The bias of the EAP estimator is
+approximately the same as that of regressed estimates for the same
+reliabilities and at the same ability levels ([Bock & Mislevy
+1982](#references)).
 
 In summary, both ML and EAP should not be used when the respondents that
 we expect to assess are likely to endorse all items at once, or exactly
 none of them. In these cases the value of $\theta$ is going to be
-severely biased. Warm (1989) proposed a weighted maximum likelihood
-(WML) estimator for use in tests of dichotomous items that was found to
-be marginally less biased than theand EAP estimators (Kim & Nicewander,
-1993; Warm, 1989). In the present use case we are not interested in
-measuring with precision at the extreme ends of the response patterns
-and therefore it maybe carefully accepted a solution with estimates
-attained via EAP or MAP. In this case we must be aware that the
-discrimation of differences in severity is particularly poor at both the
-top and low end of the latent trait measurement. WML could be used here
-as alternative to ML and as a comparitive estiamtor to EAP/MAP.
+severely biased. [Warm (1989)](#references) proposed a weighted maximum
+likelihood (WML) estimator for use in tests of dichotomous items that
+was found to be marginally less biased than theand EAP estimators ([Kim
+& Nicewander, 1993; Warm, 1989](#references)). In the present use case
+we are not interested in measuring with precision at the extreme ends of
+the response patterns and therefore it maybe carefully accepted a
+solution with estimates attained via EAP or MAP. In this case we must be
+aware that the discrimation of differences in severity is particularly
+poor at both the top and low end of the latent trait measurement. WML
+could be used here as alternative to ML and as a comparitive estiamtor
+to EAP/MAP.
 
-     Bock, R. D., & Mislevy, R. J. (1982). Adaptive EAP estimation of ability in a microcomputer environment. Applied psychological measurement, 6(4), 431-444.
-     Chalmers, R., P. (2012). mirt: A Multidimensional Item Response Theory Package for the R Environment. Journal of Statistical Software, 48(6), 1-29. 
-    doi:10.18637/jss.v048.i06
-    Kim, S., Moses, T., & Yoo, H. H. (2015). Effectiveness of item response theory (IRT) proficiency estimation methods under adaptive multistage testing. ETS Research Report Series, 2015(1), 1-19.
-    Lee, W. C., & Ban, J. C. (2009). A comparison of IRT linking procedures. Applied measurement in education, 23(1), 23-48.
-    Luo, Y., & Dimitrov, D. M. (2019). A short note on obtaining point estimates of the IRT ability parameter with MCMC estimation in Mplus: How many plausible values are needed?. Educational and Psychological Measurement, 79(2), 272-287.
-    Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. Psychometrika, 54(3), 427-450.
-     
+# Number of Items and Sample size
+
+In dichotomous IRT models, both sample size and test lenght (i.e. n. of
+items selected) can influence the accuracy of item-paramenter
+estimation, and they do so differently in 1PL, 2PL and 3PL models ([Baur
+& Lukes 2009](#references)). In general, the estimation of item
+parameters tends to be proportionally more biased in smaller samples (N
+\<500) ([Finch & French 2019](#references)). In addition, shorter tests
+require a much larger sample to reduce the bias in the estimation of
+item paramenters - e.g. [Baur & Lukes (2009)](#references) suggest a
+minimum of 500 individuals to estimate a 2PL model with 15 items.
+
+However, sample size cannot compensate for the sparcity of information
+determined by a short test. [Baur & Lukes (2009)](#references) showed
+that given a sample of N=5000, the correlation between the IRT model
+estimate of $\theta$ and the “true” ability was above r=.85 with a 15
+item test, it was close to r=.85 with 10 items, and r=.74 with 5 items.
+Other, helpful tables on this topic can be consulted on this paper by
+[Sahin & Anil (2017)](#references).
 
 # Assumption Checks
 
-IRT models have three basic assumptions.
+IRT models have three basic assumptions (Paek & Cole 2019):
 
 1.  unidimensionality
 2.  local independence
@@ -235,7 +256,8 @@ paste("Some item missing:",sum(rowSums(is.na(sc_df_NA[-1]))>0 & rowSums(is.na(sc
 \[from imputemissing() doc\]
 
 Given an estimated IRT model and an estimate of the latent trait
-(Fscores), we can impute plausible missing data values (Chalmers 2012).
+(Fscores), we can impute plausible missing data values ([Chalmers
+2012](#references)).
 
 After taking the fit of our 2PL model on the data as it is (i.e. with
 the missingness):
@@ -328,7 +350,7 @@ sc.2pl.fit <- mirt::mirt(sc_df[-1],
                     verbose = T)
 ```
 
-    ## Iteration: 1, Log-Lik: -22790.976, Max-Change: 2.15908Iteration: 2, Log-Lik: -20431.499, Max-Change: 1.99972Iteration: 3, Log-Lik: -19831.724, Max-Change: 0.78683Iteration: 4, Log-Lik: -19674.074, Max-Change: 0.48351Iteration: 5, Log-Lik: -19605.707, Max-Change: 0.35525Iteration: 6, Log-Lik: -19574.566, Max-Change: 0.21480Iteration: 7, Log-Lik: -19557.843, Max-Change: 0.13911Iteration: 8, Log-Lik: -19548.943, Max-Change: 0.09971Iteration: 9, Log-Lik: -19543.937, Max-Change: 0.09228Iteration: 10, Log-Lik: -19540.995, Max-Change: 0.05151Iteration: 11, Log-Lik: -19539.233, Max-Change: 0.04519Iteration: 12, Log-Lik: -19538.171, Max-Change: 0.01889Iteration: 13, Log-Lik: -19537.660, Max-Change: 0.02006Iteration: 14, Log-Lik: -19537.080, Max-Change: 0.01627Iteration: 15, Log-Lik: -19536.650, Max-Change: 0.01668Iteration: 16, Log-Lik: -19535.850, Max-Change: 0.00687Iteration: 17, Log-Lik: -19535.704, Max-Change: 0.00478Iteration: 18, Log-Lik: -19535.592, Max-Change: 0.00405Iteration: 19, Log-Lik: -19535.248, Max-Change: 0.00093Iteration: 20, Log-Lik: -19535.242, Max-Change: 0.00087Iteration: 21, Log-Lik: -19535.238, Max-Change: 0.00078Iteration: 22, Log-Lik: -19535.224, Max-Change: 0.00044Iteration: 23, Log-Lik: -19535.223, Max-Change: 0.00038Iteration: 24, Log-Lik: -19535.223, Max-Change: 0.00028Iteration: 25, Log-Lik: -19535.222, Max-Change: 0.00032Iteration: 26, Log-Lik: -19535.222, Max-Change: 0.00040Iteration: 27, Log-Lik: -19535.222, Max-Change: 0.00028Iteration: 28, Log-Lik: -19535.222, Max-Change: 0.00014Iteration: 29, Log-Lik: -19535.222, Max-Change: 0.00011Iteration: 30, Log-Lik: -19535.222, Max-Change: 0.00012Iteration: 31, Log-Lik: -19535.222, Max-Change: 0.00010
+    ## Iteration: 1, Log-Lik: -22790.262, Max-Change: 2.15778Iteration: 2, Log-Lik: -20429.855, Max-Change: 1.99773Iteration: 3, Log-Lik: -19830.395, Max-Change: 0.79204Iteration: 4, Log-Lik: -19673.540, Max-Change: 0.47589Iteration: 5, Log-Lik: -19604.365, Max-Change: 0.33003Iteration: 6, Log-Lik: -19573.398, Max-Change: 0.20722Iteration: 7, Log-Lik: -19556.645, Max-Change: 0.14454Iteration: 8, Log-Lik: -19547.685, Max-Change: 0.10755Iteration: 9, Log-Lik: -19542.612, Max-Change: 0.09661Iteration: 10, Log-Lik: -19539.633, Max-Change: 0.05222Iteration: 11, Log-Lik: -19537.844, Max-Change: 0.04628Iteration: 12, Log-Lik: -19536.772, Max-Change: 0.03379Iteration: 13, Log-Lik: -19535.704, Max-Change: 0.01706Iteration: 14, Log-Lik: -19535.261, Max-Change: 0.01576Iteration: 15, Log-Lik: -19534.933, Max-Change: 0.01052Iteration: 16, Log-Lik: -19534.457, Max-Change: 0.00552Iteration: 17, Log-Lik: -19534.310, Max-Change: 0.00486Iteration: 18, Log-Lik: -19534.198, Max-Change: 0.00430Iteration: 19, Log-Lik: -19533.851, Max-Change: 0.00094Iteration: 20, Log-Lik: -19533.846, Max-Change: 0.00086Iteration: 21, Log-Lik: -19533.842, Max-Change: 0.00078Iteration: 22, Log-Lik: -19533.827, Max-Change: 0.00043Iteration: 23, Log-Lik: -19533.827, Max-Change: 0.00039Iteration: 24, Log-Lik: -19533.826, Max-Change: 0.00029Iteration: 25, Log-Lik: -19533.825, Max-Change: 0.00034Iteration: 26, Log-Lik: -19533.825, Max-Change: 0.00042Iteration: 27, Log-Lik: -19533.825, Max-Change: 0.00031Iteration: 28, Log-Lik: -19533.825, Max-Change: 0.00012Iteration: 29, Log-Lik: -19533.825, Max-Change: 0.00011Iteration: 30, Log-Lik: -19533.825, Max-Change: 0.00010Iteration: 31, Log-Lik: -19533.825, Max-Change: 0.00009
 
 ## Coefficients
 
@@ -346,14 +368,14 @@ coef(sc.2pl.fit, IRTpars = T, simplify = T)
 
     ## $items
     ##                a     b g u
-    ## r2shopa    4.539 1.417 0 1
-    ## r2housewka 4.131 1.059 0 1
-    ## r2walkra   4.459 1.974 0 1
-    ## r2mealsa   3.716 1.863 0 1
+    ## r2shopa    4.540 1.417 0 1
+    ## r2housewka 4.121 1.059 0 1
+    ## r2walkra   4.457 1.974 0 1
+    ## r2mealsa   3.713 1.863 0 1
     ## r2clim1a   2.959 1.209 0 1
-    ## r2lifta    2.789 0.784 0 1
-    ## r2beda     2.641 1.857 0 1
-    ## r2hlthlm   2.338 0.548 0 1
+    ## r2lifta    2.792 0.783 0 1
+    ## r2beda     2.645 1.856 0 1
+    ## r2hlthlm   2.340 0.549 0 1
     ## 
     ## $means
     ## F1 
@@ -376,12 +398,12 @@ fscores(sc.2pl.fit, method = "EAP", full.scores = T, full.scores.SE = T) %>% hea
 ```
 
     ##              F1     SE_F1
-    ## [1,] -0.6193642 0.7177195
-    ## [2,] -0.6193642 0.7177195
-    ## [3,]  0.5090877 0.3804153
-    ## [4,] -0.6193642 0.7177195
-    ## [5,]  0.8188090 0.3091062
-    ## [6,] -0.6193642 0.7177195
+    ## [1,] -0.6192654 0.7176867
+    ## [2,] -0.6192654 0.7176867
+    ## [3,]  0.5075825 0.3808070
+    ## [4,] -0.6192654 0.7176867
+    ## [5,]  0.8187435 0.3091819
+    ## [6,] -0.6192654 0.7176867
 
 # ICC,TCC, and information plots
 
@@ -514,10 +536,10 @@ indicate better model fit.
 mirt::M2(sc.2pl.fit)
 ```
 
-    ##             M2 df            p      RMSEA    RMSEA_5  RMSEA_95      SRMSR
-    ## stats 96.17801 20 6.045719e-12 0.02051179 0.01650421 0.0247104 0.02089123
-    ##            TLI       CFI
-    ## stats 0.997526 0.9982329
+    ##             M2 df            p      RMSEA   RMSEA_5   RMSEA_95      SRMSR
+    ## stats 95.96153 20 6.604828e-12 0.02048262 0.0164744 0.02468193 0.02084698
+    ##             TLI      CFI
+    ## stats 0.9975347 0.998239
 
 The output provides various fit statistics (M2, RMSEA, SRMSR, TLI, CFI)
 that indicate the goodness of fit for the IRT model.
@@ -527,62 +549,55 @@ data. Lower values indicate better model fit. . df: The degrees of
 freedom (df) associated with the model fit. . p: The p-value associated
 with the M2 statistic
 
-Hu and Bentler (1999) empirically examine various cutoffs for many of
-these measures, and their data suggest that to minimize Type I and Type
-II errors under various conditions, one should use a combination of one
-of the above relative fit indexes, such as the CFI or IFI, with values
-greater than approximately .95, in combination with the SRMR (good
-models \< .08) or the RMSEA (good models \< .06). (from Newsom 2023).
-RMSEA_5 and RMSEA_95: RMSEA_5 and RMSEA_95 represent respectively the
-lower and upper bound of the 90% confidence interval for RMSEA. TLI
-stands for Tucker-Lewis Index - this is relative and compare the
-chi-square for the model to a null model based on variables that are
-uncorrelated. CFI or Comparative Fit Index is a non-centrality fit
-parameter and uses a chi-square equal to the df for the model as having
-a perfect fit (as opposed to chi-square equal to 0 seen for TLI). RMSEA
-is another non centrality parameter.
+[Hu and Bentler (1999)](#references) empirically examine various cutoffs
+for many of these measures, and their data suggest that to minimize Type
+I and Type II errors under various conditions, one should use a
+combination of one of the above relative fit indexes, such as the CFI or
+IFI, with values greater than approximately .95, in combination with the
+SRMR (good models \< .08) or the RMSEA (good models \< .06). (from
+[Newsom 2023](#references)). RMSEA_5 and RMSEA_95: RMSEA_5 and RMSEA_95
+represent respectively the lower and upper bound of the 90% confidence
+interval for RMSEA. TLI stands for Tucker-Lewis Index - this is relative
+and compare the chi-square for the model to a null model based on
+variables that are uncorrelated. CFI or Comparative Fit Index is a
+non-centrality fit parameter and uses a chi-square equal to the df for
+the model as having a perfect fit (as opposed to chi-square equal to 0
+seen for TLI). RMSEA is another non centrality parameter.
 
-Hu and Bentler (1999) suggested that an RMSEA smaller than .06 and a CFI
-and TLI larger than .95 indicate relatively good model fit
-
-    Hu, L., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in covariance structure analysis: Conventional criteria versus new alternatives.
-    Yuan, K. H., Chan, W., Marcoulides, G. A., & Bentler, P. M. (2016). Assessing structural equation models by equivalence testing with adjusted fit
-
-    Newsom, J. (2023) Structural equation modelling
+[Hu and Bentler (1999)](#references) suggested that an RMSEA smaller
+than .06 and a CFI and TLI larger than .95 indicate relatively good
+model fit
 
 ## Item fit
 
 With itemfit() we can evaluate the goodness of fit at item level. The
-fit index is $S-X^2$, Orlando and Thissen (2000, 2003) and Kang and
-Chen’s (2007) signed chi-squared test. S_X2 compares the observed and
-expected response patterns. Lower chi-squared S_X2 indicate better item
-fit. In the last columns we have chi-square “S_X2” bonferroni corrected
-p-values for type I error (alpha = .05. a non-significant p-value
-indicates good item fit, suggesting that the observed response patterns
-are consistent with the expected response patterns based on the IRT
-model. An item with large S_X2 and significat value may be endorsed by
-respondents in a way that does not fit the patterns identified by the
-model.
+fit index is $S-X^2$, [Orlando and Thissen (2000, 2003)](#references)
+and [Kang and Chen’s (2007)](#references) signed chi-squared test. S_X2
+compares the observed and expected response patterns. Lower chi-squared
+S_X2 indicate better item fit. In the last columns we have chi-square
+“S_X2” bonferroni corrected p-values for type I error (alpha = .05. a
+non-significant p-value indicates good item fit, suggesting that the
+observed response patterns are consistent with the expected response
+patterns based on the IRT model. An item with large S_X2 and significat
+value may be endorsed by respondents in a way that does not fit the
+patterns identified by the model.
 
 Items with lower S_X2 values and higher p.S_X2 values are considered to
 have better fit to the model.
-
-    Orlando, M. & Thissen, D. (2000). Likelihood-based item fit indices for dichotomous item response theory models. Applied Psychological Measurement, 24, 50-64.
-    Kang, T. & Chen, Troy, T. (2007). An investigation of the performance of the generalized S-X2 item-fit index for polytomous IRT models. ACT
 
 ``` r
 mirt::itemfit(sc.2pl.fit)
 ```
 
     ##         item   S_X2 df.S_X2 RMSEA.S_X2 p.S_X2
-    ## 1    r2shopa  8.740       5      0.009  0.120
-    ## 2 r2housewka 12.362       5      0.013  0.030
-    ## 3   r2walkra  6.051       5      0.005  0.301
-    ## 4   r2mealsa  5.672       5      0.004  0.339
-    ## 5   r2clim1a  5.125       5      0.002  0.401
-    ## 6    r2lifta  7.268       5      0.007  0.201
-    ## 7     r2beda  4.527       5      0.000  0.476
-    ## 8   r2hlthlm  9.999       5      0.011  0.075
+    ## 1    r2shopa  8.615       5      0.009  0.125
+    ## 2 r2housewka 11.314       5      0.012  0.045
+    ## 3   r2walkra  6.091       5      0.005  0.297
+    ## 4   r2mealsa  5.720       5      0.004  0.334
+    ## 5   r2clim1a  5.190       5      0.002  0.393
+    ## 6    r2lifta  7.371       5      0.007  0.195
+    ## 7     r2beda  4.538       5      0.000  0.475
+    ## 8   r2hlthlm  9.968       5      0.010  0.076
 
 ## Person fit
 
@@ -600,15 +615,12 @@ latent levels of the abilities.
 
 In Rash model, we can use fit statistics such as infit and outfit to
 assess person fit. In a 2PL model it is more helpful to look at “Zh”
-measure from Drasgow, Levine and Williams (1985) for unidimensional and
-multidimensional models. A \|Zh\| score greater than 3 may indicate the
-possibility of aberrant response patters (Paek and Cole 2019). Less
-relevant fot a 2PL model, infit and outfit values close to 1 indicate
-good person fit, while values significantly higher or lower than 1
-suggest potential misfit.
-
-    Drasgow, F., Levine, M. V., & Williams, E. A. (1985). Appropriateness measurement with polychotomous item response models and standardized indices. British Journal of Mathematical and Statistical Psychology, 38, 67-86.
-    Paek, I., & Cole, K. (2019). Using R for item response theory model applications. Routledge.
+measure from [Drasgow, Levine and Williams (1985)](#references) for
+unidimensional and multidimensional models. A \|Zh\| score greater than
+3 may indicate the possibility of aberrant response patters ([Paek and
+Cole 2019](#references)). Less relevant fot a 2PL model, infit and
+outfit values close to 1 indicate good person fit, while values
+significantly higher or lower than 1 suggest potential misfit.
 
 ### Zh values
 
@@ -671,10 +683,11 @@ The latent trait is presumed to be responsible for the associations
 between the items. After fitting the model, there should not be any
 further associations between items. These residual associations are
 called local dependences. The residual correlations between pain of
-items should be negligible (less than .1 see kline). To check the local
-independence assumption we can use the residuals() function. This
-function calculates residuals and local dependence indices, which can
-help identify potential issues of local dependence among the items.
+items should be negligible (less than .1) - see [Kline
+(2016)](#references). To check the local independence assumption we can
+use the residuals() function. This function calculates residuals and
+local dependence indices, which can help identify potential issues of
+local dependence among the items.
 
 **LD-X2 test**
 
@@ -689,36 +702,37 @@ residuals(sc.2pl.fit, type = "LD")
     ##  -0.033  -0.020  -0.007  -0.006   0.007   0.025 
     ## 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.006 -0.029
-    ## r2housewka   0.440         NA   -0.017   -0.009   -0.016   0.007  0.010
-    ## r2walkra     7.678      2.488       NA   -0.018    0.025  -0.023  0.007
-    ## r2mealsa     3.887      0.798    2.986       NA   -0.027  -0.033 -0.024
-    ## r2clim1a     3.225      2.465    5.582    6.736       NA   0.013 -0.006
-    ## r2lifta      0.275      0.479    4.728    9.697    1.496      NA -0.005
-    ## r2beda       7.790      0.872    0.468    5.230    0.373   0.238     NA
-    ## r2hlthlm     1.729      0.445    5.003    0.660    1.690   0.181  0.205
+    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.005 -0.029
+    ## r2housewka   0.453         NA   -0.016   -0.009   -0.016   0.007  0.010
+    ## r2walkra     7.655      2.417       NA   -0.018    0.025  -0.023  0.007
+    ## r2mealsa     3.923      0.764    2.944       NA   -0.027  -0.033 -0.024
+    ## r2clim1a     3.239      2.388    5.579    6.696       NA   0.013 -0.006
+    ## r2lifta      0.267      0.481    4.753    9.715    1.454      NA -0.005
+    ## r2beda       7.613      0.904    0.435    5.386    0.353   0.233     NA
+    ## r2hlthlm     1.726      0.424    4.988    0.645    1.710   0.207  0.212
     ##            r2hlthlm
     ## r2shopa      -0.014
     ## r2housewka    0.007
-    ## r2walkra     -0.024
-    ## r2mealsa     -0.009
+    ## r2walkra     -0.023
+    ## r2mealsa     -0.008
     ## r2clim1a      0.014
-    ## r2lifta       0.004
+    ## r2lifta       0.005
     ## r2beda        0.005
     ## r2hlthlm         NA
 
-This indices is proposed by (Chen & Thissen 1997) is a test for local
-independence between item pairs. It is calculated via the residuals()
-function type “LD”.
+This indices is proposed by ([Chen & Thissen 1997](#references)) is a
+test for local independence between item pairs. It is calculated via the
+residuals() function type “LD”.
 
 For (e.g.) 9 items, the result is a 9x9 matrix with the lower triangle
 showing the *signed LD-X2* values and the upper triangle showing the
 *signed Cramer V* correlation coefficient values. These correlation coef
 range between -1 and 1 and absolute small scores for both set of signed
-coefficients should be preferable (Paek & Cole 2019). Marais and Andrich
-(2008) suggested a critical residual correlation value of 0.1, but a
-value of 0.3 has also often been used (see e.g. La Porta et al., 2011;
-Das Nair et al., 2011; Ramp et al. 2009; Røe, et al. 2014).
+coefficients should be preferable ([Paek & Cole 2019](#references)).
+[Marais and Andrich (2008)](#references) suggested a critical residual
+correlation value of 0.1, but a value of 0.3 has also often been used
+(see e.g. [La Porta et al., (2011); Das Nair et al., (2011); Ramp et
+al. (2009); Røe, et al. (2014)](#references)).
 
 ``` r
 LD<-residuals(sc.2pl.fit, type = "LD") %>% as.table %>% round(2)
@@ -731,21 +745,21 @@ LD<-residuals(sc.2pl.fit, type = "LD") %>% as.table %>% round(2)
     ##  -0.033  -0.020  -0.007  -0.006   0.007   0.025 
     ## 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.006 -0.029
-    ## r2housewka   0.440         NA   -0.017   -0.009   -0.016   0.007  0.010
-    ## r2walkra     7.678      2.488       NA   -0.018    0.025  -0.023  0.007
-    ## r2mealsa     3.887      0.798    2.986       NA   -0.027  -0.033 -0.024
-    ## r2clim1a     3.225      2.465    5.582    6.736       NA   0.013 -0.006
-    ## r2lifta      0.275      0.479    4.728    9.697    1.496      NA -0.005
-    ## r2beda       7.790      0.872    0.468    5.230    0.373   0.238     NA
-    ## r2hlthlm     1.729      0.445    5.003    0.660    1.690   0.181  0.205
+    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.005 -0.029
+    ## r2housewka   0.453         NA   -0.016   -0.009   -0.016   0.007  0.010
+    ## r2walkra     7.655      2.417       NA   -0.018    0.025  -0.023  0.007
+    ## r2mealsa     3.923      0.764    2.944       NA   -0.027  -0.033 -0.024
+    ## r2clim1a     3.239      2.388    5.579    6.696       NA   0.013 -0.006
+    ## r2lifta      0.267      0.481    4.753    9.715    1.454      NA -0.005
+    ## r2beda       7.613      0.904    0.435    5.386    0.353   0.233     NA
+    ## r2hlthlm     1.726      0.424    4.988    0.645    1.710   0.207  0.212
     ##            r2hlthlm
     ## r2shopa      -0.014
     ## r2housewka    0.007
-    ## r2walkra     -0.024
-    ## r2mealsa     -0.009
+    ## r2walkra     -0.023
+    ## r2mealsa     -0.008
     ## r2clim1a      0.014
-    ## r2lifta       0.004
+    ## r2lifta       0.005
     ## r2beda        0.005
     ## r2hlthlm         NA
 
@@ -763,13 +777,13 @@ LD
 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
     ## r2shopa            -          -        -        -        -       -     
-    ## r2housewka 0.44               -        -        -        -       -     
-    ## r2walkra   7.68    2.49                -        -        -       -     
-    ## r2mealsa   3.89    0.8        2.99              -        -       -     
-    ## r2clim1a   3.23    2.46       5.58     6.74              -       -     
-    ## r2lifta    0.27    0.48       4.73     9.7      1.5              -     
-    ## r2beda     7.79    0.87       0.47     5.23     0.37     0.24          
-    ## r2hlthlm   1.73    0.45       5        0.66     1.69     0.18    0.2   
+    ## r2housewka 0.45               -        -        -        -       -     
+    ## r2walkra   7.65    2.42                -        -        -       -     
+    ## r2mealsa   3.92    0.76       2.94              -        -       -     
+    ## r2clim1a   3.24    2.39       5.58     6.7               -       -     
+    ## r2lifta    0.27    0.48       4.75     9.71     1.45             -     
+    ## r2beda     7.61    0.9        0.44     5.39     0.35     0.23          
+    ## r2hlthlm   1.73    0.42       4.99     0.64     1.71     0.21    0.21  
     ##            r2hlthlm
     ## r2shopa    -       
     ## r2housewka -       
@@ -787,9 +801,9 @@ How can we interpret the LD ? one method is the Standadised LD-X2
 
 **Standardised LD-X2 ** Assuming that LD-X2 is an approximation of a
 chi-square comparing two items and thus with one degree of freedom, we
-can transform the LD-X2 matrix as suggested by Paek and Cole (2018) and
-look for item pairs that show a value greater than 10 in the lower
-matrix
+can transform the LD-X2 matrix as suggested by [Paek and Cole
+(2018)](#references) and look for item pairs that show a value greater
+than 10 in the lower matrix
 
 ``` r
 LD<-residuals(sc.2pl.fit, type = "LD")
@@ -802,21 +816,21 @@ LD<-residuals(sc.2pl.fit, type = "LD")
     ##  -0.033  -0.020  -0.007  -0.006   0.007   0.025 
     ## 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.006 -0.029
-    ## r2housewka   0.440         NA   -0.017   -0.009   -0.016   0.007  0.010
-    ## r2walkra     7.678      2.488       NA   -0.018    0.025  -0.023  0.007
-    ## r2mealsa     3.887      0.798    2.986       NA   -0.027  -0.033 -0.024
-    ## r2clim1a     3.225      2.465    5.582    6.736       NA   0.013 -0.006
-    ## r2lifta      0.275      0.479    4.728    9.697    1.496      NA -0.005
-    ## r2beda       7.790      0.872    0.468    5.230    0.373   0.238     NA
-    ## r2hlthlm     1.729      0.445    5.003    0.660    1.690   0.181  0.205
+    ## r2shopa         NA      0.007   -0.029    0.021   -0.019   0.005 -0.029
+    ## r2housewka   0.453         NA   -0.016   -0.009   -0.016   0.007  0.010
+    ## r2walkra     7.655      2.417       NA   -0.018    0.025  -0.023  0.007
+    ## r2mealsa     3.923      0.764    2.944       NA   -0.027  -0.033 -0.024
+    ## r2clim1a     3.239      2.388    5.579    6.696       NA   0.013 -0.006
+    ## r2lifta      0.267      0.481    4.753    9.715    1.454      NA -0.005
+    ## r2beda       7.613      0.904    0.435    5.386    0.353   0.233     NA
+    ## r2hlthlm     1.726      0.424    4.988    0.645    1.710   0.207  0.212
     ##            r2hlthlm
     ## r2shopa      -0.014
     ## r2housewka    0.007
-    ## r2walkra     -0.024
-    ## r2mealsa     -0.009
+    ## r2walkra     -0.023
+    ## r2mealsa     -0.008
     ## r2clim1a      0.014
-    ## r2lifta       0.004
+    ## r2lifta       0.005
     ## r2beda        0.005
     ## r2hlthlm         NA
 
@@ -825,18 +839,18 @@ LD<-residuals(sc.2pl.fit, type = "LD")
 ```
 
     ##            r2shopa r2housewka r2walkra r2mealsa r2clim1a r2lifta r2beda
-    ## r2shopa         NA     -0.702   -0.687   -0.692   -0.694  -0.703 -0.686
-    ## r2housewka  -0.396         NA   -0.695   -0.700   -0.695  -0.702 -0.700
-    ## r2walkra     4.722      1.052       NA   -0.694   -0.690  -0.691 -0.702
-    ## r2mealsa     2.042     -0.143    1.404       NA   -0.688  -0.684 -0.690
-    ## r2clim1a     1.574      1.036    3.240    4.056       NA  -0.698 -0.703
-    ## r2lifta     -0.513     -0.369    2.636    6.149    0.350      NA -0.703
-    ## r2beda       4.801     -0.090   -0.376    2.991   -0.443  -0.539     NA
-    ## r2hlthlm     0.516     -0.392    2.831   -0.240    0.488  -0.579 -0.562
+    ## r2shopa         NA     -0.702   -0.687   -0.692   -0.694  -0.703 -0.687
+    ## r2housewka  -0.387         NA   -0.696   -0.701   -0.696  -0.702 -0.700
+    ## r2walkra     4.706      1.002       NA   -0.694   -0.690  -0.691 -0.702
+    ## r2mealsa     2.067     -0.167    1.374       NA   -0.688  -0.684 -0.690
+    ## r2clim1a     1.583      0.981    3.237    4.028       NA  -0.698 -0.703
+    ## r2lifta     -0.518     -0.367    2.653    6.162    0.321      NA -0.704
+    ## r2beda       4.676     -0.068   -0.399    3.101   -0.457  -0.542     NA
+    ## r2hlthlm     0.514     -0.407    2.820   -0.251    0.502  -0.560 -0.557
     ##            r2hlthlm
     ## r2shopa      -0.697
     ## r2housewka   -0.702
-    ## r2walkra     -0.690
+    ## r2walkra     -0.691
     ## r2mealsa     -0.701
     ## r2clim1a     -0.697
     ## r2lifta      -0.704
@@ -847,13 +861,6 @@ In this case it seems that a pair of items “hlmact” and “r2hlthlm” are
 affected by local dependence and hlmact was removed reducind the number
 of items from 9 to 8.
 
-    Paek, I., & Cole, K. (2019). Using R for item response theory model applications. Routledge.
-    Røe, C., Damsgård, E., Fors, T., & Anke, A.. (2014). Psychometric properties of the pain stages of change questionnaire as evaluated by Rasch analysis in patients with chronic musculoskeletal pain.
-    Ramp, M., Khan, F., Misajon, R. A., & Pallant, J. F. (2009). Rasch analysis of the Multiple Sclerosis Impact Scale MSIS-29.
-    La Porta, F., Franceschini, M., Caselli, S., Cavallini, P., Susassi, S., & Tennant, A. (2011). Unified balance scale: an activity-based, bed to community, and aetiology-independent measure of balance calibrated with Rasch analysis.
-    Marais, I., & Andrich, D. (2008b). Effects of varying magnitude and patterns of local dependence in the unidimensional Rasch model. 
-    Das Nair, R., Moreton, B. J., & Lincoln, N. B. (2011). Rasch analysis of the Nottingham extended activities of daily living scale.
-
 # Assumption 3: monotonicity
 
 ``` r
@@ -861,21 +868,21 @@ mirt::itemfit(sc.2pl.fit)
 ```
 
     ##         item   S_X2 df.S_X2 RMSEA.S_X2 p.S_X2
-    ## 1    r2shopa  8.740       5      0.009  0.120
-    ## 2 r2housewka 12.362       5      0.013  0.030
-    ## 3   r2walkra  6.051       5      0.005  0.301
-    ## 4   r2mealsa  5.672       5      0.004  0.339
-    ## 5   r2clim1a  5.125       5      0.002  0.401
-    ## 6    r2lifta  7.268       5      0.007  0.201
-    ## 7     r2beda  4.527       5      0.000  0.476
-    ## 8   r2hlthlm  9.999       5      0.011  0.075
+    ## 1    r2shopa  8.615       5      0.009  0.125
+    ## 2 r2housewka 11.314       5      0.012  0.045
+    ## 3   r2walkra  6.091       5      0.005  0.297
+    ## 4   r2mealsa  5.720       5      0.004  0.334
+    ## 5   r2clim1a  5.190       5      0.002  0.393
+    ## 6    r2lifta  7.371       5      0.007  0.195
+    ## 7     r2beda  4.538       5      0.000  0.475
+    ## 8   r2hlthlm  9.968       5      0.010  0.076
 
 ``` r
 itemtype <- c(rep('2PL',1), 'spline',rep('2PL',6))
 mod2 <- mirt(sc_df[-1], 1, itemtype=itemtype, TOL=2e-4)
 ```
 
-    ## Iteration: 1, Log-Lik: -24819.307, Max-Change: 5.57515Iteration: 2, Log-Lik: -20513.866, Max-Change: 1.86417Iteration: 3, Log-Lik: -19882.530, Max-Change: 1.90662Iteration: 4, Log-Lik: -19699.752, Max-Change: 1.26678Iteration: 5, Log-Lik: -19610.937, Max-Change: 0.94132Iteration: 6, Log-Lik: -19573.959, Max-Change: 1.02912Iteration: 7, Log-Lik: -19553.418, Max-Change: 0.73455Iteration: 8, Log-Lik: -19543.647, Max-Change: 0.60168Iteration: 9, Log-Lik: -19538.924, Max-Change: 0.31855Iteration: 10, Log-Lik: -19536.955, Max-Change: 0.23407Iteration: 11, Log-Lik: -19536.100, Max-Change: 0.07307Iteration: 12, Log-Lik: -19535.751, Max-Change: 5.41662Iteration: 13, Log-Lik: -19534.729, Max-Change: 0.28348Iteration: 14, Log-Lik: -19534.620, Max-Change: 0.01678Iteration: 15, Log-Lik: -19534.588, Max-Change: 0.01520Iteration: 16, Log-Lik: -19534.565, Max-Change: 0.00214Iteration: 17, Log-Lik: -19534.562, Max-Change: 0.00077Iteration: 18, Log-Lik: -19534.561, Max-Change: 0.00053Iteration: 19, Log-Lik: -19534.561, Max-Change: 0.00033Iteration: 20, Log-Lik: -19534.560, Max-Change: 0.00028Iteration: 21, Log-Lik: -19534.560, Max-Change: 0.00028Iteration: 22, Log-Lik: -19534.560, Max-Change: 0.00029Iteration: 23, Log-Lik: -19534.560, Max-Change: 0.00028Iteration: 24, Log-Lik: -19534.560, Max-Change: 0.00027Iteration: 25, Log-Lik: -19534.560, Max-Change: 0.00026Iteration: 26, Log-Lik: -19534.560, Max-Change: 0.00025Iteration: 27, Log-Lik: -19534.560, Max-Change: 0.00024Iteration: 28, Log-Lik: -19534.560, Max-Change: 0.00023Iteration: 29, Log-Lik: -19534.560, Max-Change: 0.00022Iteration: 30, Log-Lik: -19534.560, Max-Change: 0.00021Iteration: 31, Log-Lik: -19534.560, Max-Change: 0.00020Iteration: 32, Log-Lik: -19534.559, Max-Change: 0.00020
+    ## Iteration: 1, Log-Lik: -24818.836, Max-Change: 5.57090Iteration: 2, Log-Lik: -20514.833, Max-Change: 1.88225Iteration: 3, Log-Lik: -19881.922, Max-Change: 1.84976Iteration: 4, Log-Lik: -19697.710, Max-Change: 1.39181Iteration: 5, Log-Lik: -19608.446, Max-Change: 0.73760Iteration: 6, Log-Lik: -19572.179, Max-Change: 1.28692Iteration: 7, Log-Lik: -19551.250, Max-Change: 0.58248Iteration: 8, Log-Lik: -19542.003, Max-Change: 0.61314Iteration: 9, Log-Lik: -19537.554, Max-Change: 0.21437Iteration: 10, Log-Lik: -19536.400, Max-Change: 0.26853Iteration: 11, Log-Lik: -19535.073, Max-Change: 0.20121Iteration: 12, Log-Lik: -19534.492, Max-Change: 5.20028Iteration: 13, Log-Lik: -19533.441, Max-Change: 0.34267Iteration: 14, Log-Lik: -19533.303, Max-Change: 4.16959Iteration: 15, Log-Lik: -19532.779, Max-Change: 0.01137Iteration: 16, Log-Lik: -19532.779, Max-Change: 0.01137Iteration: 17, Log-Lik: -19532.768, Max-Change: 0.00920Iteration: 18, Log-Lik: -19532.762, Max-Change: 0.00183Iteration: 19, Log-Lik: -19532.762, Max-Change: 0.00173Iteration: 20, Log-Lik: -19532.759, Max-Change: 0.00092Iteration: 21, Log-Lik: -19532.758, Max-Change: 0.00037Iteration: 22, Log-Lik: -19532.758, Max-Change: 0.00030Iteration: 23, Log-Lik: -19532.758, Max-Change: 0.00026Iteration: 24, Log-Lik: -19532.758, Max-Change: 0.00026Iteration: 25, Log-Lik: -19532.757, Max-Change: 3.18703Iteration: 26, Log-Lik: -19532.465, Max-Change: 0.00069Iteration: 27, Log-Lik: -19532.464, Max-Change: 0.00022Iteration: 28, Log-Lik: -19532.464, Max-Change: 0.00108Iteration: 29, Log-Lik: -19532.464, Max-Change: 0.00060Iteration: 30, Log-Lik: -19532.464, Max-Change: 0.00024Iteration: 31, Log-Lik: -19532.464, Max-Change: 0.00014
 
 ``` r
 print(itemplot(mod2, 2, main = "r2housewka"))
@@ -888,7 +895,7 @@ itemtype <- c(rep('2PL',7), 'spline')
 mod2 <- mirt(sc_df[-1], 1, itemtype=itemtype, TOL=2e-4)
 ```
 
-    ## Iteration: 1, Log-Lik: -23001.581, Max-Change: 2.00843Iteration: 2, Log-Lik: -20418.344, Max-Change: 1.46693Iteration: 3, Log-Lik: -19859.448, Max-Change: 0.97153Iteration: 4, Log-Lik: -19690.837, Max-Change: 0.38271Iteration: 5, Log-Lik: -19614.242, Max-Change: 0.45298Iteration: 6, Log-Lik: -19575.549, Max-Change: 0.35027Iteration: 7, Log-Lik: -19555.340, Max-Change: 0.54434Iteration: 8, Log-Lik: -19544.930, Max-Change: 0.70412Iteration: 9, Log-Lik: -19540.606, Max-Change: 0.25332Iteration: 10, Log-Lik: -19539.113, Max-Change: 0.25930Iteration: 11, Log-Lik: -19537.443, Max-Change: 0.31348Iteration: 12, Log-Lik: -19536.447, Max-Change: 1.05645Iteration: 13, Log-Lik: -19535.017, Max-Change: 0.17620Iteration: 14, Log-Lik: -19534.610, Max-Change: 9.28524Iteration: 15, Log-Lik: -19533.354, Max-Change: 0.11114Iteration: 16, Log-Lik: -19533.351, Max-Change: 5.48141Iteration: 17, Log-Lik: -19532.746, Max-Change: 0.05424Iteration: 18, Log-Lik: -19532.573, Max-Change: 3.49081Iteration: 19, Log-Lik: -19532.270, Max-Change: 2.41455Iteration: 20, Log-Lik: -19532.091, Max-Change: 0.00466Iteration: 21, Log-Lik: -19532.031, Max-Change: 0.00432Iteration: 22, Log-Lik: -19531.832, Max-Change: 0.00199Iteration: 23, Log-Lik: -19531.826, Max-Change: 0.00173Iteration: 24, Log-Lik: -19531.821, Max-Change: 0.00085Iteration: 25, Log-Lik: -19531.819, Max-Change: 0.00095Iteration: 26, Log-Lik: -19531.816, Max-Change: 0.00088Iteration: 27, Log-Lik: -19531.813, Max-Change: 0.00085Iteration: 28, Log-Lik: -19531.806, Max-Change: 0.00029Iteration: 29, Log-Lik: -19531.805, Max-Change: 0.00026Iteration: 30, Log-Lik: -19531.805, Max-Change: 0.00024Iteration: 31, Log-Lik: -19531.805, Max-Change: 0.00020
+    ## Iteration: 1, Log-Lik: -23001.900, Max-Change: 2.00117Iteration: 2, Log-Lik: -20408.164, Max-Change: 1.50369Iteration: 3, Log-Lik: -19854.835, Max-Change: 1.03401Iteration: 4, Log-Lik: -19684.036, Max-Change: 0.82318Iteration: 5, Log-Lik: -19598.964, Max-Change: 0.35502Iteration: 6, Log-Lik: -19566.157, Max-Change: 0.26223Iteration: 7, Log-Lik: -19550.676, Max-Change: 0.20697Iteration: 8, Log-Lik: -19543.029, Max-Change: 0.29836Iteration: 9, Log-Lik: -19539.044, Max-Change: 0.16182Iteration: 10, Log-Lik: -19537.089, Max-Change: 0.28158Iteration: 11, Log-Lik: -19535.717, Max-Change: 0.16213Iteration: 12, Log-Lik: -19534.783, Max-Change: 0.13809Iteration: 13, Log-Lik: -19533.640, Max-Change: 0.39002Iteration: 14, Log-Lik: -19533.282, Max-Change: 10.14183Iteration: 15, Log-Lik: -19531.849, Max-Change: 0.12845Iteration: 16, Log-Lik: -19531.847, Max-Change: 5.75325Iteration: 17, Log-Lik: -19531.220, Max-Change: 3.28549Iteration: 18, Log-Lik: -19530.865, Max-Change: 2.49924Iteration: 19, Log-Lik: -19530.456, Max-Change: 0.00415Iteration: 20, Log-Lik: -19530.412, Max-Change: 0.00254Iteration: 21, Log-Lik: -19530.390, Max-Change: 0.00215Iteration: 22, Log-Lik: -19530.343, Max-Change: 0.00242Iteration: 23, Log-Lik: -19530.334, Max-Change: 0.00103Iteration: 24, Log-Lik: -19530.328, Max-Change: 0.00084Iteration: 25, Log-Lik: -19530.314, Max-Change: 0.00068Iteration: 26, Log-Lik: -19530.312, Max-Change: 0.00064Iteration: 27, Log-Lik: -19530.311, Max-Change: 0.00051Iteration: 28, Log-Lik: -19530.308, Max-Change: 0.00018
 
 ``` r
 print(itemplot(mod2, 2, main = "r2hlthlm"))
@@ -900,9 +907,39 @@ There is no suggestion of pattern departure for r2housewka or r2hlthlm.
 
 # Fscore distributions
 
+## Range of theta (F-score)
+
+The range of $\theta$ values derived with the IRT model is population
+dependent. $\theta$ values here are standardised to have a mean of zero
+and standard deviation of one. However, these values must be interpreted
+within the context of the population data from which they are drawn.
+
+As this is a secondary dataset it very imporant to describe sampling
+methods and thus to say how participants were selected, what were the
+inclusion/exclusion criteria, and report the demographic characteristics
+available of the sample.
+
+This information is important for the interpretation of the $\theta$
+values (Fscores). In fact as the IRT model will standardise $\theta$ on
+the basis of the observed sample, it is important to know the
+charateristic of the considered sample to a) better interpret the
+psychometric characteristic of our measurement model, and b) interpret
+the observed $\theta$ values.
+
+Secondly, it is important to make explicit what is the target population
+(e.g. general population of England that is 50yo or older), how well the
+target population is represented by the sample at hand. For example:
+
+- Geographical area: does the sample include respondents from different
+  areas of the country or are they from a local area?
+- Demographics: how representative are the demographics characteristics
+  of respondents to those of the target population?
+
+## extracting Fscores
+
 The fscores() function is extracting the estimated latent trait scores
 (factor scores) for each respondent from the fitted IRT model stored in
-the sc.1pl.fit object.
+the sc.2pl.fit object.
 
 ``` r
 # Extract latent trait scores into a dataframe for charting
@@ -999,7 +1036,7 @@ set.seed(720)
     ## 
     ## Bootstrap Statistics :
     ##      original       bias    std. error
-    ## t1* 0.6919378 0.0002713663  0.01799166
+    ## t1* 0.6921152 0.0002709237  0.01798862
 
 ``` r
   boot.ci(boot.out = bootstrap, type = c("norm"))
@@ -1013,7 +1050,7 @@ set.seed(720)
     ## 
     ## Intervals : 
     ## Level      Normal        
-    ## 95%   ( 0.6564,  0.7269 )  
+    ## 95%   ( 0.6566,  0.7271 )  
     ## Calculations and Intervals on Original Scale
 
 ``` r
@@ -1038,7 +1075,7 @@ set.seed(720)
     ## 
     ## Bootstrap Statistics :
     ##       original       bias    std. error
-    ## t1* 0.09305676 0.0001185722  0.02180532
+    ## t1* 0.09316567 0.0001184203  0.02180367
 
 ``` r
   boot.ci(boot.out = bootstrap, type = c("norm"))
@@ -1052,7 +1089,7 @@ set.seed(720)
     ## 
     ## Intervals : 
     ## Level      Normal        
-    ## 95%   ( 0.0502,  0.1357 )  
+    ## 95%   ( 0.0503,  0.1358 )  
     ## Calculations and Intervals on Original Scale
 
 ``` r
@@ -1062,7 +1099,7 @@ table(data_a$r2painlv) %>% addmargins()
 
     ## 
     ##    0    1    2    3  Sum 
-    ## 5316  809 1201  327 7653
+    ## 5316  809 1200  327 7652
 
 ``` r
 table(data_a$r2painlv) %>% prop.table()
@@ -1070,7 +1107,7 @@ table(data_a$r2painlv) %>% prop.table()
 
     ## 
     ##          0          1          2          3 
-    ## 0.69462956 0.10571018 0.15693192 0.04272834
+    ## 0.69472033 0.10572399 0.15682175 0.04273393
 
 ``` r
 data_b<-expl_df[which(expl_df$LVscore >= 1),]
@@ -1079,7 +1116,7 @@ table(data_b$r2painlv) %>% addmargins()
 
     ## 
     ##    0    1    2    3  Sum 
-    ##  294  127  589  376 1386
+    ##  294  127  590  376 1387
 
 ``` r
 table(data_b$r2painlv) %>% prop.table()
@@ -1087,7 +1124,7 @@ table(data_b$r2painlv) %>% prop.table()
 
     ## 
     ##          0          1          2          3 
-    ## 0.21212121 0.09163059 0.42496392 0.27128427
+    ## 0.21196828 0.09156453 0.42537851 0.27108868
 
 ## Age subgroups
 
@@ -1126,3 +1163,77 @@ ggplot(filter(df_plot,!is.na(lv3chrpain)), aes(x = age_group, y = LVscore, fill 
 ```
 
 ![](IRT-supplementary-materia_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+
+# References
+
+- Baur, T., & Lukes, D. (2009). An evaluation of the IRT models through
+  Monte Carlo simulation. UW-L Journal of Undergraduate Research,
+  12(1-7).
+- Bock, R. D., & Mislevy, R. J. (1982). Adaptive EAP estimation of
+  ability in a microcomputer environment. Applied psychological
+  measurement, 6(4), 431-444.
+- Chalmers, R. P. (2012). mirt: A multidimensional item response theory
+  package for the R environment. Journal of statistical Software, 48,
+  1-29.
+- Chen, W. H., & Thissen, D. (1997). Local dependence indexes for item
+  pairs using item response theory. Journal of Educational and
+  Behavioral Statistics, 22(3), 265-289.
+- Das Nair, R., Moreton, B. J., & Lincoln, N. B. (2011). Rasch analysis
+  of the Nottingham extended activities of daily living scale.
+- Drasgow, F., Levine, M. V., & Williams, E. A. (1985). Appropriateness
+  measurement with polychotomous item response models and standardized
+  indices. British Journal of Mathematical and Statistical \*
+  Psychology, 38, 67-86.
+- Embretson, S. E. & Reise, S. P. (2000). Item Response Theory for
+  Psychologists. Erlbaum.
+- Finch, H., & French, B. F. (2019). A comparison of estimation
+  techniques for IRT models with small samples. Applied Measurement in
+  Education, 32(2), 77-96.
+- Hu, L., & Bentler, P. M. (1999). Cutoff criteria for fit indexes in
+  covariance structure analysis: Conventional criteria versus new
+  alternatives.
+- Kang, T., & Chen, T. T. (2008). Performance of the generalized S‐X2
+  item fit index for polytomous IRT models. Journal of Educational
+  Measurement, 45(4), 391-406.
+- Kim, S., Moses, T., & Yoo, H. H. (2015). Effectiveness of item
+  response theory (IRT) proficiency estimation methods under adaptive
+  multistage testing. ETS Research Report Series, 2015(1), 1-19.
+- Kim, J.K., Nicewander, W.A. Ability estimation for conventional tests.
+  Psychometrika 58, 587–599 (1993).
+- Kline, R. B. (2023). Principles and practice of structural equation
+  modeling. Guilford publications.
+- La Porta, F., Franceschini, M., Caselli, S., Cavallini, P., Susassi,
+  S., & Tennant, A. (2011). Unified balance scale: an activity-based,
+  bed to community, and aetiology-independent measure of \* balance
+  calibrated with Rasch analysis.
+- Lee, W. C., & Ban, J. C. (2009). A comparison of IRT linking
+  procedures. Applied measurement in education, 23(1), 23-48.
+- Luo, Y., & Dimitrov, D. M. (2019). A short note on obtaining point
+  estimates of the IRT ability parameter with MCMC estimation in Mplus:
+  How many plausible values are needed?. Educational and \*
+  Psychological Measurement, 79(2), 272-287.
+- Marais, I., & Andrich, D. (2008b). Effects of varying magnitude and
+  patterns of local dependence in the unidimensional Rasch model.
+- Newsom, J. (2023) Structural equation modelling
+- Orlando, M. & Thissen, D. (2000). Likelihood-based item fit indices
+  for dichotomous item response theory models. Applied Psychological
+  Measurement, 24, 50-64.
+- Orlando, M., & Thissen, D. (2003). Further investigation of the
+  performance of S-X2: An item fit index for use with dichotomous item
+  response theory models. Applied Psychological Measurement, 27(\* 4),
+  289-298.
+- Paek, I., & Cole, K. (2019). Using R for item response theory model
+  applications. Routledge.
+- Rasch, G. (1993). Probabilistic models for some intelligence and
+  attainment tests. MESA Press, 5835 S. Kimbark Ave., Chicago, IL 60637;
+  e-mail: MESA@ uchicago. edu; web address: www. rasch. org; \* tele.
+- Ramp, M., Khan, F., Misajon, R. A., & Pallant, J. F. (2009). Rasch
+  analysis of the Multiple Sclerosis Impact Scale MSIS-29.
+- Røe, C., Damsgård, E., Fors, T., & Anke, A.. (2014). Psychometric
+  properties of the pain stages of change questionnaire as evaluated by
+  Rasch analysis in patients with chronic musculoskeletal pain.
+- Şahin, A., & Anıl, D. (2017). The effects of test length and sample
+  size on item parameters in item response theory. Educational Sciences:
+  Theory & Practice, 17(1).
+- Warm, T. A. (1989). Weighted likelihood estimation of ability in item
+  response theory. Psychometrika, 54(3), 427-450.
