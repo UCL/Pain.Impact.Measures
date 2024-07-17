@@ -477,10 +477,16 @@ Secondly, it is important to make explicit what is the target population (e.g. g
 * Geographical area: does the sample include respondents from different areas of the country or are they from a local area? 
 * Demographics: how representative are the demographics characteristics of respondents to those of the target population?
 
+## Zero Inflation
+
+The visualisation of theta scores can often reveal the presence of a zero-inflated distribution. This is particularly evident in this case as a substantial number of respondents endorsed very few to none of the items proposed. If we consider that this set of items aimed to measure different levels of "high impact", the zero-inflation of this distribution shows that most respondents did not experience "high impact". If - instead of using the Fscore -  we aggregate the items raw scoring we may obscure zero-inflation and thereby biasing the our understanding of the data distribution. By making this zero-inflation evident, the IRT measurement model allows us to think at ways in which we can take into consideration this bias ass we proceed in further analyses (e.g. considering zero-inflated regression models).
 
 ## extracting Fscores
 The fscores() function is extracting the estimated latent trait scores (factor scores) 
 for each respondent from the fitted IRT model stored in the sc.2pl.fit object.
+
+
+
 
 ```{r}
 # Extract latent trait scores into a dataframe for charting
