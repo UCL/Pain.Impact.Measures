@@ -837,7 +837,6 @@ eigenvalues generated from the bootstrap resampled datasets.
 
 *Parallel analysis for factors is actually harder than it seems, for the question is what are the appropriate communalities to use. If communalities are estimated by the Squared Multiple Correlation (SMC) smc, then the eigen values of the original data will reflect major as well as minor factors (see sim.minor to simulate such data). Random data will not, of course, have any structure and thus the number of factors will tend to be biased upwards by the presence of the minor factors.*
 
-
 Here we will use parallel with the option "fa" which estimates the communalities 
 based upon a one factor minres solution. Although this will underestimate the communalities, 
 it is suggested that leads to better solutions on simulated or real data sets.
@@ -855,12 +854,33 @@ pa<-psych::fa.parallel(LV_items_ex[,-1],
                    cor = "poly", 
                    correct = T)
 
-
 ```
 
 Parallel analysis confirms the suggestion of a two factor solution as
-well as the ected eigenvalue for the second factor close to 1 as
+well as the expected eigenvalue for the second factor close to 1 as
 observed in previous studies.
+
+##### Alternatives to Parallel analysis
+Another method to evaluate the number of factors to extract in exploratory factor analysis is to use the "Very simple structure criterion" (VSS). In factor analysis we tend to interpret the results of our factor analysis by focusing on the largest loadings that each variable extress and we tend to consider less important or even ignore the loadings of smaller magnitude. VSS takes this "simplifying" approach and operationalizes it by comparing the original correlation matrix to that reproduced by a simplified version of the original factor matrix. The VSS criterion compares the fit of the simplified model to the original correlation [Revelle & Rocklin 1979](#references).
+
+
+VSS() is a function in the psych package stands for Very Simple Structure and applies this method. This function takes as input a correlation matrix (in this case we need to specify the sample size). or a dataset (in this case we need to specify which correlations ought to be used). We then specify the extraction method "fm" as "mle" Maximum Likelihood FA. Other factoring methods available are "pa" Principal Axis Factor Analysis,  "minres" stands for minimum residual (OLS) factoring, "pc" Principal Components".
+By including the diagonal (setting diagonal = T), the model will focus on the total variance in the dataset (the assumption is that total variance = common variance). In this case we chose to exclude the diagonal to model only shared variance (communality) and ignoring the unique variance. This method aligns with the goal of EFA, which is to identify latent constructs that explain the correlations among observed variables.
+
+```{r, eval=TRUE,echo=T,warning=FALSE,message=FALSE,error=FALSE}
+
+cor_vss<-polychoric(LV_items_ex[,-1], smooth = F, correct = F)
+
+
+VSS(cor_vss$rho, 
+    fm="mle", 
+    rotate = "oblimin",
+    n=4,
+    n.obs = nrow(LV_items_ex[,-1]), 
+    diagonal = F)
+
+```
+
 
 
 #### EFA
@@ -1201,10 +1221,25 @@ pa<-psych::fa.parallel(LV_items_ex2[,-1],
                    cor = "poly", 
                    correct = T)
 
+
 ```
 
 Removing the cognitive items and r2eata, parallel analysis that a one factor solution is
 acceptable
+
+
+```{r, eval=TRUE,echo=T,warning=FALSE,message=FALSE,error=FALSE}
+
+cor_vss2<-polychoric(LV_items_ex2[,-1], smooth = T, correct = T)
+
+
+VSS(cor_vss2$rho, 
+    fm="mle", 
+    rotate = "oblimin",
+    n=4,
+    n.obs = nrow(LV_items_ex2[,-1]), 
+    diagonal = F)
+```
 
 #### EFA summary (Selected items)
 
@@ -1343,6 +1378,7 @@ write.csv(LV_items.irt,"C:/Users/d.vitali/Desktop/Github/CRIISP-WP5/data/clean/c
 * Muthén, B. (1978). Contributions to factor analysis of dichotomous variables. Psychometrika, 43(4), 551-560.
 * Muthén, B., & Hofacker, C. (1988). Testing the assumptions underlying tetrachoric correlations. Psychometrika, 53, 563-577.
 * Newsom, J. (2023) Structural equation modelling
+* Revelle, W., & Rocklin, T. (1979). Very simple structure: An alternative procedure for estimating the optimal number of interpretable factors. Multivariate behavioral research, 14(4), 403-414.
 * Spector, W. D. and Fleishman, J. A. (1998). Combining activities of daily living with instrumental activities of daily living to measure functional disability. J. Gerontology: Social Sciences 
 * Thomas, V. S., Rockwood, K., & McDowell, I. (1998). Multidimensionality in instrumental and basic activities of daily living. Journal of clinical epidemiology, 51(4), 315-321.
 * Thurstone, L. L. (1947). Multiple-factor analysis; A development and expansion of The vectors of the mind. Chicago, IL: University of Chicago Press.

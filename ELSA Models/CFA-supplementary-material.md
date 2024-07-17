@@ -1,7 +1,7 @@
 Measuring impact of pain in aging population using existing items in
 ELSA
 ================
-16 Jul 2024
+17 Jul 2024
 
 - [INTRODUCTION](#introduction)
   - [AIM](#aim)
@@ -710,8 +710,73 @@ pa<-psych::fa.parallel(LV_items_ex[,-1],
     ## Parallel analysis suggests that the number of factors =  2  and the number of components =  NA
 
 Parallel analysis confirms the suggestion of a two factor solution as
-well as the ected eigenvalue for the second factor close to 1 as
+well as the expected eigenvalue for the second factor close to 1 as
 observed in previous studies.
+
+##### Alternatives to Parallel analysis
+
+Another method to evaluate the number of factors to extract in
+exploratory factor analysis is to use the “Very simple structure
+criterion” (VSS). In factor analysis we tend to interpret the results of
+our factor analysis by focusing on the largest loadings that each
+variable extress and we tend to consider less important or even ignore
+the loadings of smaller magnitude. VSS takes this “simplifying” approach
+and operationalizes it by comparing the original correlation matrix to
+that reproduced by a simplified version of the original factor matrix.
+The VSS criterion compares the fit of the simplified model to the
+original correlation [Revelle & Rocklin 1979](#references).
+
+VSS() is a function in the psych package stands for Very Simple
+Structure and applies this method. This function takes as input a
+correlation matrix (in this case we need to specify the sample size). or
+a dataset (in this case we need to specify which correlations ought to
+be used). We then specify the extraction method “fm” as “mle” Maximum
+Likelihood FA. Other factoring methods available are “pa” Principal Axis
+Factor Analysis, “minres” stands for minimum residual (OLS) factoring,
+“pc” Principal Components”. By including the diagonal (setting diagonal
+= T), the model will focus on the total variance in the dataset (the
+assumption is that total variance = common variance). In this case we
+chose to exclude the diagonal to model only shared variance
+(communality) and ignoring the unique variance. This method aligns with
+the goal of EFA, which is to identify latent constructs that explain the
+correlations among observed variables.
+
+``` r
+cor_vss<-polychoric(LV_items_ex[,-1], smooth = F, correct = F)
+
+
+VSS(cor_vss$rho, 
+    fm="mle", 
+    rotate = "oblimin",
+    n=4,
+    n.obs = nrow(LV_items_ex[,-1]), 
+    diagonal = F)
+```
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+    ## 
+    ## Very Simple Structure
+    ## Call: vss(x = x, n = n, rotate = rotate, diagonal = diagonal, fm = fm, 
+    ##     n.obs = n.obs, plot = plot, title = title, use = use, cor = cor)
+    ## VSS complexity 1 achieves a maximimum of 0.97  with  1  factors
+    ## VSS complexity 2 achieves a maximimum of 0.81  with  2  factors
+    ## 
+    ## The Velicer MAP achieves a minimum of 0.03  with  2  factors 
+    ## BIC achieves a minimum of  7741.63  with  4  factors
+    ## Sample Size adjusted BIC achieves a minimum of  8018.08  with  4  factors
+    ## 
+    ## Statistics by number of factors 
+    ##   vss1 vss2   map dof chisq prob sqresid  fit RMSEA   BIC SABIC complex eChisq
+    ## 1 0.97 0.00 0.055 135 25442    0     5.1 0.97  0.20 24306 24735     1.0  10390
+    ## 2 0.73 0.81 0.034 118 15818    0    27.3 0.81  0.17 14825 15200     1.2   2271
+    ## 3 0.53 0.72 0.037 102 12153    0    41.5 0.72  0.16 11294 11618     1.2   1525
+    ## 4 0.35 0.44 0.042  87  8474    0    56.8 0.61  0.15  7742  8018     1.6    926
+    ##    SRMR eCRMS eBIC
+    ## 1 0.087 0.092 9253
+    ## 2 0.040 0.046 1277
+    ## 3 0.033 0.041  666
+    ## 4 0.026 0.034  193
 
 #### EFA
 
@@ -756,7 +821,7 @@ of factors.
 This correction is generally appropriate when conducting factor analysis
 on correlated variables which is the assumption here.
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 *Note that in oblique rotations like promax, loadings are regression
 coefficients and can exceed the \[-1,1\] interval.*
@@ -1271,7 +1336,7 @@ polychor.dist<-as.dist(1 - cor0$rho)
 hclust(polychor.dist, method="average") %>% plot
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 Notably item “r2chaira” appears to show the greates euclidian distance
 with the other items.
@@ -1296,12 +1361,49 @@ pa<-psych::fa.parallel(LV_items_ex2[,-1],
                    correct = T)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  2  and the number of components =  NA
 
 Removing the cognitive items and r2eata, parallel analysis that a one
 factor solution is acceptable
+
+``` r
+cor_vss2<-polychoric(LV_items_ex2[,-1], smooth = T, correct = T)
+
+
+VSS(cor_vss2$rho, 
+    fm="mle", 
+    rotate = "oblimin",
+    n=4,
+    n.obs = nrow(LV_items_ex2[,-1]), 
+    diagonal = F)
+```
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+
+    ## 
+    ## Very Simple Structure
+    ## Call: vss(x = x, n = n, rotate = rotate, diagonal = diagonal, fm = fm, 
+    ##     n.obs = n.obs, plot = plot, title = title, use = use, cor = cor)
+    ## VSS complexity 1 achieves a maximimum of 0.98  with  1  factors
+    ## VSS complexity 2 achieves a maximimum of 0.7  with  2  factors
+    ## 
+    ## The Velicer MAP achieves a minimum of 0.04  with  2  factors 
+    ## BIC achieves a minimum of  1687.49  with  4  factors
+    ## Sample Size adjusted BIC achieves a minimum of  1789.17  with  4  factors
+    ## 
+    ## Statistics by number of factors 
+    ##   vss1 vss2   map dof chisq prob sqresid  fit RMSEA  BIC SABIC complex eChisq
+    ## 1 0.98 0.00 0.042  65  9758    0     1.4 0.98  0.18 9211  9417     1.0   1794
+    ## 2 0.58 0.70 0.039  53  5862    0    28.5 0.70  0.16 5416  5584     1.1    653
+    ## 3 0.42 0.56 0.042  42  2940    0    37.7 0.61  0.12 2586  2720     1.2    253
+    ## 4 0.31 0.45 0.054  32  1957    0    44.0 0.54  0.12 1687  1789     1.4    134
+    ##    SRMR eCRMS eBIC
+    ## 1 0.050 0.055 1247
+    ## 2 0.030 0.037  207
+    ## 3 0.019 0.026 -101
+    ## 4 0.014 0.021 -135
 
 #### EFA summary (Selected items)
 
@@ -1595,6 +1697,10 @@ write.csv(LV_items.irt,"C:/Users/d.vitali/Desktop/Github/CRIISP-WP5/data/clean/c
 - Muthén, B., & Hofacker, C. (1988). Testing the assumptions underlying
   tetrachoric correlations. Psychometrika, 53, 563-577.
 - Newsom, J. (2023) Structural equation modelling
+- Revelle, W., & Rocklin, T. (1979). Very simple structure: An
+  alternative procedure for estimating the optimal number of
+  interpretable factors. Multivariate behavioral research, 14(4),
+  403-414.
 - Spector, W. D. and Fleishman, J. A. (1998). Combining activities of
   daily living with instrumental activities of daily living to measure
   functional disability. J. Gerontology: Social Sciences
