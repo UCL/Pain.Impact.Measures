@@ -165,89 +165,17 @@ for (wave in waves) {
 ```
 
 
-### Age and Gender distributions
-```{r, eval=TRUE,echo=F,warning=FALSE,message=FALSE,error=FALSE}
-
-# counting subjects aged 90 or more
-ninetyplus<-H_elsa_w2_ %>%  filter(r2agey >89) 
-notyetfifty<-H_elsa_w2_ %>% filter(r2agey <50)
-
-paste("90+ count:", ninetyplus %>% nrow)
-paste("<50 count:", notyetfifty %>% nrow)
-```
-
+### Selecting 50yo+
 
 Of this sample of the elsa current wave respondents  
-I am excluding respondent aged < 50 as ELSA is focused on english population aged 40 and older.
-
-
+I am excluding respondent aged < 50 as ELSA is focused on english population aged 50 and older.
 
 ```{r, eval=TRUE,echo=F,warning=FALSE,message=FALSE,error=FALSE}
-# Gender
-# 1 = Male
-# 2 = female
-#sum(H_elsa_w2_$r2agey <50) 
-#sum(H_elsa_w2_$r2agey ==90) 
+
 
 # removing all participants who younger than 50
 H_elsa_w2_ <-H_elsa_w2_ %>% dplyr::filter(is.na(r2agey) |r2agey>49 )
-
-plotdata0 <- H_elsa_w2_[,c("r2agey","ragender")]# %>% filter(rowSums(H_elsa_w2_[,c("r2agey","ragender")] <0) ==0)
-
-colnames(plotdata0)<-c("age","gender")
-#table(plotdata0$gender)
-plotdata0$gender[plotdata0$gender == 1] <-"M"
-plotdata0$gender[plotdata0$gender == 2] <-"W"
-
-plotdata0$gender<-as.factor(plotdata0$gender)
-
-plotdata0$age_group<- cut(plotdata0$age, c(0,29, 39, 49, 59, 69, 79, 89, Inf), c("0-29", "30-39","40-49" ,"50-59", "60-69","70-79","80-89","90+"), include.lowest=TRUE)
-plotdata0$age_group<-as.factor(plotdata0$age_group)
-
-
-ggplot(plotdata0,aes(x=age_group, fill=gender))+
-  geom_bar(position="dodge")+
-  scale_fill_discrete(name="Gender",
-                      breaks=c("M", "W"),
-                      labels=c("Male", "Female"))+
-  geom_text(stat='count', aes(label=after_stat(count)), position = position_dodge(width = 1), vjust=-.5)+
-  ggtitle(paste0("w2 wave: Age Groups by Gender (N = ",nrow(plotdata0),")"))+
-  xlab('Age group')+
-  ylab('No. of People')
-
-#table(plotdata0$age_group,plotdata0$gender) %>% addmargins()
-proptable0<-prop.table(table(plotdata0$age_group,plotdata0$gender))*100
-proptable0  %>% addmargins(margin = 1) %>% round(2)
-
-
-tab0<-table(plotdata0$age_group,plotdata0$gender)
-tr_tab0<-rbind(tab0[c(4:7),1],tab0[c(4:7),2])
-
-props<-tr_tab0 %>% addmargins(1)
-props[2,c(1:4)]/props[3,c(1:4)]
-#chisq.test(tr_tab0, correct = F) # no continuity correction as the table is not 2by2
-prop.test(x=tr_tab0[2,],n=addmargins(tr_tab0,1)[3,], correct = F)
-
-
-
-
 ```
-
-The age distribution in this sample of subject reporting pain show a majority of 
-women in all age groups with the 80-89 range presenting the
-highest prevalence of females:
-
-|     | 50-59           | 60-69           | 70-79           | 80-89           | **Tot**         |
-|----:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
-|M    |`r tab0[4,1]`    |`r tab0[5,1]`    |`r tab0[6,1]`    |`r tab0[7,1]`    |`r sum(tab0[,1])`|
-|F    |`r tab0[4,2]`    |`r tab0[5,2]`    |`r tab0[6,2]`    |`r tab0[7,2]`    |`r sum(tab0[,2])`|
-|Tot  |`r sum(tab0[4,])`|`r sum(tab0[5,])`|`r sum(tab0[6,])`|`r sum(tab0[7,])`|`r sum(tab0[,1:2])`|
-
-
-: **Table 4.** Count and proportion of individuals by age and gender
-(current wave)
-
-
 
 ## MEASURES
 ### Participation to general activities
@@ -380,7 +308,7 @@ varlist<-c("idauniq",
            )
 ```
 
-### w3 Wave: Missing Data in  sample
+### w2 Wave: Missing Data in  sample
 
 Missing data for any considered indicator was treated with listwise
 deletion and reported in the table below.
@@ -449,7 +377,7 @@ therefore it was further partitioned in two randomly selected datasets :
 ### listwise deletion of missing data
 
 Selecting complete cases
-```{r, eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE,error=FALSE}
+```{r, eval=TRUE,warning=FALSE,message=FALSE,error=FALSE}
 
 #Creating a ADL&IADL specific dataframe so that
 
@@ -464,6 +392,152 @@ LV_items<-H_elsa_w2_[,varlist]
 LV_items<- LV_items %>% filter(if_all(.fns = ~. >= 0))
 
 ```
+
+total sample available for analysis `r nrow(LV_items)`.
+
+### Age and gender distribution
+```{r echo=F}
+
+plotdata<-H_elsa_w2_ %>% filter(idauniq %in% LV_items$idauniq)
+
+# Gender
+# 1 = Male
+# 2 = female
+#sum(H_elsa_w2_$r2agey <50) 
+plotdata0 <- plotdata[,c("r2agey","ragender")]
+
+colnames(plotdata0)<-c("age","gender")
+#table(plotdata0$gender)
+plotdata0$gender[plotdata0$gender == 1] <-"M"
+plotdata0$gender[plotdata0$gender == 2] <-"W"
+
+plotdata0$gender<-as.factor(plotdata0$gender)
+
+plotdata0$age_group<- cut(plotdata0$age, c(0,29, 39, 49, 59, 69, 79, 89, Inf), c("0-29", "30-39","40-49" ,"50-59", "60-69","70-79","80-89","90+"), include.lowest=TRUE)
+plotdata0$age_group<-as.factor(plotdata0$age_group)
+
+
+ggplot(plotdata0,aes(x=age_group, fill=gender))+
+  geom_bar(position="dodge")+
+  scale_fill_discrete(name="Gender",
+                      breaks=c("M", "W"),
+                      labels=c("Male", "Female"))+
+  geom_text(stat='count', aes(label=after_stat(count)), position = position_dodge(width = 1), vjust=-.5)+
+  ggtitle(paste0("w2 wave: Age Groups by Gender (N = ",nrow(plotdata0),")"))+
+  xlab('Age group')+
+  ylab('No. of People')
+
+#table(plotdata0$age_group,plotdata0$gender) %>% addmargins()
+proptable0<-prop.table(table(plotdata0$age_group,plotdata0$gender))*100
+proptable0  %>% addmargins(margin = 1) %>% round(2)
+
+
+tab0<-table(plotdata0$age_group,plotdata0$gender)
+tr_tab0<-rbind(tab0[c(4:7),1],tab0[c(4:7),2])
+
+props<-tr_tab0 %>% addmargins(1)
+props[2,c(1:4)]/props[3,c(1:4)]
+#chisq.test(tr_tab0, correct = F) # no continuity correction as the table is not 2by2
+prop.test(x=tr_tab0[2,],n=addmargins(tr_tab0,1)[3,], correct = F)
+
+
+
+
+```
+
+The age distribution in this sample of subject reporting pain show a majority of 
+women in all age groups with the 80-89 range presenting the
+highest prevalence of females:
+
+|     | 50-59           | 60-69           | 70-79           | 80-89           | **Tot**         |
+|----:|:---------------:|:---------------:|:---------------:|:---------------:|:---------------:|
+|M    |`r tab0[4,1]`    |`r tab0[5,1]`    |`r tab0[6,1]`    |`r tab0[7,1]`    |`r sum(tab0[,1])`|
+|F    |`r tab0[4,2]`    |`r tab0[5,2]`    |`r tab0[6,2]`    |`r tab0[7,2]`    |`r sum(tab0[,2])`|
+|Tot  |`r sum(tab0[4,])`|`r sum(tab0[5,])`|`r sum(tab0[6,])`|`r sum(tab0[7,])`|`r sum(tab0[,1:2])`|
+
+
+: **Table 4.** Count and proportion of individuals by age and gender
+(current wave)
+
+### Ethnicity
+
+```{r}
+
+plotdata$raracem <-factor(plotdata$raracem, levels = c(-13,1,4), labels = c("NA","White", "Non-white"))
+
+table(plotdata$raracem, useNA = "ifany")
+
+# Create a summary data frame with counts
+counts <- plotdata %>%
+  group_by(raracem) %>%
+  summarise(count = n())
+
+# Plot with bar and frequency count labels
+ggplot(plotdata, aes(x = raracem)) +
+  geom_bar(fill = "blue", color = "black", alpha = .4) +
+  geom_text(data = counts, aes(x = raracem, y = count, label = count), 
+            vjust = -0.5, color = "black") +
+  labs(title = "Distribution of race by white vs non-white category",
+       x = "category",
+       y = "Count") +
+  theme_minimal()
+
+```
+
+
+### Net total Wealth
+```{r echo=FALSE}
+elsa_w2_fin<-read.csv("c:/Users/d.vitali/OneDrive - University College London/CRIISP/00_WP5/00_WP5_data/5050tab/UKDA-5050-tab/tab/wave_2_financial_derived_variables.tab", sep = "\t")
+
+H_elsa_w2_<-merge(elsa_w2_fin[c("idauniq","totwq5_bu_s","nettotw_bu_s")],H_elsa_w2_, by = "idauniq", all = T)
+
+plotdata<-H_elsa_w2_ %>% filter(idauniq %in% LV_items$idauniq)
+```
+Net total wealth (benefit unit level). The sum of savings, investments, physical wealth and housing wealth after financial debt and mortgage debt has been subtracted.
+
+
+The distrubution of wealth is severely skewed
+
+```{r echo=FALSE}
+ggplot(plotdata[which(!is.na(plotdata$nettotw_bu_s)),], aes(x = nettotw_bu_s)) +
+  geom_histogram(fill = "blue", color = "black", alpha = .4) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(title = "Distribution of Wealth",
+       x = "Total Net Wealth",
+       y = "Count") +
+  theme_minimal()
+
+```
+
+and a log transformation of the wealth magnitude axis allows for better visual examination of the distribution
+
+```{r echo=F}
+ggplot(plotdata[which(!is.na(plotdata$nettotw_bu_s)),], aes(x = nettotw_bu_s)) +
+  geom_histogram(fill = "blue", color = "black", alpha = .4) +
+  scale_x_continuous(trans='log10',labels = scales::comma) +
+  labs(title = "Distribution of Wealth (log scale)",
+       x = "Total Net Wealth ( log scale)",
+       y = "Count") +
+  theme_minimal()
+
+```
+
+
+the representation by quintile allows for a more general perspective on this same information
+
+```{r echo=F}
+ggplot(plotdata[which(!is.na(plotdata$totwq5_bu_s)),], aes(x = as.factor(totwq5_bu_s), y = nettotw_bu_s)) +
+  geom_boxplot() +
+  scale_y_continuous(trans='log10',labels = scales::comma) +
+  labs(title = "Distribution of Wealth by Quintile",
+       x = "Quintile (poorer->wealthier)",
+       y = "Wealth (log scale) ")+
+  theme_minimal()
+
+table(plotdata$totwq5_bu_s, useNA = "ifany") %>% addmargins()
+
+```
+
 
 
 

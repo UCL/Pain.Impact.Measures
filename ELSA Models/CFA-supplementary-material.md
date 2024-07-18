@@ -1,7 +1,7 @@
 Measuring impact of pain in aging population using existing items in
 ELSA
 ================
-17 Jul 2024
+18 Jul 2024
 
 - [INTRODUCTION](#introduction)
   - [AIM](#aim)
@@ -11,7 +11,7 @@ ELSA
     - [Cohorts, Strata and Clusters](#cohorts-strata-and-clusters)
     - [Participants in W2](#participants-in-w2)
     - [Chronic pain indicator](#chronic-pain-indicator)
-    - [Age and Gender distributions](#age-and-gender-distributions)
+    - [Selecting 50yo+](#selecting-50yo)
   - [MEASURES](#measures)
     - [Participation to general
       activities](#participation-to-general-activities)
@@ -19,11 +19,14 @@ ELSA
       Activities](#participation-to-work-activities)
     - [ADL+IADL items in ELSA](#adliadl-items-in-elsa)
     - [Defining list of Variables](#defining-list-of-variables)
-    - [w3 Wave: Missing Data in sample](#w3-wave-missing-data-in-sample)
+    - [w2 Wave: Missing Data in sample](#w2-wave-missing-data-in-sample)
   - [ANALYSIS](#analysis)
     - [Construct dimensionality](#construct-dimensionality)
     - [listwise deletion of missing
       data](#listwise-deletion-of-missing-data)
+    - [Age and gender distribution](#age-and-gender-distribution)
+    - [Ethnicity](#ethnicity)
+    - [Net total Wealth](#net-total-wealth)
 - [Sample split](#sample-split)
   - [EFA](#efa)
   - [CFA](#cfa)
@@ -161,55 +164,11 @@ for (wave in waves) {
 #table(H_elsa_w2_$r2chrpain)
 ```
 
-### Age and Gender distributions
-
-    ## [1] "90+ count: 109"
-
-    ## [1] "<50 count: 261"
+### Selecting 50yo+
 
 Of this sample of the elsa current wave respondents  
 I am excluding respondent aged \< 50 as ELSA is focused on english
-population aged 40 and older.
-
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
-
-    ##        
-    ##             M     W
-    ##   0-29   0.00  0.00
-    ##   30-39  0.00  0.00
-    ##   40-49  0.00  0.00
-    ##   50-59 14.11 17.78
-    ##   60-69 14.79 17.05
-    ##   70-79 10.96 13.06
-    ##   80-89  4.27  6.78
-    ##   90+    0.40  0.79
-    ##   Sum   44.53 55.47
-
-    ##     50-59     60-69     70-79     80-89 
-    ## 0.5576068 0.5356164 0.5438039 0.6134122
-
-    ## 
-    ##  4-sample test for equality of proportions without continuity correction
-    ## 
-    ## data:  tr_tab0[2, ] out of addmargins(tr_tab0, 1)[3, ]
-    ## X-squared = 19.543, df = 3, p-value = 0.0002111
-    ## alternative hypothesis: two.sided
-    ## sample estimates:
-    ##    prop 1    prop 2    prop 3    prop 4 
-    ## 0.5576068 0.5356164 0.5438039 0.6134122
-
-The age distribution in this sample of subject reporting pain show a
-majority of women in all age groups with the 80-89 range presenting the
-highest prevalence of females:
-
-|     | 50-59 | 60-69 | 70-79 | 80-89 | **Tot** |
-|----:|:-----:|:-----:|:-----:|:-----:|:-------:|
-|   M | 1294  | 1356  | 1005  |  392  |  4084   |
-|   F | 1631  | 1564  | 1198  |  622  |  5087   |
-| Tot | 2925  | 2920  | 2203  | 1014  |  9171   |
-
-**Table 4.** Count and proportion of individuals by age and gender
-(current wave)
+population aged 50 and older.
 
 ## MEASURES
 
@@ -336,7 +295,7 @@ varlist<-c("idauniq",
            )
 ```
 
-### w3 Wave: Missing Data in sample
+### w2 Wave: Missing Data in sample
 
 Missing data for any considered indicator was treated with listwise
 deletion and reported in the table below.
@@ -362,7 +321,7 @@ deletion and reported in the table below.
     ## 18   r2clim1a          3  9171
     ## 19    r2lifta          3  9171
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ## ANALYSIS
 
@@ -393,6 +352,139 @@ further partitioned in two randomly selected datasets :
 ### listwise deletion of missing data
 
 Selecting complete cases
+
+``` r
+#Creating a ADL&IADL specific dataframe so that
+
+# -   columns: item name
+# -   rows: item response
+
+
+LV_items<-H_elsa_w2_[,varlist] 
+
+
+# selecting complete cases listwise 
+LV_items<- LV_items %>% filter(if_all(.fns = ~. >= 0))
+```
+
+total sample available for analysis 9032.
+
+### Age and gender distribution
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+    ##        
+    ##             M     W
+    ##   0-29   0.00  0.00
+    ##   30-39  0.00  0.00
+    ##   40-49  0.00  0.00
+    ##   50-59 14.12 17.95
+    ##   60-69 14.78 17.21
+    ##   70-79 10.95 13.04
+    ##   80-89  4.21  6.70
+    ##   90+    0.37  0.69
+    ##   Sum   44.42 55.58
+
+    ##     50-59     60-69     70-79     80-89 
+    ## 0.5597376 0.5379024 0.5436087 0.6142132
+
+    ## 
+    ##  4-sample test for equality of proportions without continuity correction
+    ## 
+    ## data:  tr_tab0[2, ] out of addmargins(tr_tab0, 1)[3, ]
+    ## X-squared = 18.801, df = 3, p-value = 0.0003005
+    ## alternative hypothesis: two.sided
+    ## sample estimates:
+    ##    prop 1    prop 2    prop 3    prop 4 
+    ## 0.5597376 0.5379024 0.5436087 0.6142132
+
+The age distribution in this sample of subject reporting pain show a
+majority of women in all age groups with the 80-89 range presenting the
+highest prevalence of females:
+
+|     | 50-59 | 60-69 | 70-79 | 80-89 | **Tot** |
+|----:|:-----:|:-----:|:-----:|:-----:|:-------:|
+|   M | 1275  | 1335  |  989  |  380  |  4012   |
+|   F | 1621  | 1554  | 1178  |  605  |  5020   |
+| Tot | 2896  | 2889  | 2167  |  985  |  9032   |
+
+**Table 4.** Count and proportion of individuals by age and gender
+(current wave)
+
+### Ethnicity
+
+``` r
+plotdata$raracem <-factor(plotdata$raracem, levels = c(-13,1,4), labels = c("NA","White", "Non-white"))
+
+table(plotdata$raracem, useNA = "ifany")
+```
+
+    ## 
+    ##        NA     White Non-white 
+    ##         2      8832       198
+
+``` r
+# Create a summary data frame with counts
+counts <- plotdata %>%
+  group_by(raracem) %>%
+  summarise(count = n())
+
+# Plot with bar and frequency count labels
+ggplot(plotdata, aes(x = raracem)) +
+  geom_bar(fill = "blue", color = "black", alpha = .4) +
+  geom_text(data = counts, aes(x = raracem, y = count, label = count), 
+            vjust = -0.5, color = "black") +
+  labs(title = "Distribution of race by white vs non-white category",
+       x = "category",
+       y = "Count") +
+  theme_minimal()
+```
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+### Net total Wealth
+
+Net total wealth (benefit unit level). The sum of savings, investments,
+physical wealth and housing wealth after financial debt and mortgage
+debt has been subtracted.
+
+The distrubution of wealth is severely skewed
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+and a log transformation of the wealth magnitude axis allows for better
+visual examination of the distribution
+
+    ## Warning in transformation$transform(x): NaNs produced
+
+    ## Warning in scale_x_continuous(trans = "log10", labels = scales::comma): log-10
+    ## transformation introduced infinite values.
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 468 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+the representation by quintile allows for a more general perspective on
+this same information
+
+    ## Warning in transformation$transform(x): NaNs produced
+
+    ## Warning in scale_y_continuous(trans = "log10", labels = scales::comma): log-10
+    ## transformation introduced infinite values.
+
+    ## Warning: Removed 448 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+    ## 
+    ##    1    2    3    4    5 <NA>  Sum 
+    ## 1550 1700 1721 1754 1829  478 9032
 
 # Sample split
 
@@ -531,7 +623,7 @@ will be compared via scaled Chi-Squared Difference Test
 
 ## Item responses: descriptive statistics
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-15-2.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-15-3.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-15-4.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-3.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-4.png)<!-- -->
 
 ## Ordered proportion of responses
 
@@ -616,7 +708,7 @@ cor0$rho %>% pheatmap(display_numbers = T,
                       main = "Items Polychoric Correlation matrix")
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 The visual examination of the tetrachoric correlation matrix seems two
 suggest a two factor solution with “warmer colors” (higher correlation)
@@ -653,7 +745,7 @@ polychor.dist<-as.dist(1 - cor0$rho)
 hclust(polychor.dist, method="average") %>% plot
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 ``` r
 # Average linkage
@@ -705,7 +797,7 @@ pa<-psych::fa.parallel(LV_items_ex[,-1],
                    correct = T)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  2  and the number of components =  NA
 
@@ -753,7 +845,7 @@ VSS(cor_vss$rho,
     diagonal = F)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
     ## 
     ## Very Simple Structure
@@ -821,7 +913,7 @@ of factors.
 This correction is generally appropriate when conducting factor analysis
 on correlated variables which is the assumption here.
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 *Note that in oblique rotations like promax, loadings are regression
 coefficients and can exceed the \[-1,1\] interval.*
@@ -1336,7 +1428,7 @@ polychor.dist<-as.dist(1 - cor0$rho)
 hclust(polychor.dist, method="average") %>% plot
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
 
 Notably item “r2chaira” appears to show the greates euclidian distance
 with the other items.
@@ -1361,7 +1453,7 @@ pa<-psych::fa.parallel(LV_items_ex2[,-1],
                    correct = T)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  2  and the number of components =  NA
 
@@ -1380,7 +1472,7 @@ VSS(cor_vss2$rho,
     diagonal = F)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
     ## 
     ## Very Simple Structure
