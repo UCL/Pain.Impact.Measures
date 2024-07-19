@@ -396,6 +396,34 @@ LV_items<- LV_items %>% filter(if_all(.fns = ~. >= 0))
 total sample available for analysis `r nrow(LV_items)`.
 
 ### Age and gender distribution
+
+```{r}
+plotdata<-H_elsa_w2_ %>% filter(idauniq %in% LV_items$idauniq)
+
+plotdata$ragender <-factor(plotdata$ragender, levels = c(1,2), labels = c("Male", "Female"))
+
+
+# Create a summary data frame with counts
+counts <- plotdata %>%
+  group_by(ragender) %>%
+  summarise(count = n())
+
+# Plot with bar and frequency count labels
+ggplot(plotdata, aes(x = ragender)) +
+  geom_bar(fill = "blue", color = "black", alpha = .4) +
+  geom_text(data = counts, aes(x = ragender, y = count, label = count), 
+            vjust = -0.5, color = "black") +
+  labs(title = "Distribution of Sex at birth",
+       x = "category",
+       y = "Count") +
+  theme_minimal()
+
+# proportions
+(table(plotdata$ragender, useNA = "ifany")%>% prop.table())*100 %>% round(2)
+
+```
+
+
 ```{r echo=F}
 
 plotdata<-H_elsa_w2_ %>% filter(idauniq %in% LV_items$idauniq)

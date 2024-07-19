@@ -1,7 +1,7 @@
 Measuring impact of pain in aging population using existing items in
 ELSA
 ================
-18 Jul 2024
+19 Jul 2024
 
 - [INTRODUCTION](#introduction)
   - [AIM](#aim)
@@ -371,7 +371,40 @@ total sample available for analysis 9032.
 
 ### Age and gender distribution
 
+``` r
+plotdata<-H_elsa_w2_ %>% filter(idauniq %in% LV_items$idauniq)
+
+plotdata$ragender <-factor(plotdata$ragender, levels = c(1,2), labels = c("Male", "Female"))
+
+
+# Create a summary data frame with counts
+counts <- plotdata %>%
+  group_by(ragender) %>%
+  summarise(count = n())
+
+# Plot with bar and frequency count labels
+ggplot(plotdata, aes(x = ragender)) +
+  geom_bar(fill = "blue", color = "black", alpha = .4) +
+  geom_text(data = counts, aes(x = ragender, y = count, label = count), 
+            vjust = -0.5, color = "black") +
+  labs(title = "Distribution of Sex at birth",
+       x = "category",
+       y = "Count") +
+  theme_minimal()
+```
+
 ![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
+
+``` r
+# proportions
+(table(plotdata$ragender, useNA = "ifany")%>% prop.table())*100 %>% round(2)
+```
+
+    ## 
+    ##     Male   Female 
+    ## 44.41984 55.58016
+
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
 
     ##        
     ##             M     W
@@ -440,7 +473,7 @@ ggplot(plotdata, aes(x = raracem)) +
   theme_minimal()
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ### Net total Wealth
 
@@ -452,7 +485,7 @@ The distrubution of wealth is severely skewed
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 and a log transformation of the wealth magnitude axis allows for better
 visual examination of the distribution
@@ -467,7 +500,7 @@ visual examination of the distribution
     ## Warning: Removed 468 rows containing non-finite outside the scale range
     ## (`stat_bin()`).
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 the representation by quintile allows for a more general perspective on
 this same information
@@ -480,7 +513,7 @@ this same information
     ## Warning: Removed 448 rows containing non-finite outside the scale range
     ## (`stat_boxplot()`).
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
     ## 
     ##    1    2    3    4    5 <NA>  Sum 
@@ -623,7 +656,7 @@ will be compared via scaled Chi-Squared Difference Test
 
 ## Item responses: descriptive statistics
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-2.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-3.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-20-4.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-21-2.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-21-3.png)<!-- -->![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-21-4.png)<!-- -->
 
 ## Ordered proportion of responses
 
@@ -708,7 +741,7 @@ cor0$rho %>% pheatmap(display_numbers = T,
                       main = "Items Polychoric Correlation matrix")
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
 The visual examination of the tetrachoric correlation matrix seems two
 suggest a two factor solution with “warmer colors” (higher correlation)
@@ -745,7 +778,7 @@ polychor.dist<-as.dist(1 - cor0$rho)
 hclust(polychor.dist, method="average") %>% plot
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 ``` r
 # Average linkage
@@ -797,7 +830,7 @@ pa<-psych::fa.parallel(LV_items_ex[,-1],
                    correct = T)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  2  and the number of components =  NA
 
@@ -845,7 +878,7 @@ VSS(cor_vss$rho,
     diagonal = F)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
     ## 
     ## Very Simple Structure
@@ -913,7 +946,7 @@ of factors.
 This correction is generally appropriate when conducting factor analysis
 on correlated variables which is the assumption here.
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 *Note that in oblique rotations like promax, loadings are regression
 coefficients and can exceed the \[-1,1\] interval.*
@@ -1428,7 +1461,7 @@ polychor.dist<-as.dist(1 - cor0$rho)
 hclust(polychor.dist, method="average") %>% plot
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-31-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
 
 Notably item “r2chaira” appears to show the greates euclidian distance
 with the other items.
@@ -1453,7 +1486,7 @@ pa<-psych::fa.parallel(LV_items_ex2[,-1],
                    correct = T)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-32-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
 
     ## Parallel analysis suggests that the number of factors =  2  and the number of components =  NA
 
@@ -1472,7 +1505,7 @@ VSS(cor_vss2$rho,
     diagonal = F)
 ```
 
-![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](CFA-supplementary-material_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
     ## 
     ## Very Simple Structure
