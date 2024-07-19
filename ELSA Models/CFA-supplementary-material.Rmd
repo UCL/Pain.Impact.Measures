@@ -361,19 +361,6 @@ Combining:
 2.  CFA to evaluate the measurement model
 
 
-### Construct dimensionality
-
-Construct dimensionality will be assess via Parallel Analysis (PA) and
-EFA. The factor structure emerging from these explorative analysis will
-then be submitted for CFA for further empirical validation of the
-solutions proposed.
-
-The sample available to these analysis is n = `r nrow(H_elsa_w2_)`
-therefore it was further partitioned in two randomly selected datasets :
-
-1.  \~ 1/2 from of total sample to used for PA and EFA (LV_items_ex)
-2.  the remaining data (LV_items_conf) to be used for CFA 
-
 ### listwise deletion of missing data
 
 Selecting complete cases
@@ -567,9 +554,20 @@ table(plotdata$totwq5_bu_s, useNA = "ifany") %>% addmargins()
 ```
 
 
+### Construct dimensionality
 
+Construct dimensionality will be assess via Parallel Analysis (PA) and
+EFA. The factor structure emerging from these explorative analysis will
+then be submitted for CFA for further empirical validation of the
+solutions proposed.
 
-# Sample split
+The sample available to these analysis is n = `r nrow(H_elsa_w2_)`
+therefore it was further partitioned in two randomly selected datasets :
+
+1.  \~ 1/2 from of total sample to used for PA and EFA (LV_items_ex)
+2.  the remaining data (LV_items_conf) to be used for CFA 
+
+#### Sample split
 Split sample for confirmatory factor analysis. 50% for EFA and then 50 for CFA.
 ```{r, eval=TRUE,echo=FALSE,warning=FALSE,message=FALSE,error=FALSE}
 
@@ -589,7 +587,7 @@ LV_items_conf<-LV_items_conf[,varlist] # reordered by the Hypothesis that 7:10 a
 LV_items_ex<-LV_items_ex[,varlist] # reordered by the Hypothesis that 7:10 are cognitive items
 ```
 
-#### Parallel analysis
+### Parallel analysis
 
 Parallel analysis will be used to compare the scree of factors of the
 observed data with that of a random data matrix (re-sampled from the
@@ -597,7 +595,7 @@ original) of the same size. It should be noted that as the sample size
 increases to infinite, the approximation of the eigenvalue of the random
 data tends to 1.
 
-#### Correlation matrix
+### Correlation matrix
 
 [Spector and Fleishman (1998)](#references) have pointed out that using pearson
 correlation coefficients have been shown to suffer greatly in the

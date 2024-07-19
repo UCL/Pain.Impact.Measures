@@ -21,15 +21,16 @@ ELSA
     - [Defining list of Variables](#defining-list-of-variables)
     - [w2 Wave: Missing Data in sample](#w2-wave-missing-data-in-sample)
   - [ANALYSIS](#analysis)
-    - [Construct dimensionality](#construct-dimensionality)
     - [listwise deletion of missing
       data](#listwise-deletion-of-missing-data)
     - [Age and gender distribution](#age-and-gender-distribution)
     - [Ethnicity](#ethnicity)
     - [Net total Wealth](#net-total-wealth)
-- [Sample split](#sample-split)
-  - [EFA](#efa)
-  - [CFA](#cfa)
+    - [Construct dimensionality](#construct-dimensionality)
+    - [Parallel analysis](#parallel-analysis)
+    - [Correlation matrix](#correlation-matrix)
+    - [EFA](#efa)
+    - [CFA](#cfa)
 - [RESULTS](#results)
   - [Item responses: descriptive
     statistics](#item-responses-descriptive-statistics)
@@ -336,19 +337,6 @@ Combining:
 1.  PA + EFA to evaluate construct validity and dimensionality
 2.  CFA to evaluate the measurement model
 
-### Construct dimensionality
-
-Construct dimensionality will be assess via Parallel Analysis (PA) and
-EFA. The factor structure emerging from these explorative analysis will
-then be submitted for CFA for further empirical validation of the
-solutions proposed.
-
-The sample available to these analysis is n = 9171 therefore it was
-further partitioned in two randomly selected datasets :
-
-1.  ~ 1/2 from of total sample to used for PA and EFA (LV_items_ex)
-2.  the remaining data (LV_items_conf) to be used for CFA
-
 ### listwise deletion of missing data
 
 Selecting complete cases
@@ -519,12 +507,25 @@ this same information
     ##    1    2    3    4    5 <NA>  Sum 
     ## 1550 1700 1721 1754 1829  478 9032
 
-# Sample split
+### Construct dimensionality
+
+Construct dimensionality will be assess via Parallel Analysis (PA) and
+EFA. The factor structure emerging from these explorative analysis will
+then be submitted for CFA for further empirical validation of the
+solutions proposed.
+
+The sample available to these analysis is n = 9432 therefore it was
+further partitioned in two randomly selected datasets :
+
+1.  ~ 1/2 from of total sample to used for PA and EFA (LV_items_ex)
+2.  the remaining data (LV_items_conf) to be used for CFA
+
+#### Sample split
 
 Split sample for confirmatory factor analysis. 50% for EFA and then 50
 for CFA.
 
-#### Parallel analysis
+### Parallel analysis
 
 Parallel analysis will be used to compare the scree of factors of the
 observed data with that of a random data matrix (re-sampled from the
@@ -532,7 +533,7 @@ original) of the same size. It should be noted that as the sample size
 increases to infinite, the approximation of the eigenvalue of the random
 data tends to 1.
 
-#### Correlation matrix
+### Correlation matrix
 
 [Spector and Fleishman (1998)](#references) have pointed out that using
 pearson correlation coefficients have been shown to suffer greatly in
