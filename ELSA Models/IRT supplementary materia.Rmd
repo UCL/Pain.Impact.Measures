@@ -26,6 +26,7 @@ The 1PL model, also known as the One-Parameter Logistic Model or the Rasch model
 
 
 $$P(X_{is} = 1|\theta_s, \beta_i) = \frac{e^{(\theta_s-\beta_i)}}{1+ e^{(\theta_s-\beta_i)}}$$
+
 *Item Difficulty* ($\beta_i$)  represents the location on the latent trait continuum where the probability of a correct response to item $i$ is 0.50 (Difficulty is usually expressed on a logit scale). $\theta_s$ represents the latent trait level of a given subject $s$, $X_{is} = 1$ referst to the observed endorsement of an item. 
 
 
