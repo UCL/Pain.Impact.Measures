@@ -18,7 +18,7 @@ library(gridExtra)
 
 par(ask = FALSE) # don't ask before updating plot
 
-
+set.seed(200720)
 ```
 
 # Introduction
