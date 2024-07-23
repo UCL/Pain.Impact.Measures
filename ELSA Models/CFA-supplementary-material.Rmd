@@ -933,13 +933,15 @@ dataset. The number of factors to retain will be determined by comparing
 the actual eigenvalues to the mean and standard deviation of the
 eigenvalues generated from the bootstrap resampled datasets.
 
-[ from the documentation of fa.parallel() in the R package "psych"]
-
-*Parallel analysis for factors is actually harder than it seems, for the question is what are the appropriate communalities to use. If communalities are estimated by the Squared Multiple Correlation (SMC) smc, then the eigen values of the original data will reflect major as well as minor factors (see sim.minor to simulate such data). Random data will not, of course, have any structure and thus the number of factors will tend to be biased upwards by the presence of the minor factors.*
+If the aim of parallel analysis is to determine the number of unobserved factors 
+that explain the scoring of our items, the difficulty of this process consists with 
+the challenge of selecting appropriate communalities. 
+Simulation studies showed that different approaches to estimating the communalities 
+can under-estimate (or over-) the importance of minor factors. [Revelle 2024](#references)
 
 Here we will use parallel with the option "fa" which estimates the communalities 
-based upon a one factor minres solution. Although this will underestimate the communalities, 
-it is suggested that leads to better solutions on simulated or real data sets.
+based upon a one factor minres solution. Although "minres" is a conservative approach
+and will tend underestimate the communalities, [Revelle 2024](#references) is suggested that leads to better solutions on simulated or real data sets.
 
 
 
@@ -1479,6 +1481,8 @@ write.csv(LV_items.irt,"C:/Users/d.vitali/Desktop/Github/CRIISP-WP5/data/clean/c
 * Muthén, B., & Hofacker, C. (1988). Testing the assumptions underlying tetrachoric correlations. Psychometrika, 53, 563-577.
 * Newsom, J. (2023) Structural equation modelling
 * Revelle, W., & Rocklin, T. (1979). Very simple structure: An alternative procedure for estimating the optimal number of interpretable factors. Multivariate behavioral research, 14(4), 403-414.
+* Revelle, W. (2024). psych: Procedures for Psychological, Psychometric, and Personality Research. Northwestern University, Evanston,
+  Illinois. R package version 2.4.3, <https://CRAN.R-project.org/package=psych>.
 * Spector, W. D. and Fleishman, J. A. (1998). Combining activities of daily living with instrumental activities of daily living to measure functional disability. J. Gerontology: Social Sciences 
 * Thomas, V. S., Rockwood, K., & McDowell, I. (1998). Multidimensionality in instrumental and basic activities of daily living. Journal of clinical epidemiology, 51(4), 315-321.
 * Thurstone, L. L. (1947). Multiple-factor analysis; A development and expansion of The vectors of the mind. Chicago, IL: University of Chicago Press.
