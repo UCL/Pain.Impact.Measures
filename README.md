@@ -3,7 +3,11 @@
 
 This Repo documents the R pipelines to conduct a theory-driven approach for fitting new measurement models to data from large cohort studies, and evaluating their psychometric properties. This aims to help researchers develop an empirical understanding of the gains and limitations connected with the process of re-purposing the data stored in these datasets. 
 
-This documentation complement the focus article (ref here) and aims to encourage exploration of existing longitudinal cohor studies; to support researchers to make explicit the relationships between items in the databases and constructs of interest in pain research; and to use empirical methods to estimate the possible biases in these variables.
+This documentation complement the following focus article
+
+[Vitali D, Woolley CS, Ly A, Nunes M, Lisboa LO, Keogh E, McBeth J, Ehrhardt B, de C Williams AC, Eccleston C. How well can we measure chronic pain impact in existing longitudinal cohort studies? Lessons learned. The Journal of Pain. 2024 Sep 17:104679.](https://www.sciencedirect.com/science/article/pii/S1526590024006412)
+
+This paper aims to encourage exploration of existing longitudinal cohor studies; to support researchers to make explicit the relationships between items in the databases and constructs of interest in pain research; and to use empirical methods to estimate the possible biases in these variables.
 
 
 ## Documentation
